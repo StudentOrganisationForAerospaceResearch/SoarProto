@@ -48,6 +48,8 @@ message TVCCommand {
         TVC_MANUAL_4VANE = 3; // Set all 4 vane angles manually
 
         TVC_VANE_REQUEST_POS = 4; // Request current vane position
+
+        TVC_VANE_HIL_POS = 5; // Give a 'measured' vane position for Hardware-in-loop testing, have vane 1 and vane 3 populated
     }
 
     Command command_enum = 1;

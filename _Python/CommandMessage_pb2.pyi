@@ -141,6 +141,7 @@ class TVCCommand(_message.Message):
     TVC_FIRST_INVALID: TVCCommand.Command
     TVC_MANUAL_2VANE: TVCCommand.Command
     TVC_MANUAL_4VANE: TVCCommand.Command
+    TVC_VANE_HIL_POS: TVCCommand.Command
     TVC_VANE_PROFILE: TVCCommand.Command
     TVC_VANE_REQUEST_POS: TVCCommand.Command
     VANE_1_FIELD_NUMBER: _ClassVar[int]
