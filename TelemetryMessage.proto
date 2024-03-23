@@ -21,7 +21,7 @@ message TelemetryMessage {
         Baro baro = 4;
         Imu imu = 5;
         Battery battery = 6;
-        Flash flash = 7;
+        Flash flashState = 7;
         DmbPressure dmbPressure = 8;
         PbbPressure pbbPressure = 9;
         PbbTemperature pbbTemperature = 10;
@@ -87,7 +87,7 @@ message Battery{
     int32 voltage = 2; // voltage of battery
 }
 
-message Flash{
+message Flash {
     uint32 sector_address = 1;
     uint32 logging_rate = 2;
 }

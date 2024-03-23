@@ -4955,8 +4955,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           set_battery(rhs.get_battery());
           break;
 
-        case FieldNumber::FLASH:
-          set_flash(rhs.get_flash());
+        case FieldNumber::FLASHSTATE:
+          set_flashState(rhs.get_flashState());
           break;
 
         case FieldNumber::DMBPRESSURE:
@@ -5037,8 +5037,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           set_battery(rhs.get_battery());
           break;
 
-        case FieldNumber::FLASH:
-          set_flash(rhs.get_flash());
+        case FieldNumber::FLASHSTATE:
+          set_flashState(rhs.get_flashState());
           break;
 
         case FieldNumber::DMBPRESSURE:
@@ -5102,7 +5102,7 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
       BARO = 4,
       IMU = 5,
       BATTERY = 6,
-      FLASH = 7,
+      FLASHSTATE = 7,
       DMBPRESSURE = 8,
       PBBPRESSURE = 9,
       PBBTEMPERATURE = 10,
@@ -5144,8 +5144,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           set_battery(rhs.get_battery());
           break;
 
-        case FieldNumber::FLASH:
-          set_flash(rhs.get_flash());
+        case FieldNumber::FLASHSTATE:
+          set_flashState(rhs.get_flashState());
           break;
 
         case FieldNumber::DMBPRESSURE:
@@ -5227,8 +5227,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           set_battery(rhs.get_battery());
           break;
 
-        case FieldNumber::FLASH:
-          set_flash(rhs.get_flash());
+        case FieldNumber::FLASHSTATE:
+          set_flashState(rhs.get_flashState());
           break;
 
         case FieldNumber::DMBPRESSURE:
@@ -5458,45 +5458,45 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
     inline const Battery& get_battery() const { return message_.battery_; }
     inline const Battery& battery() const { return message_.battery_; }
 
-    static constexpr char const* FLASH_NAME = "flash";
-    inline bool has_flash() const
+    static constexpr char const* FLASHSTATE_NAME = "flashState";
+    inline bool has_flashState() const
     {
-      return FieldNumber::FLASH == which_message_;
+      return FieldNumber::FLASHSTATE == which_message_;
     }
-    inline void clear_flash()
+    inline void clear_flashState()
     {
-      if(FieldNumber::FLASH == which_message_)
+      if(FieldNumber::FLASHSTATE == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.flash_.~Flash();
+        message_.flashState_.~Flash();
       }
     }
-    inline void set_flash(const Flash& value)
+    inline void set_flashState(const Flash& value)
     {
-      if(FieldNumber::FLASH != which_message_)
+      if(FieldNumber::FLASHSTATE != which_message_)
       {
-        init_message(FieldNumber::FLASH);
+        init_message(FieldNumber::FLASHSTATE);
       }
-      message_.flash_ = value;
+      message_.flashState_ = value;
     }
-    inline void set_flash(const Flash&& value)
+    inline void set_flashState(const Flash&& value)
     {
-      if(FieldNumber::FLASH != which_message_)
+      if(FieldNumber::FLASHSTATE != which_message_)
       {
-        init_message(FieldNumber::FLASH);
+        init_message(FieldNumber::FLASHSTATE);
       }
-      message_.flash_ = value;
+      message_.flashState_ = value;
     }
-    inline Flash& mutable_flash()
+    inline Flash& mutable_flashState()
     {
-      if(FieldNumber::FLASH != which_message_)
+      if(FieldNumber::FLASHSTATE != which_message_)
       {
-        init_message(FieldNumber::FLASH);
+        init_message(FieldNumber::FLASHSTATE);
       }
-      return message_.flash_;
+      return message_.flashState_;
     }
-    inline const Flash& get_flash() const { return message_.flash_; }
-    inline const Flash& flash() const { return message_.flash_; }
+    inline const Flash& get_flashState() const { return message_.flashState_; }
+    inline const Flash& flashState() const { return message_.flashState_; }
 
     static constexpr char const* DMBPRESSURE_NAME = "dmbPressure";
     inline bool has_dmbPressure() const
@@ -5983,10 +5983,10 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           }
           break;
 
-        case FieldNumber::FLASH:
-          if(has_flash() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::FLASHSTATE:
+          if(has_flashState() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.flash_.serialize_with_id(static_cast<uint32_t>(FieldNumber::FLASH), buffer, true);
+            return_value = message_.flashState_.serialize_with_id(static_cast<uint32_t>(FieldNumber::FLASHSTATE), buffer, true);
           }
           break;
 
@@ -6099,7 +6099,7 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::BARO:
           case FieldNumber::IMU:
           case FieldNumber::BATTERY:
-          case FieldNumber::FLASH:
+          case FieldNumber::FLASHSTATE:
           case FieldNumber::DMBPRESSURE:
           case FieldNumber::PBBPRESSURE:
           case FieldNumber::PBBTEMPERATURE:
@@ -6172,8 +6172,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
         case FieldNumber::BATTERY:
           name = BATTERY_NAME;
           break;
-        case FieldNumber::FLASH:
-          name = FLASH_NAME;
+        case FieldNumber::FLASHSTATE:
+          name = FLASHSTATE_NAME;
           break;
         case FieldNumber::DMBPRESSURE:
           name = DMBPRESSURE_NAME;
@@ -6307,7 +6307,7 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
         Baro baro_;
         Imu imu_;
         Battery battery_;
-        Flash flash_;
+        Flash flashState_;
         DmbPressure dmbPressure_;
         PbbPressure pbbPressure_;
         PbbTemperature pbbTemperature_;
@@ -6349,8 +6349,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
             new(&message_.battery_) Battery;
             break;
 
-          case FieldNumber::FLASH:
-            new(&message_.flash_) Flash;
+          case FieldNumber::FLASHSTATE:
+            new(&message_.flashState_) Flash;
             break;
 
           case FieldNumber::DMBPRESSURE:
@@ -6420,8 +6420,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::BATTERY:
             ::EmbeddedProto::destroy_at(&message_.battery_);
             break;
-          case FieldNumber::FLASH:
-            ::EmbeddedProto::destroy_at(&message_.flash_);
+          case FieldNumber::FLASHSTATE:
+            ::EmbeddedProto::destroy_at(&message_.flashState_);
             break;
           case FieldNumber::DMBPRESSURE:
             ::EmbeddedProto::destroy_at(&message_.dmbPressure_);
@@ -6487,8 +6487,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::BATTERY:
             return_value = message_.battery_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::FLASH:
-            return_value = message_.flash_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::FLASHSTATE:
+            return_value = message_.flashState_.deserialize_check_type(buffer, wire_type);
             break;
           case FieldNumber::DMBPRESSURE:
             return_value = message_.dmbPressure_.deserialize_check_type(buffer, wire_type);
@@ -6553,8 +6553,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::BATTERY:
             left_chars = message_.battery_.to_string(left_chars, indent_level, BATTERY_NAME, first_field);
             break;
-          case FieldNumber::FLASH:
-            left_chars = message_.flash_.to_string(left_chars, indent_level, FLASH_NAME, first_field);
+          case FieldNumber::FLASHSTATE:
+            left_chars = message_.flashState_.to_string(left_chars, indent_level, FLASHSTATE_NAME, first_field);
             break;
           case FieldNumber::DMBPRESSURE:
             left_chars = message_.dmbPressure_.to_string(left_chars, indent_level, DMBPRESSURE_NAME, first_field);
