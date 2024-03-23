@@ -765,6 +765,248 @@ class Ping final: public ::EmbeddedProto::MessageInterface
 
 };
 
+class SystemControl final: public ::EmbeddedProto::MessageInterface
+{
+  public:
+    SystemControl() = default;
+    SystemControl(const SystemControl& rhs )
+    {
+      set_sys_cmd(rhs.get_sys_cmd());
+      set_cmd_param(rhs.get_cmd_param());
+    }
+
+    SystemControl(const SystemControl&& rhs ) noexcept
+    {
+      set_sys_cmd(rhs.get_sys_cmd());
+      set_cmd_param(rhs.get_cmd_param());
+    }
+
+    ~SystemControl() override = default;
+
+    enum class Command : uint32_t
+    {
+      SYS_INVALID = 0,
+      SYS_RESET = 1,
+      SYS_FLASH_ERASE = 2,
+      SYS_LOG_PERIOD_CHANGE = 3,
+      HEARTBEAT_ENABLE = 4,
+      HEARTBEAT_DISABLE = 5,
+      SYS_FLASH_LOG_ENABLE = 6,
+      SYS_FLASH_LOG_DISABLE = 7,
+      SYS_CRITICAL_FLASH_FULL_ERASE = 8
+    };
+
+    enum class FieldNumber : uint32_t
+    {
+      NOT_SET = 0,
+      SYS_CMD = 1,
+      CMD_PARAM = 2
+    };
+
+    SystemControl& operator=(const SystemControl& rhs)
+    {
+      set_sys_cmd(rhs.get_sys_cmd());
+      set_cmd_param(rhs.get_cmd_param());
+      return *this;
+    }
+
+    SystemControl& operator=(const SystemControl&& rhs) noexcept
+    {
+      set_sys_cmd(rhs.get_sys_cmd());
+      set_cmd_param(rhs.get_cmd_param());
+      return *this;
+    }
+
+    static constexpr char const* SYS_CMD_NAME = "sys_cmd";
+    inline void clear_sys_cmd() { sys_cmd_.clear(); }
+    inline void set_sys_cmd(const Command& value) { sys_cmd_ = value; }
+    inline void set_sys_cmd(const Command&& value) { sys_cmd_ = value; }
+    inline const Command& get_sys_cmd() const { return sys_cmd_.get(); }
+    inline Command sys_cmd() const { return sys_cmd_.get(); }
+
+    static constexpr char const* CMD_PARAM_NAME = "cmd_param";
+    inline void clear_cmd_param() { cmd_param_.clear(); }
+    inline void set_cmd_param(const uint32_t& value) { cmd_param_ = value; }
+    inline void set_cmd_param(const uint32_t&& value) { cmd_param_ = value; }
+    inline uint32_t& mutable_cmd_param() { return cmd_param_.get(); }
+    inline const uint32_t& get_cmd_param() const { return cmd_param_.get(); }
+    inline uint32_t cmd_param() const { return cmd_param_.get(); }
+
+
+    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+
+      if((static_cast<Command>(0) != sys_cmd_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = sys_cmd_.serialize_with_id(static_cast<uint32_t>(FieldNumber::SYS_CMD), buffer, false);
+      }
+
+      if((0U != cmd_param_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = cmd_param_.serialize_with_id(static_cast<uint32_t>(FieldNumber::CMD_PARAM), buffer, false);
+      }
+
+      return return_value;
+    };
+
+    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
+      uint32_t id_number = 0;
+      FieldNumber id_tag = FieldNumber::NOT_SET;
+
+      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
+      {
+        id_tag = static_cast<FieldNumber>(id_number);
+        switch(id_tag)
+        {
+          case FieldNumber::SYS_CMD:
+            return_value = sys_cmd_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::CMD_PARAM:
+            return_value = cmd_param_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::NOT_SET:
+            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
+            break;
+
+          default:
+            return_value = skip_unknown_field(buffer, wire_type);
+            break;
+        }
+
+        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+        {
+          // Read the next tag.
+          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+        }
+      }
+
+      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
+      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
+         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
+         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
+      {
+        return_value = tag_value;
+      }
+
+      return return_value;
+    };
+
+    void clear() override
+    {
+      clear_sys_cmd();
+      clear_cmd_param();
+
+    }
+
+    static char const* field_number_to_name(const FieldNumber fieldNumber)
+    {
+      char const* name = nullptr;
+      switch(fieldNumber)
+      {
+        case FieldNumber::SYS_CMD:
+          name = SYS_CMD_NAME;
+          break;
+        case FieldNumber::CMD_PARAM:
+          name = CMD_PARAM_NAME;
+          break;
+        default:
+          name = "Invalid FieldNumber";
+          break;
+      }
+      return name;
+    }
+
+#ifdef MSG_TO_STRING
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
+    {
+      return this->to_string(str, 0, nullptr, true);
+    }
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
+    {
+      ::EmbeddedProto::string_view left_chars = str;
+      int32_t n_chars_used = 0;
+
+      if(!first_field)
+      {
+        // Add a comma behind the previous field.
+        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
+        if(0 < n_chars_used)
+        {
+          // Update the character pointer and characters left in the array.
+          left_chars.data += n_chars_used;
+          left_chars.size -= n_chars_used;
+        }
+      }
+
+      if(nullptr != name)
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
+        }
+      }
+      else
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
+        }
+      }
+      
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      left_chars = sys_cmd_.to_string(left_chars, indent_level + 2, SYS_CMD_NAME, true);
+      left_chars = cmd_param_.to_string(left_chars, indent_level + 2, CMD_PARAM_NAME, false);
+  
+      if( 0 == indent_level) 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
+      }
+      else 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
+      }
+
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      return left_chars;
+    }
+
+#endif // End of MSG_TO_STRING
+
+  private:
+
+
+      EmbeddedProto::enumeration<Command> sys_cmd_ = static_cast<Command>(0);
+      EmbeddedProto::uint32 cmd_param_ = 0U;
+
+};
+
 class SystemState final: public ::EmbeddedProto::MessageInterface
 {
   public:
@@ -805,7 +1047,9 @@ class SystemState final: public ::EmbeddedProto::MessageInterface
       SYS_BOOTUP_COMPLETE = 1,
       SYS_ASSERT_FAILURE_RESET = 2,
       SYS_UNCAUGHT_RESET = 3,
-      SYS_NORMAL_OPERATION = 4
+      SYS_NORMAL_OPERATION = 4,
+      SYS_HEARTBEAT_LOSS_HALF_WARNING = 5,
+      SYS_HEARTBEAT_LOST_ABORTING = 6
     };
 
     enum class FieldNumber : uint32_t
@@ -1093,7 +1337,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
       {
@@ -1121,6 +1364,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
 
         case FieldNumber::SYS_STATE:
           set_sys_state(rhs.get_sys_state());
+          break;
+
+        case FieldNumber::SYS_CTRL:
+          set_sys_ctrl(rhs.get_sys_ctrl());
           break;
 
         default:
@@ -1133,7 +1380,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
       {
@@ -1161,6 +1407,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
 
         case FieldNumber::SYS_STATE:
           set_sys_state(rhs.get_sys_state());
+          break;
+
+        case FieldNumber::SYS_CTRL:
+          set_sys_ctrl(rhs.get_sys_ctrl());
           break;
 
         default:
@@ -1176,20 +1426,19 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
       NOT_SET = 0,
       SOURCE = 1,
       TARGET = 2,
-      MESSAGE_ID = 3,
       SOURCE_SEQUENCE_NUM = 4,
       ACK = 5,
       NACK = 6,
       PING = 7,
       HB = 8,
-      SYS_STATE = 9
+      SYS_STATE = 9,
+      SYS_CTRL = 10
     };
 
     ControlMessage& operator=(const ControlMessage& rhs)
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
       {
@@ -1217,6 +1466,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
 
         case FieldNumber::SYS_STATE:
           set_sys_state(rhs.get_sys_state());
+          break;
+
+        case FieldNumber::SYS_CTRL:
+          set_sys_ctrl(rhs.get_sys_ctrl());
           break;
 
         default:
@@ -1230,7 +1483,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
       {
@@ -1258,6 +1510,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
 
         case FieldNumber::SYS_STATE:
           set_sys_state(rhs.get_sys_state());
+          break;
+
+        case FieldNumber::SYS_CTRL:
+          set_sys_ctrl(rhs.get_sys_ctrl());
           break;
 
         default:
@@ -1280,13 +1536,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     inline void set_target(const Node&& value) { target_ = value; }
     inline const Node& get_target() const { return target_.get(); }
     inline Node target() const { return target_.get(); }
-
-    static constexpr char const* MESSAGE_ID_NAME = "message_id";
-    inline void clear_message_id() { message_id_.clear(); }
-    inline void set_message_id(const MessageID& value) { message_id_ = value; }
-    inline void set_message_id(const MessageID&& value) { message_id_ = value; }
-    inline const MessageID& get_message_id() const { return message_id_.get(); }
-    inline MessageID message_id() const { return message_id_.get(); }
 
     static constexpr char const* SOURCE_SEQUENCE_NUM_NAME = "source_sequence_num";
     inline void clear_source_sequence_num() { source_sequence_num_.clear(); }
@@ -1498,6 +1747,46 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     inline const SystemState& get_sys_state() const { return message_.sys_state_; }
     inline const SystemState& sys_state() const { return message_.sys_state_; }
 
+    static constexpr char const* SYS_CTRL_NAME = "sys_ctrl";
+    inline bool has_sys_ctrl() const
+    {
+      return FieldNumber::SYS_CTRL == which_message_;
+    }
+    inline void clear_sys_ctrl()
+    {
+      if(FieldNumber::SYS_CTRL == which_message_)
+      {
+        which_message_ = FieldNumber::NOT_SET;
+        message_.sys_ctrl_.~SystemControl();
+      }
+    }
+    inline void set_sys_ctrl(const SystemControl& value)
+    {
+      if(FieldNumber::SYS_CTRL != which_message_)
+      {
+        init_message(FieldNumber::SYS_CTRL);
+      }
+      message_.sys_ctrl_ = value;
+    }
+    inline void set_sys_ctrl(const SystemControl&& value)
+    {
+      if(FieldNumber::SYS_CTRL != which_message_)
+      {
+        init_message(FieldNumber::SYS_CTRL);
+      }
+      message_.sys_ctrl_ = value;
+    }
+    inline SystemControl& mutable_sys_ctrl()
+    {
+      if(FieldNumber::SYS_CTRL != which_message_)
+      {
+        init_message(FieldNumber::SYS_CTRL);
+      }
+      return message_.sys_ctrl_;
+    }
+    inline const SystemControl& get_sys_ctrl() const { return message_.sys_ctrl_; }
+    inline const SystemControl& sys_ctrl() const { return message_.sys_ctrl_; }
+
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
     {
@@ -1511,11 +1800,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
       if((static_cast<Node>(0) != target_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
         return_value = target_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TARGET), buffer, false);
-      }
-
-      if((static_cast<MessageID>(0) != message_id_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = message_id_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MESSAGE_ID), buffer, false);
       }
 
       if((0U != source_sequence_num_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
@@ -1560,6 +1844,13 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           }
           break;
 
+        case FieldNumber::SYS_CTRL:
+          if(has_sys_ctrl() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+          {
+            return_value = message_.sys_ctrl_.serialize_with_id(static_cast<uint32_t>(FieldNumber::SYS_CTRL), buffer, true);
+          }
+          break;
+
         default:
           break;
       }
@@ -1588,10 +1879,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
             return_value = target_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::MESSAGE_ID:
-            return_value = message_id_.deserialize_check_type(buffer, wire_type);
-            break;
-
           case FieldNumber::SOURCE_SEQUENCE_NUM:
             return_value = source_sequence_num_.deserialize_check_type(buffer, wire_type);
             break;
@@ -1601,6 +1888,7 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::PING:
           case FieldNumber::HB:
           case FieldNumber::SYS_STATE:
+          case FieldNumber::SYS_CTRL:
             return_value = deserialize_message(id_tag, buffer, wire_type);
             break;
 
@@ -1635,7 +1923,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     {
       clear_source();
       clear_target();
-      clear_message_id();
       clear_source_sequence_num();
       clear_message();
 
@@ -1651,9 +1938,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           break;
         case FieldNumber::TARGET:
           name = TARGET_NAME;
-          break;
-        case FieldNumber::MESSAGE_ID:
-          name = MESSAGE_ID_NAME;
           break;
         case FieldNumber::SOURCE_SEQUENCE_NUM:
           name = SOURCE_SEQUENCE_NUM_NAME;
@@ -1672,6 +1956,9 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           break;
         case FieldNumber::SYS_STATE:
           name = SYS_STATE_NAME;
+          break;
+        case FieldNumber::SYS_CTRL:
+          name = SYS_CTRL_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -1735,7 +2022,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
 
       left_chars = source_.to_string(left_chars, indent_level + 2, SOURCE_NAME, true);
       left_chars = target_.to_string(left_chars, indent_level + 2, TARGET_NAME, false);
-      left_chars = message_id_.to_string(left_chars, indent_level + 2, MESSAGE_ID_NAME, false);
       left_chars = source_sequence_num_.to_string(left_chars, indent_level + 2, SOURCE_SEQUENCE_NUM_NAME, false);
       left_chars = to_string_message(left_chars, indent_level + 2, false);
   
@@ -1764,7 +2050,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
 
       EmbeddedProto::enumeration<Node> source_ = static_cast<Node>(0);
       EmbeddedProto::enumeration<Node> target_ = static_cast<Node>(0);
-      EmbeddedProto::enumeration<MessageID> message_id_ = static_cast<MessageID>(0);
       EmbeddedProto::uint32 source_sequence_num_ = 0U;
 
       FieldNumber which_message_ = FieldNumber::NOT_SET;
@@ -1777,6 +2062,7 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
         Ping ping_;
         Heartbeat hb_;
         SystemState sys_state_;
+        SystemControl sys_ctrl_;
       };
       message message_;
 
@@ -1811,6 +2097,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
             new(&message_.sys_state_) SystemState;
             break;
 
+          case FieldNumber::SYS_CTRL:
+            new(&message_.sys_ctrl_) SystemControl;
+            break;
+
           default:
             break;
          }
@@ -1836,6 +2126,9 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
             break;
           case FieldNumber::SYS_STATE:
             ::EmbeddedProto::destroy_at(&message_.sys_state_);
+            break;
+          case FieldNumber::SYS_CTRL:
+            ::EmbeddedProto::destroy_at(&message_.sys_ctrl_);
             break;
           default:
             break;
@@ -1871,6 +2164,9 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::SYS_STATE:
             return_value = message_.sys_state_.deserialize_check_type(buffer, wire_type);
             break;
+          case FieldNumber::SYS_CTRL:
+            return_value = message_.sys_ctrl_.deserialize_check_type(buffer, wire_type);
+            break;
           default:
             break;
         }
@@ -1903,6 +2199,9 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
             break;
           case FieldNumber::SYS_STATE:
             left_chars = message_.sys_state_.to_string(left_chars, indent_level, SYS_STATE_NAME, first_field);
+            break;
+          case FieldNumber::SYS_CTRL:
+            left_chars = message_.sys_ctrl_.to_string(left_chars, indent_level, SYS_CTRL_NAME, first_field);
             break;
           default:
             break;
