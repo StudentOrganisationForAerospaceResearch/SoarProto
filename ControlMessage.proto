@@ -21,9 +21,6 @@ message ControlMessage {
     Node source = 1; // This is the source of the message (the node that sent the message)
     Node target = 2; // This is the destination of the message, if this is a broadcast message, this should be set to NODE_ANY
 
-    // Message Identifiers
-    MessageID message_id = 3; // This is the message ID of the message, this is used to identify the message type
-
     /* There are much more robust RDT implementations, but for simplicity, we will use a sequence number simply to verify
      * ACKs are for the correct respective message. Each SOURCE node maintains a counting UINT32_T that is incremented for EVERY
      * message send to ANY source (if we want to make this more robust, we can use a unique sequence number per message path but that
@@ -39,6 +36,7 @@ message ControlMessage {
         Ping ping = 7;
         Heartbeat hb = 8;
         SystemState sys_state = 9;
+        SystemControl sys_ctrl = 10;
     }
 }
 
@@ -58,7 +56,6 @@ message AckNack {
 message Ping {
     uint32 ping_ack_id = 1; // The expected response message ID in the ACK response to this message
     uint32 ping_response_sequence_num = 2; // The expected response sequence number in the ACK response to this message
-
     bool sys_state_response_required = 3;  // If true, the target node should respond with a SystemState message
 }
 
@@ -85,10 +82,34 @@ message SystemState {
 
         // These are used to signal current operation status
         SYS_NORMAL_OPERATION = 4;       // System is in normal operation
+        SYS_HEARTBEAT_LOSS_HALF_WARNING = 5; // The system has lost heartbeat and 1/2 of the time to abort has passed
+        SYS_HEARTBEAT_LOST_ABORTING = 6;     // The system has lost heartbeat and is aborting
     }
 
     State sys_state = 1; // The current state of the system
     optional RocketState rocket_state = 2; // If this is the DMB, this will respond with the current RocketSM State
 }
 
+/* System control commands may not necessarily be handled by the board */
+message SystemControl {
+    enum Command {
+        SYS_INVALID = 0;
 
+        // These are used to signal bootup and reset events
+        SYS_RESET = 1;                  // Reset the system
+        SYS_FLASH_ERASE = 2;            // Erase the flash memory (only erases logging data)
+        SYS_LOG_PERIOD_CHANGE = 3;      // Change the log period, to the provided period in seconds as cmd_param 
+
+        // SoarProto v1.3.2
+        HEARTBEAT_ENABLE = 4;           // Enable heartbeat timeout-abort
+        HEARTBEAT_DISABLE = 5;          // Disable heartbeat timeout-abort
+
+        SYS_FLASH_LOG_ENABLE = 6;             // Enable logging
+        SYS_FLASH_LOG_DISABLE = 7;            // Disable logging
+
+        SYS_CRITICAL_FLASH_FULL_ERASE = 8;    // Erase the entire flash memory (including state and log data)
+    }
+
+    Command sys_cmd = 1;  // The current state of the system
+    uint32 cmd_param = 2; // The parameter for the command, if applicable
+}
