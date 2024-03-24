@@ -49,21 +49,21 @@
 
 namespace Proto {
 
-class DMBCommand final: public ::EmbeddedProto::MessageInterface
+class DmbCommand final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    DMBCommand() = default;
-    DMBCommand(const DMBCommand& rhs )
+    DmbCommand() = default;
+    DmbCommand(const DmbCommand& rhs )
     {
       set_command_enum(rhs.get_command_enum());
     }
 
-    DMBCommand(const DMBCommand&& rhs ) noexcept
+    DmbCommand(const DmbCommand&& rhs ) noexcept
     {
       set_command_enum(rhs.get_command_enum());
     }
 
-    ~DMBCommand() override = default;
+    ~DmbCommand() override = default;
 
     enum class Command : uint32_t
     {
@@ -100,13 +100,13 @@ class DMBCommand final: public ::EmbeddedProto::MessageInterface
       COMMAND_ENUM = 1
     };
 
-    DMBCommand& operator=(const DMBCommand& rhs)
+    DmbCommand& operator=(const DmbCommand& rhs)
     {
       set_command_enum(rhs.get_command_enum());
       return *this;
     }
 
-    DMBCommand& operator=(const DMBCommand&& rhs) noexcept
+    DmbCommand& operator=(const DmbCommand&& rhs) noexcept
     {
       set_command_enum(rhs.get_command_enum());
       return *this;
@@ -279,21 +279,21 @@ class DMBCommand final: public ::EmbeddedProto::MessageInterface
 
 };
 
-class PBBCommand final: public ::EmbeddedProto::MessageInterface
+class PbbCommand final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    PBBCommand() = default;
-    PBBCommand(const PBBCommand& rhs )
+    PbbCommand() = default;
+    PbbCommand(const PbbCommand& rhs )
     {
       set_command_enum(rhs.get_command_enum());
     }
 
-    PBBCommand(const PBBCommand&& rhs ) noexcept
+    PbbCommand(const PbbCommand&& rhs ) noexcept
     {
       set_command_enum(rhs.get_command_enum());
     }
 
-    ~PBBCommand() override = default;
+    ~PbbCommand() override = default;
 
     enum class Command : uint32_t
     {
@@ -309,13 +309,13 @@ class PBBCommand final: public ::EmbeddedProto::MessageInterface
       COMMAND_ENUM = 1
     };
 
-    PBBCommand& operator=(const PBBCommand& rhs)
+    PbbCommand& operator=(const PbbCommand& rhs)
     {
       set_command_enum(rhs.get_command_enum());
       return *this;
     }
 
-    PBBCommand& operator=(const PBBCommand&& rhs) noexcept
+    PbbCommand& operator=(const PbbCommand&& rhs) noexcept
     {
       set_command_enum(rhs.get_command_enum());
       return *this;
@@ -488,23 +488,23 @@ class PBBCommand final: public ::EmbeddedProto::MessageInterface
 
 };
 
-class RCUCommand final: public ::EmbeddedProto::MessageInterface
+class RcuCommand final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    RCUCommand() = default;
-    RCUCommand(const RCUCommand& rhs )
+    RcuCommand() = default;
+    RcuCommand(const RcuCommand& rhs )
     {
       set_command_enum(rhs.get_command_enum());
       set_command_param(rhs.get_command_param());
     }
 
-    RCUCommand(const RCUCommand&& rhs ) noexcept
+    RcuCommand(const RcuCommand&& rhs ) noexcept
     {
       set_command_enum(rhs.get_command_enum());
       set_command_param(rhs.get_command_param());
     }
 
-    ~RCUCommand() override = default;
+    ~RcuCommand() override = default;
 
     enum class Command : uint32_t
     {
@@ -555,14 +555,14 @@ class RCUCommand final: public ::EmbeddedProto::MessageInterface
       COMMAND_PARAM = 2
     };
 
-    RCUCommand& operator=(const RCUCommand& rhs)
+    RcuCommand& operator=(const RcuCommand& rhs)
     {
       set_command_enum(rhs.get_command_enum());
       set_command_param(rhs.get_command_param());
       return *this;
     }
 
-    RCUCommand& operator=(const RCUCommand&& rhs) noexcept
+    RcuCommand& operator=(const RcuCommand&& rhs) noexcept
     {
       set_command_enum(rhs.get_command_enum());
       set_command_param(rhs.get_command_param());
@@ -759,23 +759,23 @@ class RCUCommand final: public ::EmbeddedProto::MessageInterface
 
 };
 
-class SOBCommand final: public ::EmbeddedProto::MessageInterface
+class SobCommand final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    SOBCommand() = default;
-    SOBCommand(const SOBCommand& rhs )
+    SobCommand() = default;
+    SobCommand(const SobCommand& rhs )
     {
       set_command_enum(rhs.get_command_enum());
       set_command_param(rhs.get_command_param());
     }
 
-    SOBCommand(const SOBCommand&& rhs ) noexcept
+    SobCommand(const SobCommand&& rhs ) noexcept
     {
       set_command_enum(rhs.get_command_enum());
       set_command_param(rhs.get_command_param());
     }
 
-    ~SOBCommand() override = default;
+    ~SobCommand() override = default;
 
     enum class Command : uint32_t
     {
@@ -794,14 +794,14 @@ class SOBCommand final: public ::EmbeddedProto::MessageInterface
       COMMAND_PARAM = 2
     };
 
-    SOBCommand& operator=(const SOBCommand& rhs)
+    SobCommand& operator=(const SobCommand& rhs)
     {
       set_command_enum(rhs.get_command_enum());
       set_command_param(rhs.get_command_param());
       return *this;
     }
 
-    SOBCommand& operator=(const SOBCommand&& rhs) noexcept
+    SobCommand& operator=(const SobCommand&& rhs) noexcept
     {
       set_command_enum(rhs.get_command_enum());
       set_command_param(rhs.get_command_param());
@@ -1006,7 +1006,6 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
       {
@@ -1042,7 +1041,6 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
       {
@@ -1081,19 +1079,17 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       NOT_SET = 0,
       SOURCE = 1,
       TARGET = 2,
-      MESSAGE_ID = 3,
-      SOURCE_SEQUENCE_NUM = 4,
-      DMB_COMMAND = 5,
-      PBB_COMMAND = 6,
-      RCU_COMMAND = 7,
-      SOB_COMMAND = 8
+      SOURCE_SEQUENCE_NUM = 3,
+      DMB_COMMAND = 4,
+      PBB_COMMAND = 5,
+      RCU_COMMAND = 6,
+      SOB_COMMAND = 7
     };
 
     CommandMessage& operator=(const CommandMessage& rhs)
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
       {
@@ -1130,7 +1126,6 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
       {
@@ -1177,13 +1172,6 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
     inline const Node& get_target() const { return target_.get(); }
     inline Node target() const { return target_.get(); }
 
-    static constexpr char const* MESSAGE_ID_NAME = "message_id";
-    inline void clear_message_id() { message_id_.clear(); }
-    inline void set_message_id(const MessageID& value) { message_id_ = value; }
-    inline void set_message_id(const MessageID&& value) { message_id_ = value; }
-    inline const MessageID& get_message_id() const { return message_id_.get(); }
-    inline MessageID message_id() const { return message_id_.get(); }
-
     static constexpr char const* SOURCE_SEQUENCE_NUM_NAME = "source_sequence_num";
     inline void clear_source_sequence_num() { source_sequence_num_.clear(); }
     inline void set_source_sequence_num(const uint32_t& value) { source_sequence_num_ = value; }
@@ -1204,10 +1192,10 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       if(FieldNumber::DMB_COMMAND == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.dmb_command_.~DMBCommand();
+        message_.dmb_command_.~DmbCommand();
       }
     }
-    inline void set_dmb_command(const DMBCommand& value)
+    inline void set_dmb_command(const DmbCommand& value)
     {
       if(FieldNumber::DMB_COMMAND != which_message_)
       {
@@ -1215,7 +1203,7 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       }
       message_.dmb_command_ = value;
     }
-    inline void set_dmb_command(const DMBCommand&& value)
+    inline void set_dmb_command(const DmbCommand&& value)
     {
       if(FieldNumber::DMB_COMMAND != which_message_)
       {
@@ -1223,7 +1211,7 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       }
       message_.dmb_command_ = value;
     }
-    inline DMBCommand& mutable_dmb_command()
+    inline DmbCommand& mutable_dmb_command()
     {
       if(FieldNumber::DMB_COMMAND != which_message_)
       {
@@ -1231,8 +1219,8 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       }
       return message_.dmb_command_;
     }
-    inline const DMBCommand& get_dmb_command() const { return message_.dmb_command_; }
-    inline const DMBCommand& dmb_command() const { return message_.dmb_command_; }
+    inline const DmbCommand& get_dmb_command() const { return message_.dmb_command_; }
+    inline const DmbCommand& dmb_command() const { return message_.dmb_command_; }
 
     static constexpr char const* PBB_COMMAND_NAME = "pbb_command";
     inline bool has_pbb_command() const
@@ -1244,10 +1232,10 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       if(FieldNumber::PBB_COMMAND == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.pbb_command_.~PBBCommand();
+        message_.pbb_command_.~PbbCommand();
       }
     }
-    inline void set_pbb_command(const PBBCommand& value)
+    inline void set_pbb_command(const PbbCommand& value)
     {
       if(FieldNumber::PBB_COMMAND != which_message_)
       {
@@ -1255,7 +1243,7 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       }
       message_.pbb_command_ = value;
     }
-    inline void set_pbb_command(const PBBCommand&& value)
+    inline void set_pbb_command(const PbbCommand&& value)
     {
       if(FieldNumber::PBB_COMMAND != which_message_)
       {
@@ -1263,7 +1251,7 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       }
       message_.pbb_command_ = value;
     }
-    inline PBBCommand& mutable_pbb_command()
+    inline PbbCommand& mutable_pbb_command()
     {
       if(FieldNumber::PBB_COMMAND != which_message_)
       {
@@ -1271,8 +1259,8 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       }
       return message_.pbb_command_;
     }
-    inline const PBBCommand& get_pbb_command() const { return message_.pbb_command_; }
-    inline const PBBCommand& pbb_command() const { return message_.pbb_command_; }
+    inline const PbbCommand& get_pbb_command() const { return message_.pbb_command_; }
+    inline const PbbCommand& pbb_command() const { return message_.pbb_command_; }
 
     static constexpr char const* RCU_COMMAND_NAME = "rcu_command";
     inline bool has_rcu_command() const
@@ -1284,10 +1272,10 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       if(FieldNumber::RCU_COMMAND == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.rcu_command_.~RCUCommand();
+        message_.rcu_command_.~RcuCommand();
       }
     }
-    inline void set_rcu_command(const RCUCommand& value)
+    inline void set_rcu_command(const RcuCommand& value)
     {
       if(FieldNumber::RCU_COMMAND != which_message_)
       {
@@ -1295,7 +1283,7 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       }
       message_.rcu_command_ = value;
     }
-    inline void set_rcu_command(const RCUCommand&& value)
+    inline void set_rcu_command(const RcuCommand&& value)
     {
       if(FieldNumber::RCU_COMMAND != which_message_)
       {
@@ -1303,7 +1291,7 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       }
       message_.rcu_command_ = value;
     }
-    inline RCUCommand& mutable_rcu_command()
+    inline RcuCommand& mutable_rcu_command()
     {
       if(FieldNumber::RCU_COMMAND != which_message_)
       {
@@ -1311,8 +1299,8 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       }
       return message_.rcu_command_;
     }
-    inline const RCUCommand& get_rcu_command() const { return message_.rcu_command_; }
-    inline const RCUCommand& rcu_command() const { return message_.rcu_command_; }
+    inline const RcuCommand& get_rcu_command() const { return message_.rcu_command_; }
+    inline const RcuCommand& rcu_command() const { return message_.rcu_command_; }
 
     static constexpr char const* SOB_COMMAND_NAME = "sob_command";
     inline bool has_sob_command() const
@@ -1324,10 +1312,10 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       if(FieldNumber::SOB_COMMAND == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.sob_command_.~SOBCommand();
+        message_.sob_command_.~SobCommand();
       }
     }
-    inline void set_sob_command(const SOBCommand& value)
+    inline void set_sob_command(const SobCommand& value)
     {
       if(FieldNumber::SOB_COMMAND != which_message_)
       {
@@ -1335,7 +1323,7 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       }
       message_.sob_command_ = value;
     }
-    inline void set_sob_command(const SOBCommand&& value)
+    inline void set_sob_command(const SobCommand&& value)
     {
       if(FieldNumber::SOB_COMMAND != which_message_)
       {
@@ -1343,7 +1331,7 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       }
       message_.sob_command_ = value;
     }
-    inline SOBCommand& mutable_sob_command()
+    inline SobCommand& mutable_sob_command()
     {
       if(FieldNumber::SOB_COMMAND != which_message_)
       {
@@ -1351,8 +1339,8 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       }
       return message_.sob_command_;
     }
-    inline const SOBCommand& get_sob_command() const { return message_.sob_command_; }
-    inline const SOBCommand& sob_command() const { return message_.sob_command_; }
+    inline const SobCommand& get_sob_command() const { return message_.sob_command_; }
+    inline const SobCommand& sob_command() const { return message_.sob_command_; }
 
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
@@ -1367,11 +1355,6 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       if((static_cast<Node>(0) != target_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
         return_value = target_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TARGET), buffer, false);
-      }
-
-      if((static_cast<MessageID>(0) != message_id_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = message_id_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MESSAGE_ID), buffer, false);
       }
 
       if((0U != source_sequence_num_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
@@ -1437,10 +1420,6 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
             return_value = target_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::MESSAGE_ID:
-            return_value = message_id_.deserialize_check_type(buffer, wire_type);
-            break;
-
           case FieldNumber::SOURCE_SEQUENCE_NUM:
             return_value = source_sequence_num_.deserialize_check_type(buffer, wire_type);
             break;
@@ -1483,7 +1462,6 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
     {
       clear_source();
       clear_target();
-      clear_message_id();
       clear_source_sequence_num();
       clear_message();
 
@@ -1499,9 +1477,6 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
           break;
         case FieldNumber::TARGET:
           name = TARGET_NAME;
-          break;
-        case FieldNumber::MESSAGE_ID:
-          name = MESSAGE_ID_NAME;
           break;
         case FieldNumber::SOURCE_SEQUENCE_NUM:
           name = SOURCE_SEQUENCE_NUM_NAME;
@@ -1580,7 +1555,6 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
 
       left_chars = source_.to_string(left_chars, indent_level + 2, SOURCE_NAME, true);
       left_chars = target_.to_string(left_chars, indent_level + 2, TARGET_NAME, false);
-      left_chars = message_id_.to_string(left_chars, indent_level + 2, MESSAGE_ID_NAME, false);
       left_chars = source_sequence_num_.to_string(left_chars, indent_level + 2, SOURCE_SEQUENCE_NUM_NAME, false);
       left_chars = to_string_message(left_chars, indent_level + 2, false);
   
@@ -1609,7 +1583,6 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
 
       EmbeddedProto::enumeration<Node> source_ = static_cast<Node>(0);
       EmbeddedProto::enumeration<Node> target_ = static_cast<Node>(0);
-      EmbeddedProto::enumeration<MessageID> message_id_ = static_cast<MessageID>(0);
       EmbeddedProto::uint32 source_sequence_num_ = 0U;
 
       FieldNumber which_message_ = FieldNumber::NOT_SET;
@@ -1617,10 +1590,10 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       {
         message() {}
         ~message() {}
-        DMBCommand dmb_command_;
-        PBBCommand pbb_command_;
-        RCUCommand rcu_command_;
-        SOBCommand sob_command_;
+        DmbCommand dmb_command_;
+        PbbCommand pbb_command_;
+        RcuCommand rcu_command_;
+        SobCommand sob_command_;
       };
       message message_;
 
@@ -1636,19 +1609,19 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
         switch(field_id)
         {
           case FieldNumber::DMB_COMMAND:
-            new(&message_.dmb_command_) DMBCommand;
+            new(&message_.dmb_command_) DmbCommand;
             break;
 
           case FieldNumber::PBB_COMMAND:
-            new(&message_.pbb_command_) PBBCommand;
+            new(&message_.pbb_command_) PbbCommand;
             break;
 
           case FieldNumber::RCU_COMMAND:
-            new(&message_.rcu_command_) RCUCommand;
+            new(&message_.rcu_command_) RcuCommand;
             break;
 
           case FieldNumber::SOB_COMMAND:
-            new(&message_.sob_command_) SOBCommand;
+            new(&message_.sob_command_) SobCommand;
             break;
 
           default:

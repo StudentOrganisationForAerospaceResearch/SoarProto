@@ -17,10 +17,9 @@ class AckNack(_message.Message):
     def __init__(self, acking_msg_source: _Optional[_Union[_CoreProto_pb2.Node, str]] = ..., acking_msg_id: _Optional[_Union[_CoreProto_pb2.MessageID, str]] = ..., acking_sequence_num: _Optional[int] = ...) -> None: ...
 
 class ControlMessage(_message.Message):
-    __slots__ = ["ack", "hb", "message_id", "nack", "ping", "source", "source_sequence_num", "sys_ctrl", "sys_state", "target"]
+    __slots__ = ["ack", "hb", "nack", "ping", "source", "source_sequence_num", "sys_ctrl", "sys_state", "target"]
     ACK_FIELD_NUMBER: _ClassVar[int]
     HB_FIELD_NUMBER: _ClassVar[int]
-    MESSAGE_ID_FIELD_NUMBER: _ClassVar[int]
     NACK_FIELD_NUMBER: _ClassVar[int]
     PING_FIELD_NUMBER: _ClassVar[int]
     SOURCE_FIELD_NUMBER: _ClassVar[int]
@@ -30,7 +29,6 @@ class ControlMessage(_message.Message):
     TARGET_FIELD_NUMBER: _ClassVar[int]
     ack: AckNack
     hb: Heartbeat
-    message_id: _CoreProto_pb2.MessageID
     nack: AckNack
     ping: Ping
     source: _CoreProto_pb2.Node
@@ -38,7 +36,7 @@ class ControlMessage(_message.Message):
     sys_ctrl: SystemControl
     sys_state: SystemState
     target: _CoreProto_pb2.Node
-    def __init__(self, source: _Optional[_Union[_CoreProto_pb2.Node, str]] = ..., target: _Optional[_Union[_CoreProto_pb2.Node, str]] = ..., message_id: _Optional[_Union[_CoreProto_pb2.MessageID, str]] = ..., source_sequence_num: _Optional[int] = ..., ack: _Optional[_Union[AckNack, _Mapping]] = ..., nack: _Optional[_Union[AckNack, _Mapping]] = ..., ping: _Optional[_Union[Ping, _Mapping]] = ..., hb: _Optional[_Union[Heartbeat, _Mapping]] = ..., sys_state: _Optional[_Union[SystemState, _Mapping]] = ..., sys_ctrl: _Optional[_Union[SystemControl, _Mapping]] = ...) -> None: ...
+    def __init__(self, source: _Optional[_Union[_CoreProto_pb2.Node, str]] = ..., target: _Optional[_Union[_CoreProto_pb2.Node, str]] = ..., source_sequence_num: _Optional[int] = ..., ack: _Optional[_Union[AckNack, _Mapping]] = ..., nack: _Optional[_Union[AckNack, _Mapping]] = ..., ping: _Optional[_Union[Ping, _Mapping]] = ..., hb: _Optional[_Union[Heartbeat, _Mapping]] = ..., sys_state: _Optional[_Union[SystemState, _Mapping]] = ..., sys_ctrl: _Optional[_Union[SystemControl, _Mapping]] = ...) -> None: ...
 
 class Heartbeat(_message.Message):
     __slots__ = ["hb_response_sequence_num"]

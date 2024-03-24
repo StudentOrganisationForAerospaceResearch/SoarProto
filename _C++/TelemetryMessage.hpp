@@ -286,13 +286,13 @@ class Baro final: public ::EmbeddedProto::MessageInterface
     Baro(const Baro& rhs )
     {
       set_baro_pressure(rhs.get_baro_pressure());
-      set_baro_temp(rhs.get_baro_temp());
+      set_baro_temperature(rhs.get_baro_temperature());
     }
 
     Baro(const Baro&& rhs ) noexcept
     {
       set_baro_pressure(rhs.get_baro_pressure());
-      set_baro_temp(rhs.get_baro_temp());
+      set_baro_temperature(rhs.get_baro_temperature());
     }
 
     ~Baro() override = default;
@@ -301,20 +301,20 @@ class Baro final: public ::EmbeddedProto::MessageInterface
     {
       NOT_SET = 0,
       BARO_PRESSURE = 1,
-      BARO_TEMP = 2
+      BARO_TEMPERATURE = 2
     };
 
     Baro& operator=(const Baro& rhs)
     {
       set_baro_pressure(rhs.get_baro_pressure());
-      set_baro_temp(rhs.get_baro_temp());
+      set_baro_temperature(rhs.get_baro_temperature());
       return *this;
     }
 
     Baro& operator=(const Baro&& rhs) noexcept
     {
       set_baro_pressure(rhs.get_baro_pressure());
-      set_baro_temp(rhs.get_baro_temp());
+      set_baro_temperature(rhs.get_baro_temperature());
       return *this;
     }
 
@@ -326,13 +326,13 @@ class Baro final: public ::EmbeddedProto::MessageInterface
     inline const int32_t& get_baro_pressure() const { return baro_pressure_.get(); }
     inline int32_t baro_pressure() const { return baro_pressure_.get(); }
 
-    static constexpr char const* BARO_TEMP_NAME = "baro_temp";
-    inline void clear_baro_temp() { baro_temp_.clear(); }
-    inline void set_baro_temp(const int32_t& value) { baro_temp_ = value; }
-    inline void set_baro_temp(const int32_t&& value) { baro_temp_ = value; }
-    inline int32_t& mutable_baro_temp() { return baro_temp_.get(); }
-    inline const int32_t& get_baro_temp() const { return baro_temp_.get(); }
-    inline int32_t baro_temp() const { return baro_temp_.get(); }
+    static constexpr char const* BARO_TEMPERATURE_NAME = "baro_temperature";
+    inline void clear_baro_temperature() { baro_temperature_.clear(); }
+    inline void set_baro_temperature(const int32_t& value) { baro_temperature_ = value; }
+    inline void set_baro_temperature(const int32_t&& value) { baro_temperature_ = value; }
+    inline int32_t& mutable_baro_temperature() { return baro_temperature_.get(); }
+    inline const int32_t& get_baro_temperature() const { return baro_temperature_.get(); }
+    inline int32_t baro_temperature() const { return baro_temperature_.get(); }
 
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
@@ -344,9 +344,9 @@ class Baro final: public ::EmbeddedProto::MessageInterface
         return_value = baro_pressure_.serialize_with_id(static_cast<uint32_t>(FieldNumber::BARO_PRESSURE), buffer, false);
       }
 
-      if((0 != baro_temp_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != baro_temperature_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = baro_temp_.serialize_with_id(static_cast<uint32_t>(FieldNumber::BARO_TEMP), buffer, false);
+        return_value = baro_temperature_.serialize_with_id(static_cast<uint32_t>(FieldNumber::BARO_TEMPERATURE), buffer, false);
       }
 
       return return_value;
@@ -369,8 +369,8 @@ class Baro final: public ::EmbeddedProto::MessageInterface
             return_value = baro_pressure_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::BARO_TEMP:
-            return_value = baro_temp_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::BARO_TEMPERATURE:
+            return_value = baro_temperature_.deserialize_check_type(buffer, wire_type);
             break;
 
           case FieldNumber::NOT_SET:
@@ -403,7 +403,7 @@ class Baro final: public ::EmbeddedProto::MessageInterface
     void clear() override
     {
       clear_baro_pressure();
-      clear_baro_temp();
+      clear_baro_temperature();
 
     }
 
@@ -415,8 +415,8 @@ class Baro final: public ::EmbeddedProto::MessageInterface
         case FieldNumber::BARO_PRESSURE:
           name = BARO_PRESSURE_NAME;
           break;
-        case FieldNumber::BARO_TEMP:
-          name = BARO_TEMP_NAME;
+        case FieldNumber::BARO_TEMPERATURE:
+          name = BARO_TEMPERATURE_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -479,7 +479,7 @@ class Baro final: public ::EmbeddedProto::MessageInterface
       }
 
       left_chars = baro_pressure_.to_string(left_chars, indent_level + 2, BARO_PRESSURE_NAME, true);
-      left_chars = baro_temp_.to_string(left_chars, indent_level + 2, BARO_TEMP_NAME, false);
+      left_chars = baro_temperature_.to_string(left_chars, indent_level + 2, BARO_TEMPERATURE_NAME, false);
   
       if( 0 == indent_level) 
       {
@@ -505,7 +505,7 @@ class Baro final: public ::EmbeddedProto::MessageInterface
 
 
       EmbeddedProto::int32 baro_pressure_ = 0;
-      EmbeddedProto::int32 baro_temp_ = 0;
+      EmbeddedProto::int32 baro_temperature_ = 0;
 
 };
 
@@ -515,19 +515,19 @@ class Battery final: public ::EmbeddedProto::MessageInterface
     Battery() = default;
     Battery(const Battery& rhs )
     {
-      set_p_source(rhs.get_p_source());
-      set_volt(rhs.get_volt());
+      set_power_source(rhs.get_power_source());
+      set_voltage(rhs.get_voltage());
     }
 
     Battery(const Battery&& rhs ) noexcept
     {
-      set_p_source(rhs.get_p_source());
-      set_volt(rhs.get_volt());
+      set_power_source(rhs.get_power_source());
+      set_voltage(rhs.get_voltage());
     }
 
     ~Battery() override = default;
 
-    enum class power_source : uint32_t
+    enum class PowerSource : uint32_t
     {
       INVALID = 0,
       GROUND = 1,
@@ -537,52 +537,52 @@ class Battery final: public ::EmbeddedProto::MessageInterface
     enum class FieldNumber : uint32_t
     {
       NOT_SET = 0,
-      P_SOURCE = 1,
-      VOLT = 2
+      POWER_SOURCE = 1,
+      VOLTAGE = 2
     };
 
     Battery& operator=(const Battery& rhs)
     {
-      set_p_source(rhs.get_p_source());
-      set_volt(rhs.get_volt());
+      set_power_source(rhs.get_power_source());
+      set_voltage(rhs.get_voltage());
       return *this;
     }
 
     Battery& operator=(const Battery&& rhs) noexcept
     {
-      set_p_source(rhs.get_p_source());
-      set_volt(rhs.get_volt());
+      set_power_source(rhs.get_power_source());
+      set_voltage(rhs.get_voltage());
       return *this;
     }
 
-    static constexpr char const* P_SOURCE_NAME = "p_source";
-    inline void clear_p_source() { p_source_.clear(); }
-    inline void set_p_source(const power_source& value) { p_source_ = value; }
-    inline void set_p_source(const power_source&& value) { p_source_ = value; }
-    inline const power_source& get_p_source() const { return p_source_.get(); }
-    inline power_source p_source() const { return p_source_.get(); }
+    static constexpr char const* POWER_SOURCE_NAME = "power_source";
+    inline void clear_power_source() { power_source_.clear(); }
+    inline void set_power_source(const PowerSource& value) { power_source_ = value; }
+    inline void set_power_source(const PowerSource&& value) { power_source_ = value; }
+    inline const PowerSource& get_power_source() const { return power_source_.get(); }
+    inline PowerSource power_source() const { return power_source_.get(); }
 
-    static constexpr char const* VOLT_NAME = "volt";
-    inline void clear_volt() { volt_.clear(); }
-    inline void set_volt(const int32_t& value) { volt_ = value; }
-    inline void set_volt(const int32_t&& value) { volt_ = value; }
-    inline int32_t& mutable_volt() { return volt_.get(); }
-    inline const int32_t& get_volt() const { return volt_.get(); }
-    inline int32_t volt() const { return volt_.get(); }
+    static constexpr char const* VOLTAGE_NAME = "voltage";
+    inline void clear_voltage() { voltage_.clear(); }
+    inline void set_voltage(const int32_t& value) { voltage_ = value; }
+    inline void set_voltage(const int32_t&& value) { voltage_ = value; }
+    inline int32_t& mutable_voltage() { return voltage_.get(); }
+    inline const int32_t& get_voltage() const { return voltage_.get(); }
+    inline int32_t voltage() const { return voltage_.get(); }
 
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
     {
       ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
 
-      if((static_cast<power_source>(0) != p_source_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((static_cast<PowerSource>(0) != power_source_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = p_source_.serialize_with_id(static_cast<uint32_t>(FieldNumber::P_SOURCE), buffer, false);
+        return_value = power_source_.serialize_with_id(static_cast<uint32_t>(FieldNumber::POWER_SOURCE), buffer, false);
       }
 
-      if((0 != volt_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != voltage_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = volt_.serialize_with_id(static_cast<uint32_t>(FieldNumber::VOLT), buffer, false);
+        return_value = voltage_.serialize_with_id(static_cast<uint32_t>(FieldNumber::VOLTAGE), buffer, false);
       }
 
       return return_value;
@@ -601,12 +601,12 @@ class Battery final: public ::EmbeddedProto::MessageInterface
         id_tag = static_cast<FieldNumber>(id_number);
         switch(id_tag)
         {
-          case FieldNumber::P_SOURCE:
-            return_value = p_source_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::POWER_SOURCE:
+            return_value = power_source_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::VOLT:
-            return_value = volt_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::VOLTAGE:
+            return_value = voltage_.deserialize_check_type(buffer, wire_type);
             break;
 
           case FieldNumber::NOT_SET:
@@ -638,8 +638,8 @@ class Battery final: public ::EmbeddedProto::MessageInterface
 
     void clear() override
     {
-      clear_p_source();
-      clear_volt();
+      clear_power_source();
+      clear_voltage();
 
     }
 
@@ -648,11 +648,11 @@ class Battery final: public ::EmbeddedProto::MessageInterface
       char const* name = nullptr;
       switch(fieldNumber)
       {
-        case FieldNumber::P_SOURCE:
-          name = P_SOURCE_NAME;
+        case FieldNumber::POWER_SOURCE:
+          name = POWER_SOURCE_NAME;
           break;
-        case FieldNumber::VOLT:
-          name = VOLT_NAME;
+        case FieldNumber::VOLTAGE:
+          name = VOLTAGE_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -714,8 +714,8 @@ class Battery final: public ::EmbeddedProto::MessageInterface
         left_chars.size -= n_chars_used;
       }
 
-      left_chars = p_source_.to_string(left_chars, indent_level + 2, P_SOURCE_NAME, true);
-      left_chars = volt_.to_string(left_chars, indent_level + 2, VOLT_NAME, false);
+      left_chars = power_source_.to_string(left_chars, indent_level + 2, POWER_SOURCE_NAME, true);
+      left_chars = voltage_.to_string(left_chars, indent_level + 2, VOLTAGE_NAME, false);
   
       if( 0 == indent_level) 
       {
@@ -740,8 +740,8 @@ class Battery final: public ::EmbeddedProto::MessageInterface
   private:
 
 
-      EmbeddedProto::enumeration<power_source> p_source_ = static_cast<power_source>(0);
-      EmbeddedProto::int32 volt_ = 0;
+      EmbeddedProto::enumeration<PowerSource> power_source_ = static_cast<PowerSource>(0);
+      EmbeddedProto::int32 voltage_ = 0;
 
 };
 
@@ -753,14 +753,14 @@ class CombustionControlStatus final: public ::EmbeddedProto::MessageInterface
     {
       set_vent_open(rhs.get_vent_open());
       set_drain_open(rhs.get_drain_open());
-      set_mev_power_enable(rhs.get_mev_power_enable());
+      set_mev_open(rhs.get_mev_open());
     }
 
     CombustionControlStatus(const CombustionControlStatus&& rhs ) noexcept
     {
       set_vent_open(rhs.get_vent_open());
       set_drain_open(rhs.get_drain_open());
-      set_mev_power_enable(rhs.get_mev_power_enable());
+      set_mev_open(rhs.get_mev_open());
     }
 
     ~CombustionControlStatus() override = default;
@@ -768,16 +768,16 @@ class CombustionControlStatus final: public ::EmbeddedProto::MessageInterface
     enum class FieldNumber : uint32_t
     {
       NOT_SET = 0,
-      VENT_OPEN = 2,
-      DRAIN_OPEN = 3,
-      MEV_POWER_ENABLE = 4
+      VENT_OPEN = 1,
+      DRAIN_OPEN = 2,
+      MEV_OPEN = 3
     };
 
     CombustionControlStatus& operator=(const CombustionControlStatus& rhs)
     {
       set_vent_open(rhs.get_vent_open());
       set_drain_open(rhs.get_drain_open());
-      set_mev_power_enable(rhs.get_mev_power_enable());
+      set_mev_open(rhs.get_mev_open());
       return *this;
     }
 
@@ -785,7 +785,7 @@ class CombustionControlStatus final: public ::EmbeddedProto::MessageInterface
     {
       set_vent_open(rhs.get_vent_open());
       set_drain_open(rhs.get_drain_open());
-      set_mev_power_enable(rhs.get_mev_power_enable());
+      set_mev_open(rhs.get_mev_open());
       return *this;
     }
 
@@ -805,13 +805,13 @@ class CombustionControlStatus final: public ::EmbeddedProto::MessageInterface
     inline const bool& get_drain_open() const { return drain_open_.get(); }
     inline bool drain_open() const { return drain_open_.get(); }
 
-    static constexpr char const* MEV_POWER_ENABLE_NAME = "mev_power_enable";
-    inline void clear_mev_power_enable() { mev_power_enable_.clear(); }
-    inline void set_mev_power_enable(const bool& value) { mev_power_enable_ = value; }
-    inline void set_mev_power_enable(const bool&& value) { mev_power_enable_ = value; }
-    inline bool& mutable_mev_power_enable() { return mev_power_enable_.get(); }
-    inline const bool& get_mev_power_enable() const { return mev_power_enable_.get(); }
-    inline bool mev_power_enable() const { return mev_power_enable_.get(); }
+    static constexpr char const* MEV_OPEN_NAME = "mev_open";
+    inline void clear_mev_open() { mev_open_.clear(); }
+    inline void set_mev_open(const bool& value) { mev_open_ = value; }
+    inline void set_mev_open(const bool&& value) { mev_open_ = value; }
+    inline bool& mutable_mev_open() { return mev_open_.get(); }
+    inline const bool& get_mev_open() const { return mev_open_.get(); }
+    inline bool mev_open() const { return mev_open_.get(); }
 
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
@@ -828,9 +828,9 @@ class CombustionControlStatus final: public ::EmbeddedProto::MessageInterface
         return_value = drain_open_.serialize_with_id(static_cast<uint32_t>(FieldNumber::DRAIN_OPEN), buffer, false);
       }
 
-      if((false != mev_power_enable_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((false != mev_open_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = mev_power_enable_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MEV_POWER_ENABLE), buffer, false);
+        return_value = mev_open_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MEV_OPEN), buffer, false);
       }
 
       return return_value;
@@ -857,8 +857,8 @@ class CombustionControlStatus final: public ::EmbeddedProto::MessageInterface
             return_value = drain_open_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::MEV_POWER_ENABLE:
-            return_value = mev_power_enable_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::MEV_OPEN:
+            return_value = mev_open_.deserialize_check_type(buffer, wire_type);
             break;
 
           case FieldNumber::NOT_SET:
@@ -892,7 +892,7 @@ class CombustionControlStatus final: public ::EmbeddedProto::MessageInterface
     {
       clear_vent_open();
       clear_drain_open();
-      clear_mev_power_enable();
+      clear_mev_open();
 
     }
 
@@ -907,8 +907,8 @@ class CombustionControlStatus final: public ::EmbeddedProto::MessageInterface
         case FieldNumber::DRAIN_OPEN:
           name = DRAIN_OPEN_NAME;
           break;
-        case FieldNumber::MEV_POWER_ENABLE:
-          name = MEV_POWER_ENABLE_NAME;
+        case FieldNumber::MEV_OPEN:
+          name = MEV_OPEN_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -972,7 +972,7 @@ class CombustionControlStatus final: public ::EmbeddedProto::MessageInterface
 
       left_chars = vent_open_.to_string(left_chars, indent_level + 2, VENT_OPEN_NAME, true);
       left_chars = drain_open_.to_string(left_chars, indent_level + 2, DRAIN_OPEN_NAME, false);
-      left_chars = mev_power_enable_.to_string(left_chars, indent_level + 2, MEV_POWER_ENABLE_NAME, false);
+      left_chars = mev_open_.to_string(left_chars, indent_level + 2, MEV_OPEN_NAME, false);
   
       if( 0 == indent_level) 
       {
@@ -999,25 +999,255 @@ class CombustionControlStatus final: public ::EmbeddedProto::MessageInterface
 
       EmbeddedProto::boolean vent_open_ = false;
       EmbeddedProto::boolean drain_open_ = false;
-      EmbeddedProto::boolean mev_power_enable_ = false;
+      EmbeddedProto::boolean mev_open_ = false;
 
 };
 
-class DMBPressure final: public ::EmbeddedProto::MessageInterface
+class CoordinateType final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    DMBPressure() = default;
-    DMBPressure(const DMBPressure& rhs )
+    CoordinateType() = default;
+    CoordinateType(const CoordinateType& rhs )
+    {
+      set_degrees(rhs.get_degrees());
+      set_minutes(rhs.get_minutes());
+    }
+
+    CoordinateType(const CoordinateType&& rhs ) noexcept
+    {
+      set_degrees(rhs.get_degrees());
+      set_minutes(rhs.get_minutes());
+    }
+
+    ~CoordinateType() override = default;
+
+    enum class FieldNumber : uint32_t
+    {
+      NOT_SET = 0,
+      DEGREES = 1,
+      MINUTES = 2
+    };
+
+    CoordinateType& operator=(const CoordinateType& rhs)
+    {
+      set_degrees(rhs.get_degrees());
+      set_minutes(rhs.get_minutes());
+      return *this;
+    }
+
+    CoordinateType& operator=(const CoordinateType&& rhs) noexcept
+    {
+      set_degrees(rhs.get_degrees());
+      set_minutes(rhs.get_minutes());
+      return *this;
+    }
+
+    static constexpr char const* DEGREES_NAME = "degrees";
+    inline void clear_degrees() { degrees_.clear(); }
+    inline void set_degrees(const int32_t& value) { degrees_ = value; }
+    inline void set_degrees(const int32_t&& value) { degrees_ = value; }
+    inline int32_t& mutable_degrees() { return degrees_.get(); }
+    inline const int32_t& get_degrees() const { return degrees_.get(); }
+    inline int32_t degrees() const { return degrees_.get(); }
+
+    static constexpr char const* MINUTES_NAME = "minutes";
+    inline void clear_minutes() { minutes_.clear(); }
+    inline void set_minutes(const int32_t& value) { minutes_ = value; }
+    inline void set_minutes(const int32_t&& value) { minutes_ = value; }
+    inline int32_t& mutable_minutes() { return minutes_.get(); }
+    inline const int32_t& get_minutes() const { return minutes_.get(); }
+    inline int32_t minutes() const { return minutes_.get(); }
+
+
+    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+
+      if((0 != degrees_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = degrees_.serialize_with_id(static_cast<uint32_t>(FieldNumber::DEGREES), buffer, false);
+      }
+
+      if((0 != minutes_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = minutes_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MINUTES), buffer, false);
+      }
+
+      return return_value;
+    };
+
+    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
+      uint32_t id_number = 0;
+      FieldNumber id_tag = FieldNumber::NOT_SET;
+
+      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
+      {
+        id_tag = static_cast<FieldNumber>(id_number);
+        switch(id_tag)
+        {
+          case FieldNumber::DEGREES:
+            return_value = degrees_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::MINUTES:
+            return_value = minutes_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::NOT_SET:
+            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
+            break;
+
+          default:
+            return_value = skip_unknown_field(buffer, wire_type);
+            break;
+        }
+
+        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+        {
+          // Read the next tag.
+          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+        }
+      }
+
+      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
+      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
+         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
+         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
+      {
+        return_value = tag_value;
+      }
+
+      return return_value;
+    };
+
+    void clear() override
+    {
+      clear_degrees();
+      clear_minutes();
+
+    }
+
+    static char const* field_number_to_name(const FieldNumber fieldNumber)
+    {
+      char const* name = nullptr;
+      switch(fieldNumber)
+      {
+        case FieldNumber::DEGREES:
+          name = DEGREES_NAME;
+          break;
+        case FieldNumber::MINUTES:
+          name = MINUTES_NAME;
+          break;
+        default:
+          name = "Invalid FieldNumber";
+          break;
+      }
+      return name;
+    }
+
+#ifdef MSG_TO_STRING
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
+    {
+      return this->to_string(str, 0, nullptr, true);
+    }
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
+    {
+      ::EmbeddedProto::string_view left_chars = str;
+      int32_t n_chars_used = 0;
+
+      if(!first_field)
+      {
+        // Add a comma behind the previous field.
+        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
+        if(0 < n_chars_used)
+        {
+          // Update the character pointer and characters left in the array.
+          left_chars.data += n_chars_used;
+          left_chars.size -= n_chars_used;
+        }
+      }
+
+      if(nullptr != name)
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
+        }
+      }
+      else
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
+        }
+      }
+      
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      left_chars = degrees_.to_string(left_chars, indent_level + 2, DEGREES_NAME, true);
+      left_chars = minutes_.to_string(left_chars, indent_level + 2, MINUTES_NAME, false);
+  
+      if( 0 == indent_level) 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
+      }
+      else 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
+      }
+
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      return left_chars;
+    }
+
+#endif // End of MSG_TO_STRING
+
+  private:
+
+
+      EmbeddedProto::int32 degrees_ = 0;
+      EmbeddedProto::int32 minutes_ = 0;
+
+};
+
+class DmbPressure final: public ::EmbeddedProto::MessageInterface
+{
+  public:
+    DmbPressure() = default;
+    DmbPressure(const DmbPressure& rhs )
     {
       set_upper_pv_pressure(rhs.get_upper_pv_pressure());
     }
 
-    DMBPressure(const DMBPressure&& rhs ) noexcept
+    DmbPressure(const DmbPressure&& rhs ) noexcept
     {
       set_upper_pv_pressure(rhs.get_upper_pv_pressure());
     }
 
-    ~DMBPressure() override = default;
+    ~DmbPressure() override = default;
 
     enum class FieldNumber : uint32_t
     {
@@ -1025,13 +1255,13 @@ class DMBPressure final: public ::EmbeddedProto::MessageInterface
       UPPER_PV_PRESSURE = 1
     };
 
-    DMBPressure& operator=(const DMBPressure& rhs)
+    DmbPressure& operator=(const DmbPressure& rhs)
     {
       set_upper_pv_pressure(rhs.get_upper_pv_pressure());
       return *this;
     }
 
-    DMBPressure& operator=(const DMBPressure&& rhs) noexcept
+    DmbPressure& operator=(const DmbPressure&& rhs) noexcept
     {
       set_upper_pv_pressure(rhs.get_upper_pv_pressure());
       return *this;
@@ -1435,200 +1665,200 @@ class Flash final: public ::EmbeddedProto::MessageInterface
 
 };
 
-class IMU final: public ::EmbeddedProto::MessageInterface
+class Imu final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    IMU() = default;
-    IMU(const IMU& rhs )
+    Imu() = default;
+    Imu(const Imu& rhs )
     {
-      set_accelx(rhs.get_accelx());
-      set_accely(rhs.get_accely());
-      set_accelz(rhs.get_accelz());
-      set_gyrox(rhs.get_gyrox());
-      set_gyroy(rhs.get_gyroy());
-      set_gyroz(rhs.get_gyroz());
-      set_magx(rhs.get_magx());
-      set_magy(rhs.get_magy());
-      set_magz(rhs.get_magz());
+      set_accel_x(rhs.get_accel_x());
+      set_accel_y(rhs.get_accel_y());
+      set_accel_z(rhs.get_accel_z());
+      set_gyro_x(rhs.get_gyro_x());
+      set_gyro_y(rhs.get_gyro_y());
+      set_gyro_z(rhs.get_gyro_z());
+      set_mag_x(rhs.get_mag_x());
+      set_mag_y(rhs.get_mag_y());
+      set_mag_z(rhs.get_mag_z());
     }
 
-    IMU(const IMU&& rhs ) noexcept
+    Imu(const Imu&& rhs ) noexcept
     {
-      set_accelx(rhs.get_accelx());
-      set_accely(rhs.get_accely());
-      set_accelz(rhs.get_accelz());
-      set_gyrox(rhs.get_gyrox());
-      set_gyroy(rhs.get_gyroy());
-      set_gyroz(rhs.get_gyroz());
-      set_magx(rhs.get_magx());
-      set_magy(rhs.get_magy());
-      set_magz(rhs.get_magz());
+      set_accel_x(rhs.get_accel_x());
+      set_accel_y(rhs.get_accel_y());
+      set_accel_z(rhs.get_accel_z());
+      set_gyro_x(rhs.get_gyro_x());
+      set_gyro_y(rhs.get_gyro_y());
+      set_gyro_z(rhs.get_gyro_z());
+      set_mag_x(rhs.get_mag_x());
+      set_mag_y(rhs.get_mag_y());
+      set_mag_z(rhs.get_mag_z());
     }
 
-    ~IMU() override = default;
+    ~Imu() override = default;
 
     enum class FieldNumber : uint32_t
     {
       NOT_SET = 0,
-      ACCELX = 1,
-      ACCELY = 2,
-      ACCELZ = 3,
-      GYROX = 4,
-      GYROY = 5,
-      GYROZ = 6,
-      MAGX = 7,
-      MAGY = 8,
-      MAGZ = 9
+      ACCEL_X = 1,
+      ACCEL_Y = 2,
+      ACCEL_Z = 3,
+      GYRO_X = 4,
+      GYRO_Y = 5,
+      GYRO_Z = 6,
+      MAG_X = 7,
+      MAG_Y = 8,
+      MAG_Z = 9
     };
 
-    IMU& operator=(const IMU& rhs)
+    Imu& operator=(const Imu& rhs)
     {
-      set_accelx(rhs.get_accelx());
-      set_accely(rhs.get_accely());
-      set_accelz(rhs.get_accelz());
-      set_gyrox(rhs.get_gyrox());
-      set_gyroy(rhs.get_gyroy());
-      set_gyroz(rhs.get_gyroz());
-      set_magx(rhs.get_magx());
-      set_magy(rhs.get_magy());
-      set_magz(rhs.get_magz());
+      set_accel_x(rhs.get_accel_x());
+      set_accel_y(rhs.get_accel_y());
+      set_accel_z(rhs.get_accel_z());
+      set_gyro_x(rhs.get_gyro_x());
+      set_gyro_y(rhs.get_gyro_y());
+      set_gyro_z(rhs.get_gyro_z());
+      set_mag_x(rhs.get_mag_x());
+      set_mag_y(rhs.get_mag_y());
+      set_mag_z(rhs.get_mag_z());
       return *this;
     }
 
-    IMU& operator=(const IMU&& rhs) noexcept
+    Imu& operator=(const Imu&& rhs) noexcept
     {
-      set_accelx(rhs.get_accelx());
-      set_accely(rhs.get_accely());
-      set_accelz(rhs.get_accelz());
-      set_gyrox(rhs.get_gyrox());
-      set_gyroy(rhs.get_gyroy());
-      set_gyroz(rhs.get_gyroz());
-      set_magx(rhs.get_magx());
-      set_magy(rhs.get_magy());
-      set_magz(rhs.get_magz());
+      set_accel_x(rhs.get_accel_x());
+      set_accel_y(rhs.get_accel_y());
+      set_accel_z(rhs.get_accel_z());
+      set_gyro_x(rhs.get_gyro_x());
+      set_gyro_y(rhs.get_gyro_y());
+      set_gyro_z(rhs.get_gyro_z());
+      set_mag_x(rhs.get_mag_x());
+      set_mag_y(rhs.get_mag_y());
+      set_mag_z(rhs.get_mag_z());
       return *this;
     }
 
-    static constexpr char const* ACCELX_NAME = "accelx";
-    inline void clear_accelx() { accelx_.clear(); }
-    inline void set_accelx(const int32_t& value) { accelx_ = value; }
-    inline void set_accelx(const int32_t&& value) { accelx_ = value; }
-    inline int32_t& mutable_accelx() { return accelx_.get(); }
-    inline const int32_t& get_accelx() const { return accelx_.get(); }
-    inline int32_t accelx() const { return accelx_.get(); }
+    static constexpr char const* ACCEL_X_NAME = "accel_x";
+    inline void clear_accel_x() { accel_x_.clear(); }
+    inline void set_accel_x(const int32_t& value) { accel_x_ = value; }
+    inline void set_accel_x(const int32_t&& value) { accel_x_ = value; }
+    inline int32_t& mutable_accel_x() { return accel_x_.get(); }
+    inline const int32_t& get_accel_x() const { return accel_x_.get(); }
+    inline int32_t accel_x() const { return accel_x_.get(); }
 
-    static constexpr char const* ACCELY_NAME = "accely";
-    inline void clear_accely() { accely_.clear(); }
-    inline void set_accely(const int32_t& value) { accely_ = value; }
-    inline void set_accely(const int32_t&& value) { accely_ = value; }
-    inline int32_t& mutable_accely() { return accely_.get(); }
-    inline const int32_t& get_accely() const { return accely_.get(); }
-    inline int32_t accely() const { return accely_.get(); }
+    static constexpr char const* ACCEL_Y_NAME = "accel_y";
+    inline void clear_accel_y() { accel_y_.clear(); }
+    inline void set_accel_y(const int32_t& value) { accel_y_ = value; }
+    inline void set_accel_y(const int32_t&& value) { accel_y_ = value; }
+    inline int32_t& mutable_accel_y() { return accel_y_.get(); }
+    inline const int32_t& get_accel_y() const { return accel_y_.get(); }
+    inline int32_t accel_y() const { return accel_y_.get(); }
 
-    static constexpr char const* ACCELZ_NAME = "accelz";
-    inline void clear_accelz() { accelz_.clear(); }
-    inline void set_accelz(const int32_t& value) { accelz_ = value; }
-    inline void set_accelz(const int32_t&& value) { accelz_ = value; }
-    inline int32_t& mutable_accelz() { return accelz_.get(); }
-    inline const int32_t& get_accelz() const { return accelz_.get(); }
-    inline int32_t accelz() const { return accelz_.get(); }
+    static constexpr char const* ACCEL_Z_NAME = "accel_z";
+    inline void clear_accel_z() { accel_z_.clear(); }
+    inline void set_accel_z(const int32_t& value) { accel_z_ = value; }
+    inline void set_accel_z(const int32_t&& value) { accel_z_ = value; }
+    inline int32_t& mutable_accel_z() { return accel_z_.get(); }
+    inline const int32_t& get_accel_z() const { return accel_z_.get(); }
+    inline int32_t accel_z() const { return accel_z_.get(); }
 
-    static constexpr char const* GYROX_NAME = "gyrox";
-    inline void clear_gyrox() { gyrox_.clear(); }
-    inline void set_gyrox(const int32_t& value) { gyrox_ = value; }
-    inline void set_gyrox(const int32_t&& value) { gyrox_ = value; }
-    inline int32_t& mutable_gyrox() { return gyrox_.get(); }
-    inline const int32_t& get_gyrox() const { return gyrox_.get(); }
-    inline int32_t gyrox() const { return gyrox_.get(); }
+    static constexpr char const* GYRO_X_NAME = "gyro_x";
+    inline void clear_gyro_x() { gyro_x_.clear(); }
+    inline void set_gyro_x(const int32_t& value) { gyro_x_ = value; }
+    inline void set_gyro_x(const int32_t&& value) { gyro_x_ = value; }
+    inline int32_t& mutable_gyro_x() { return gyro_x_.get(); }
+    inline const int32_t& get_gyro_x() const { return gyro_x_.get(); }
+    inline int32_t gyro_x() const { return gyro_x_.get(); }
 
-    static constexpr char const* GYROY_NAME = "gyroy";
-    inline void clear_gyroy() { gyroy_.clear(); }
-    inline void set_gyroy(const int32_t& value) { gyroy_ = value; }
-    inline void set_gyroy(const int32_t&& value) { gyroy_ = value; }
-    inline int32_t& mutable_gyroy() { return gyroy_.get(); }
-    inline const int32_t& get_gyroy() const { return gyroy_.get(); }
-    inline int32_t gyroy() const { return gyroy_.get(); }
+    static constexpr char const* GYRO_Y_NAME = "gyro_y";
+    inline void clear_gyro_y() { gyro_y_.clear(); }
+    inline void set_gyro_y(const int32_t& value) { gyro_y_ = value; }
+    inline void set_gyro_y(const int32_t&& value) { gyro_y_ = value; }
+    inline int32_t& mutable_gyro_y() { return gyro_y_.get(); }
+    inline const int32_t& get_gyro_y() const { return gyro_y_.get(); }
+    inline int32_t gyro_y() const { return gyro_y_.get(); }
 
-    static constexpr char const* GYROZ_NAME = "gyroz";
-    inline void clear_gyroz() { gyroz_.clear(); }
-    inline void set_gyroz(const int32_t& value) { gyroz_ = value; }
-    inline void set_gyroz(const int32_t&& value) { gyroz_ = value; }
-    inline int32_t& mutable_gyroz() { return gyroz_.get(); }
-    inline const int32_t& get_gyroz() const { return gyroz_.get(); }
-    inline int32_t gyroz() const { return gyroz_.get(); }
+    static constexpr char const* GYRO_Z_NAME = "gyro_z";
+    inline void clear_gyro_z() { gyro_z_.clear(); }
+    inline void set_gyro_z(const int32_t& value) { gyro_z_ = value; }
+    inline void set_gyro_z(const int32_t&& value) { gyro_z_ = value; }
+    inline int32_t& mutable_gyro_z() { return gyro_z_.get(); }
+    inline const int32_t& get_gyro_z() const { return gyro_z_.get(); }
+    inline int32_t gyro_z() const { return gyro_z_.get(); }
 
-    static constexpr char const* MAGX_NAME = "magx";
-    inline void clear_magx() { magx_.clear(); }
-    inline void set_magx(const int32_t& value) { magx_ = value; }
-    inline void set_magx(const int32_t&& value) { magx_ = value; }
-    inline int32_t& mutable_magx() { return magx_.get(); }
-    inline const int32_t& get_magx() const { return magx_.get(); }
-    inline int32_t magx() const { return magx_.get(); }
+    static constexpr char const* MAG_X_NAME = "mag_x";
+    inline void clear_mag_x() { mag_x_.clear(); }
+    inline void set_mag_x(const int32_t& value) { mag_x_ = value; }
+    inline void set_mag_x(const int32_t&& value) { mag_x_ = value; }
+    inline int32_t& mutable_mag_x() { return mag_x_.get(); }
+    inline const int32_t& get_mag_x() const { return mag_x_.get(); }
+    inline int32_t mag_x() const { return mag_x_.get(); }
 
-    static constexpr char const* MAGY_NAME = "magy";
-    inline void clear_magy() { magy_.clear(); }
-    inline void set_magy(const int32_t& value) { magy_ = value; }
-    inline void set_magy(const int32_t&& value) { magy_ = value; }
-    inline int32_t& mutable_magy() { return magy_.get(); }
-    inline const int32_t& get_magy() const { return magy_.get(); }
-    inline int32_t magy() const { return magy_.get(); }
+    static constexpr char const* MAG_Y_NAME = "mag_y";
+    inline void clear_mag_y() { mag_y_.clear(); }
+    inline void set_mag_y(const int32_t& value) { mag_y_ = value; }
+    inline void set_mag_y(const int32_t&& value) { mag_y_ = value; }
+    inline int32_t& mutable_mag_y() { return mag_y_.get(); }
+    inline const int32_t& get_mag_y() const { return mag_y_.get(); }
+    inline int32_t mag_y() const { return mag_y_.get(); }
 
-    static constexpr char const* MAGZ_NAME = "magz";
-    inline void clear_magz() { magz_.clear(); }
-    inline void set_magz(const int32_t& value) { magz_ = value; }
-    inline void set_magz(const int32_t&& value) { magz_ = value; }
-    inline int32_t& mutable_magz() { return magz_.get(); }
-    inline const int32_t& get_magz() const { return magz_.get(); }
-    inline int32_t magz() const { return magz_.get(); }
+    static constexpr char const* MAG_Z_NAME = "mag_z";
+    inline void clear_mag_z() { mag_z_.clear(); }
+    inline void set_mag_z(const int32_t& value) { mag_z_ = value; }
+    inline void set_mag_z(const int32_t&& value) { mag_z_ = value; }
+    inline int32_t& mutable_mag_z() { return mag_z_.get(); }
+    inline const int32_t& get_mag_z() const { return mag_z_.get(); }
+    inline int32_t mag_z() const { return mag_z_.get(); }
 
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
     {
       ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
 
-      if((0 != accelx_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != accel_x_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = accelx_.serialize_with_id(static_cast<uint32_t>(FieldNumber::ACCELX), buffer, false);
+        return_value = accel_x_.serialize_with_id(static_cast<uint32_t>(FieldNumber::ACCEL_X), buffer, false);
       }
 
-      if((0 != accely_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != accel_y_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = accely_.serialize_with_id(static_cast<uint32_t>(FieldNumber::ACCELY), buffer, false);
+        return_value = accel_y_.serialize_with_id(static_cast<uint32_t>(FieldNumber::ACCEL_Y), buffer, false);
       }
 
-      if((0 != accelz_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != accel_z_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = accelz_.serialize_with_id(static_cast<uint32_t>(FieldNumber::ACCELZ), buffer, false);
+        return_value = accel_z_.serialize_with_id(static_cast<uint32_t>(FieldNumber::ACCEL_Z), buffer, false);
       }
 
-      if((0 != gyrox_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != gyro_x_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = gyrox_.serialize_with_id(static_cast<uint32_t>(FieldNumber::GYROX), buffer, false);
+        return_value = gyro_x_.serialize_with_id(static_cast<uint32_t>(FieldNumber::GYRO_X), buffer, false);
       }
 
-      if((0 != gyroy_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != gyro_y_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = gyroy_.serialize_with_id(static_cast<uint32_t>(FieldNumber::GYROY), buffer, false);
+        return_value = gyro_y_.serialize_with_id(static_cast<uint32_t>(FieldNumber::GYRO_Y), buffer, false);
       }
 
-      if((0 != gyroz_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != gyro_z_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = gyroz_.serialize_with_id(static_cast<uint32_t>(FieldNumber::GYROZ), buffer, false);
+        return_value = gyro_z_.serialize_with_id(static_cast<uint32_t>(FieldNumber::GYRO_Z), buffer, false);
       }
 
-      if((0 != magx_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != mag_x_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = magx_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MAGX), buffer, false);
+        return_value = mag_x_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MAG_X), buffer, false);
       }
 
-      if((0 != magy_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != mag_y_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = magy_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MAGY), buffer, false);
+        return_value = mag_y_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MAG_Y), buffer, false);
       }
 
-      if((0 != magz_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != mag_z_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = magz_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MAGZ), buffer, false);
+        return_value = mag_z_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MAG_Z), buffer, false);
       }
 
       return return_value;
@@ -1647,40 +1877,40 @@ class IMU final: public ::EmbeddedProto::MessageInterface
         id_tag = static_cast<FieldNumber>(id_number);
         switch(id_tag)
         {
-          case FieldNumber::ACCELX:
-            return_value = accelx_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::ACCEL_X:
+            return_value = accel_x_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::ACCELY:
-            return_value = accely_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::ACCEL_Y:
+            return_value = accel_y_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::ACCELZ:
-            return_value = accelz_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::ACCEL_Z:
+            return_value = accel_z_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::GYROX:
-            return_value = gyrox_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::GYRO_X:
+            return_value = gyro_x_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::GYROY:
-            return_value = gyroy_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::GYRO_Y:
+            return_value = gyro_y_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::GYROZ:
-            return_value = gyroz_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::GYRO_Z:
+            return_value = gyro_z_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::MAGX:
-            return_value = magx_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::MAG_X:
+            return_value = mag_x_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::MAGY:
-            return_value = magy_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::MAG_Y:
+            return_value = mag_y_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::MAGZ:
-            return_value = magz_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::MAG_Z:
+            return_value = mag_z_.deserialize_check_type(buffer, wire_type);
             break;
 
           case FieldNumber::NOT_SET:
@@ -1712,15 +1942,15 @@ class IMU final: public ::EmbeddedProto::MessageInterface
 
     void clear() override
     {
-      clear_accelx();
-      clear_accely();
-      clear_accelz();
-      clear_gyrox();
-      clear_gyroy();
-      clear_gyroz();
-      clear_magx();
-      clear_magy();
-      clear_magz();
+      clear_accel_x();
+      clear_accel_y();
+      clear_accel_z();
+      clear_gyro_x();
+      clear_gyro_y();
+      clear_gyro_z();
+      clear_mag_x();
+      clear_mag_y();
+      clear_mag_z();
 
     }
 
@@ -1729,32 +1959,32 @@ class IMU final: public ::EmbeddedProto::MessageInterface
       char const* name = nullptr;
       switch(fieldNumber)
       {
-        case FieldNumber::ACCELX:
-          name = ACCELX_NAME;
+        case FieldNumber::ACCEL_X:
+          name = ACCEL_X_NAME;
           break;
-        case FieldNumber::ACCELY:
-          name = ACCELY_NAME;
+        case FieldNumber::ACCEL_Y:
+          name = ACCEL_Y_NAME;
           break;
-        case FieldNumber::ACCELZ:
-          name = ACCELZ_NAME;
+        case FieldNumber::ACCEL_Z:
+          name = ACCEL_Z_NAME;
           break;
-        case FieldNumber::GYROX:
-          name = GYROX_NAME;
+        case FieldNumber::GYRO_X:
+          name = GYRO_X_NAME;
           break;
-        case FieldNumber::GYROY:
-          name = GYROY_NAME;
+        case FieldNumber::GYRO_Y:
+          name = GYRO_Y_NAME;
           break;
-        case FieldNumber::GYROZ:
-          name = GYROZ_NAME;
+        case FieldNumber::GYRO_Z:
+          name = GYRO_Z_NAME;
           break;
-        case FieldNumber::MAGX:
-          name = MAGX_NAME;
+        case FieldNumber::MAG_X:
+          name = MAG_X_NAME;
           break;
-        case FieldNumber::MAGY:
-          name = MAGY_NAME;
+        case FieldNumber::MAG_Y:
+          name = MAG_Y_NAME;
           break;
-        case FieldNumber::MAGZ:
-          name = MAGZ_NAME;
+        case FieldNumber::MAG_Z:
+          name = MAG_Z_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -1816,15 +2046,15 @@ class IMU final: public ::EmbeddedProto::MessageInterface
         left_chars.size -= n_chars_used;
       }
 
-      left_chars = accelx_.to_string(left_chars, indent_level + 2, ACCELX_NAME, true);
-      left_chars = accely_.to_string(left_chars, indent_level + 2, ACCELY_NAME, false);
-      left_chars = accelz_.to_string(left_chars, indent_level + 2, ACCELZ_NAME, false);
-      left_chars = gyrox_.to_string(left_chars, indent_level + 2, GYROX_NAME, false);
-      left_chars = gyroy_.to_string(left_chars, indent_level + 2, GYROY_NAME, false);
-      left_chars = gyroz_.to_string(left_chars, indent_level + 2, GYROZ_NAME, false);
-      left_chars = magx_.to_string(left_chars, indent_level + 2, MAGX_NAME, false);
-      left_chars = magy_.to_string(left_chars, indent_level + 2, MAGY_NAME, false);
-      left_chars = magz_.to_string(left_chars, indent_level + 2, MAGZ_NAME, false);
+      left_chars = accel_x_.to_string(left_chars, indent_level + 2, ACCEL_X_NAME, true);
+      left_chars = accel_y_.to_string(left_chars, indent_level + 2, ACCEL_Y_NAME, false);
+      left_chars = accel_z_.to_string(left_chars, indent_level + 2, ACCEL_Z_NAME, false);
+      left_chars = gyro_x_.to_string(left_chars, indent_level + 2, GYRO_X_NAME, false);
+      left_chars = gyro_y_.to_string(left_chars, indent_level + 2, GYRO_Y_NAME, false);
+      left_chars = gyro_z_.to_string(left_chars, indent_level + 2, GYRO_Z_NAME, false);
+      left_chars = mag_x_.to_string(left_chars, indent_level + 2, MAG_X_NAME, false);
+      left_chars = mag_y_.to_string(left_chars, indent_level + 2, MAG_Y_NAME, false);
+      left_chars = mag_z_.to_string(left_chars, indent_level + 2, MAG_Z_NAME, false);
   
       if( 0 == indent_level) 
       {
@@ -1849,263 +2079,33 @@ class IMU final: public ::EmbeddedProto::MessageInterface
   private:
 
 
-      EmbeddedProto::int32 accelx_ = 0;
-      EmbeddedProto::int32 accely_ = 0;
-      EmbeddedProto::int32 accelz_ = 0;
-      EmbeddedProto::int32 gyrox_ = 0;
-      EmbeddedProto::int32 gyroy_ = 0;
-      EmbeddedProto::int32 gyroz_ = 0;
-      EmbeddedProto::int32 magx_ = 0;
-      EmbeddedProto::int32 magy_ = 0;
-      EmbeddedProto::int32 magz_ = 0;
+      EmbeddedProto::int32 accel_x_ = 0;
+      EmbeddedProto::int32 accel_y_ = 0;
+      EmbeddedProto::int32 accel_z_ = 0;
+      EmbeddedProto::int32 gyro_x_ = 0;
+      EmbeddedProto::int32 gyro_y_ = 0;
+      EmbeddedProto::int32 gyro_z_ = 0;
+      EmbeddedProto::int32 mag_x_ = 0;
+      EmbeddedProto::int32 mag_y_ = 0;
+      EmbeddedProto::int32 mag_z_ = 0;
 
 };
 
-class IRTemperature final: public ::EmbeddedProto::MessageInterface
+class LaunchRailLoadCell final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    IRTemperature() = default;
-    IRTemperature(const IRTemperature& rhs )
-    {
-      set_ambient_temp(rhs.get_ambient_temp());
-      set_object_temp(rhs.get_object_temp());
-    }
-
-    IRTemperature(const IRTemperature&& rhs ) noexcept
-    {
-      set_ambient_temp(rhs.get_ambient_temp());
-      set_object_temp(rhs.get_object_temp());
-    }
-
-    ~IRTemperature() override = default;
-
-    enum class FieldNumber : uint32_t
-    {
-      NOT_SET = 0,
-      AMBIENT_TEMP = 1,
-      OBJECT_TEMP = 2
-    };
-
-    IRTemperature& operator=(const IRTemperature& rhs)
-    {
-      set_ambient_temp(rhs.get_ambient_temp());
-      set_object_temp(rhs.get_object_temp());
-      return *this;
-    }
-
-    IRTemperature& operator=(const IRTemperature&& rhs) noexcept
-    {
-      set_ambient_temp(rhs.get_ambient_temp());
-      set_object_temp(rhs.get_object_temp());
-      return *this;
-    }
-
-    static constexpr char const* AMBIENT_TEMP_NAME = "ambient_temp";
-    inline void clear_ambient_temp() { ambient_temp_.clear(); }
-    inline void set_ambient_temp(const int32_t& value) { ambient_temp_ = value; }
-    inline void set_ambient_temp(const int32_t&& value) { ambient_temp_ = value; }
-    inline int32_t& mutable_ambient_temp() { return ambient_temp_.get(); }
-    inline const int32_t& get_ambient_temp() const { return ambient_temp_.get(); }
-    inline int32_t ambient_temp() const { return ambient_temp_.get(); }
-
-    static constexpr char const* OBJECT_TEMP_NAME = "object_temp";
-    inline void clear_object_temp() { object_temp_.clear(); }
-    inline void set_object_temp(const int32_t& value) { object_temp_ = value; }
-    inline void set_object_temp(const int32_t&& value) { object_temp_ = value; }
-    inline int32_t& mutable_object_temp() { return object_temp_.get(); }
-    inline const int32_t& get_object_temp() const { return object_temp_.get(); }
-    inline int32_t object_temp() const { return object_temp_.get(); }
-
-
-    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
-    {
-      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
-
-      if((0 != ambient_temp_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = ambient_temp_.serialize_with_id(static_cast<uint32_t>(FieldNumber::AMBIENT_TEMP), buffer, false);
-      }
-
-      if((0 != object_temp_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = object_temp_.serialize_with_id(static_cast<uint32_t>(FieldNumber::OBJECT_TEMP), buffer, false);
-      }
-
-      return return_value;
-    };
-
-    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
-    {
-      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
-      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
-      uint32_t id_number = 0;
-      FieldNumber id_tag = FieldNumber::NOT_SET;
-
-      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
-      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
-      {
-        id_tag = static_cast<FieldNumber>(id_number);
-        switch(id_tag)
-        {
-          case FieldNumber::AMBIENT_TEMP:
-            return_value = ambient_temp_.deserialize_check_type(buffer, wire_type);
-            break;
-
-          case FieldNumber::OBJECT_TEMP:
-            return_value = object_temp_.deserialize_check_type(buffer, wire_type);
-            break;
-
-          case FieldNumber::NOT_SET:
-            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
-            break;
-
-          default:
-            return_value = skip_unknown_field(buffer, wire_type);
-            break;
-        }
-
-        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
-        {
-          // Read the next tag.
-          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
-        }
-      }
-
-      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
-      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
-         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
-         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
-      {
-        return_value = tag_value;
-      }
-
-      return return_value;
-    };
-
-    void clear() override
-    {
-      clear_ambient_temp();
-      clear_object_temp();
-
-    }
-
-    static char const* field_number_to_name(const FieldNumber fieldNumber)
-    {
-      char const* name = nullptr;
-      switch(fieldNumber)
-      {
-        case FieldNumber::AMBIENT_TEMP:
-          name = AMBIENT_TEMP_NAME;
-          break;
-        case FieldNumber::OBJECT_TEMP:
-          name = OBJECT_TEMP_NAME;
-          break;
-        default:
-          name = "Invalid FieldNumber";
-          break;
-      }
-      return name;
-    }
-
-#ifdef MSG_TO_STRING
-
-    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
-    {
-      return this->to_string(str, 0, nullptr, true);
-    }
-
-    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
-    {
-      ::EmbeddedProto::string_view left_chars = str;
-      int32_t n_chars_used = 0;
-
-      if(!first_field)
-      {
-        // Add a comma behind the previous field.
-        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
-        if(0 < n_chars_used)
-        {
-          // Update the character pointer and characters left in the array.
-          left_chars.data += n_chars_used;
-          left_chars.size -= n_chars_used;
-        }
-      }
-
-      if(nullptr != name)
-      {
-        if( 0 == indent_level)
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
-        }
-        else
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
-        }
-      }
-      else
-      {
-        if( 0 == indent_level)
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
-        }
-        else
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
-        }
-      }
-      
-      if(0 < n_chars_used)
-      {
-        left_chars.data += n_chars_used;
-        left_chars.size -= n_chars_used;
-      }
-
-      left_chars = ambient_temp_.to_string(left_chars, indent_level + 2, AMBIENT_TEMP_NAME, true);
-      left_chars = object_temp_.to_string(left_chars, indent_level + 2, OBJECT_TEMP_NAME, false);
-  
-      if( 0 == indent_level) 
-      {
-        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
-      }
-      else 
-      {
-        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
-      }
-
-      if(0 < n_chars_used)
-      {
-        left_chars.data += n_chars_used;
-        left_chars.size -= n_chars_used;
-      }
-
-      return left_chars;
-    }
-
-#endif // End of MSG_TO_STRING
-
-  private:
-
-
-      EmbeddedProto::int32 ambient_temp_ = 0;
-      EmbeddedProto::int32 object_temp_ = 0;
-
-};
-
-class LRLoadCell final: public ::EmbeddedProto::MessageInterface
-{
-  public:
-    LRLoadCell() = default;
-    LRLoadCell(const LRLoadCell& rhs )
+    LaunchRailLoadCell() = default;
+    LaunchRailLoadCell(const LaunchRailLoadCell& rhs )
     {
       set_rocket_mass(rhs.get_rocket_mass());
     }
 
-    LRLoadCell(const LRLoadCell&& rhs ) noexcept
+    LaunchRailLoadCell(const LaunchRailLoadCell&& rhs ) noexcept
     {
       set_rocket_mass(rhs.get_rocket_mass());
     }
 
-    ~LRLoadCell() override = default;
+    ~LaunchRailLoadCell() override = default;
 
     enum class FieldNumber : uint32_t
     {
@@ -2113,13 +2113,13 @@ class LRLoadCell final: public ::EmbeddedProto::MessageInterface
       ROCKET_MASS = 1
     };
 
-    LRLoadCell& operator=(const LRLoadCell& rhs)
+    LaunchRailLoadCell& operator=(const LaunchRailLoadCell& rhs)
     {
       set_rocket_mass(rhs.get_rocket_mass());
       return *this;
     }
 
-    LRLoadCell& operator=(const LRLoadCell&& rhs) noexcept
+    LaunchRailLoadCell& operator=(const LaunchRailLoadCell&& rhs) noexcept
     {
       set_rocket_mass(rhs.get_rocket_mass());
       return *this;
@@ -2293,455 +2293,23 @@ class LRLoadCell final: public ::EmbeddedProto::MessageInterface
 
 };
 
-class LatLong final: public ::EmbeddedProto::MessageInterface
+class NosLoadCell final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    LatLong() = default;
-    LatLong(const LatLong& rhs )
-    {
-      set_degrees(rhs.get_degrees());
-      set_minutes(rhs.get_minutes());
-    }
-
-    LatLong(const LatLong&& rhs ) noexcept
-    {
-      set_degrees(rhs.get_degrees());
-      set_minutes(rhs.get_minutes());
-    }
-
-    ~LatLong() override = default;
-
-    enum class FieldNumber : uint32_t
-    {
-      NOT_SET = 0,
-      DEGREES = 1,
-      MINUTES = 2
-    };
-
-    LatLong& operator=(const LatLong& rhs)
-    {
-      set_degrees(rhs.get_degrees());
-      set_minutes(rhs.get_minutes());
-      return *this;
-    }
-
-    LatLong& operator=(const LatLong&& rhs) noexcept
-    {
-      set_degrees(rhs.get_degrees());
-      set_minutes(rhs.get_minutes());
-      return *this;
-    }
-
-    static constexpr char const* DEGREES_NAME = "degrees";
-    inline void clear_degrees() { degrees_.clear(); }
-    inline void set_degrees(const int32_t& value) { degrees_ = value; }
-    inline void set_degrees(const int32_t&& value) { degrees_ = value; }
-    inline int32_t& mutable_degrees() { return degrees_.get(); }
-    inline const int32_t& get_degrees() const { return degrees_.get(); }
-    inline int32_t degrees() const { return degrees_.get(); }
-
-    static constexpr char const* MINUTES_NAME = "minutes";
-    inline void clear_minutes() { minutes_.clear(); }
-    inline void set_minutes(const int32_t& value) { minutes_ = value; }
-    inline void set_minutes(const int32_t&& value) { minutes_ = value; }
-    inline int32_t& mutable_minutes() { return minutes_.get(); }
-    inline const int32_t& get_minutes() const { return minutes_.get(); }
-    inline int32_t minutes() const { return minutes_.get(); }
-
-
-    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
-    {
-      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
-
-      if((0 != degrees_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = degrees_.serialize_with_id(static_cast<uint32_t>(FieldNumber::DEGREES), buffer, false);
-      }
-
-      if((0 != minutes_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = minutes_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MINUTES), buffer, false);
-      }
-
-      return return_value;
-    };
-
-    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
-    {
-      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
-      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
-      uint32_t id_number = 0;
-      FieldNumber id_tag = FieldNumber::NOT_SET;
-
-      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
-      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
-      {
-        id_tag = static_cast<FieldNumber>(id_number);
-        switch(id_tag)
-        {
-          case FieldNumber::DEGREES:
-            return_value = degrees_.deserialize_check_type(buffer, wire_type);
-            break;
-
-          case FieldNumber::MINUTES:
-            return_value = minutes_.deserialize_check_type(buffer, wire_type);
-            break;
-
-          case FieldNumber::NOT_SET:
-            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
-            break;
-
-          default:
-            return_value = skip_unknown_field(buffer, wire_type);
-            break;
-        }
-
-        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
-        {
-          // Read the next tag.
-          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
-        }
-      }
-
-      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
-      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
-         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
-         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
-      {
-        return_value = tag_value;
-      }
-
-      return return_value;
-    };
-
-    void clear() override
-    {
-      clear_degrees();
-      clear_minutes();
-
-    }
-
-    static char const* field_number_to_name(const FieldNumber fieldNumber)
-    {
-      char const* name = nullptr;
-      switch(fieldNumber)
-      {
-        case FieldNumber::DEGREES:
-          name = DEGREES_NAME;
-          break;
-        case FieldNumber::MINUTES:
-          name = MINUTES_NAME;
-          break;
-        default:
-          name = "Invalid FieldNumber";
-          break;
-      }
-      return name;
-    }
-
-#ifdef MSG_TO_STRING
-
-    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
-    {
-      return this->to_string(str, 0, nullptr, true);
-    }
-
-    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
-    {
-      ::EmbeddedProto::string_view left_chars = str;
-      int32_t n_chars_used = 0;
-
-      if(!first_field)
-      {
-        // Add a comma behind the previous field.
-        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
-        if(0 < n_chars_used)
-        {
-          // Update the character pointer and characters left in the array.
-          left_chars.data += n_chars_used;
-          left_chars.size -= n_chars_used;
-        }
-      }
-
-      if(nullptr != name)
-      {
-        if( 0 == indent_level)
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
-        }
-        else
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
-        }
-      }
-      else
-      {
-        if( 0 == indent_level)
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
-        }
-        else
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
-        }
-      }
-      
-      if(0 < n_chars_used)
-      {
-        left_chars.data += n_chars_used;
-        left_chars.size -= n_chars_used;
-      }
-
-      left_chars = degrees_.to_string(left_chars, indent_level + 2, DEGREES_NAME, true);
-      left_chars = minutes_.to_string(left_chars, indent_level + 2, MINUTES_NAME, false);
-  
-      if( 0 == indent_level) 
-      {
-        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
-      }
-      else 
-      {
-        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
-      }
-
-      if(0 < n_chars_used)
-      {
-        left_chars.data += n_chars_used;
-        left_chars.size -= n_chars_used;
-      }
-
-      return left_chars;
-    }
-
-#endif // End of MSG_TO_STRING
-
-  private:
-
-
-      EmbeddedProto::int32 degrees_ = 0;
-      EmbeddedProto::int32 minutes_ = 0;
-
-};
-
-class MEVState final: public ::EmbeddedProto::MessageInterface
-{
-  public:
-    MEVState() = default;
-    MEVState(const MEVState& rhs )
-    {
-      set_mev_open(rhs.get_mev_open());
-    }
-
-    MEVState(const MEVState&& rhs ) noexcept
-    {
-      set_mev_open(rhs.get_mev_open());
-    }
-
-    ~MEVState() override = default;
-
-    enum class FieldNumber : uint32_t
-    {
-      NOT_SET = 0,
-      MEV_OPEN = 1
-    };
-
-    MEVState& operator=(const MEVState& rhs)
-    {
-      set_mev_open(rhs.get_mev_open());
-      return *this;
-    }
-
-    MEVState& operator=(const MEVState&& rhs) noexcept
-    {
-      set_mev_open(rhs.get_mev_open());
-      return *this;
-    }
-
-    static constexpr char const* MEV_OPEN_NAME = "mev_open";
-    inline void clear_mev_open() { mev_open_.clear(); }
-    inline void set_mev_open(const bool& value) { mev_open_ = value; }
-    inline void set_mev_open(const bool&& value) { mev_open_ = value; }
-    inline bool& mutable_mev_open() { return mev_open_.get(); }
-    inline const bool& get_mev_open() const { return mev_open_.get(); }
-    inline bool mev_open() const { return mev_open_.get(); }
-
-
-    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
-    {
-      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
-
-      if((false != mev_open_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = mev_open_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MEV_OPEN), buffer, false);
-      }
-
-      return return_value;
-    };
-
-    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
-    {
-      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
-      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
-      uint32_t id_number = 0;
-      FieldNumber id_tag = FieldNumber::NOT_SET;
-
-      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
-      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
-      {
-        id_tag = static_cast<FieldNumber>(id_number);
-        switch(id_tag)
-        {
-          case FieldNumber::MEV_OPEN:
-            return_value = mev_open_.deserialize_check_type(buffer, wire_type);
-            break;
-
-          case FieldNumber::NOT_SET:
-            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
-            break;
-
-          default:
-            return_value = skip_unknown_field(buffer, wire_type);
-            break;
-        }
-
-        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
-        {
-          // Read the next tag.
-          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
-        }
-      }
-
-      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
-      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
-         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
-         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
-      {
-        return_value = tag_value;
-      }
-
-      return return_value;
-    };
-
-    void clear() override
-    {
-      clear_mev_open();
-
-    }
-
-    static char const* field_number_to_name(const FieldNumber fieldNumber)
-    {
-      char const* name = nullptr;
-      switch(fieldNumber)
-      {
-        case FieldNumber::MEV_OPEN:
-          name = MEV_OPEN_NAME;
-          break;
-        default:
-          name = "Invalid FieldNumber";
-          break;
-      }
-      return name;
-    }
-
-#ifdef MSG_TO_STRING
-
-    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
-    {
-      return this->to_string(str, 0, nullptr, true);
-    }
-
-    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
-    {
-      ::EmbeddedProto::string_view left_chars = str;
-      int32_t n_chars_used = 0;
-
-      if(!first_field)
-      {
-        // Add a comma behind the previous field.
-        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
-        if(0 < n_chars_used)
-        {
-          // Update the character pointer and characters left in the array.
-          left_chars.data += n_chars_used;
-          left_chars.size -= n_chars_used;
-        }
-      }
-
-      if(nullptr != name)
-      {
-        if( 0 == indent_level)
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
-        }
-        else
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
-        }
-      }
-      else
-      {
-        if( 0 == indent_level)
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
-        }
-        else
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
-        }
-      }
-      
-      if(0 < n_chars_used)
-      {
-        left_chars.data += n_chars_used;
-        left_chars.size -= n_chars_used;
-      }
-
-      left_chars = mev_open_.to_string(left_chars, indent_level + 2, MEV_OPEN_NAME, true);
-  
-      if( 0 == indent_level) 
-      {
-        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
-      }
-      else 
-      {
-        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
-      }
-
-      if(0 < n_chars_used)
-      {
-        left_chars.data += n_chars_used;
-        left_chars.size -= n_chars_used;
-      }
-
-      return left_chars;
-    }
-
-#endif // End of MSG_TO_STRING
-
-  private:
-
-
-      EmbeddedProto::boolean mev_open_ = false;
-
-};
-
-class NOSLoadCell final: public ::EmbeddedProto::MessageInterface
-{
-  public:
-    NOSLoadCell() = default;
-    NOSLoadCell(const NOSLoadCell& rhs )
+    NosLoadCell() = default;
+    NosLoadCell(const NosLoadCell& rhs )
     {
       set_nos1_mass(rhs.get_nos1_mass());
       set_nos2_mass(rhs.get_nos2_mass());
     }
 
-    NOSLoadCell(const NOSLoadCell&& rhs ) noexcept
+    NosLoadCell(const NosLoadCell&& rhs ) noexcept
     {
       set_nos1_mass(rhs.get_nos1_mass());
       set_nos2_mass(rhs.get_nos2_mass());
     }
 
-    ~NOSLoadCell() override = default;
+    ~NosLoadCell() override = default;
 
     enum class FieldNumber : uint32_t
     {
@@ -2750,14 +2318,14 @@ class NOSLoadCell final: public ::EmbeddedProto::MessageInterface
       NOS2_MASS = 2
     };
 
-    NOSLoadCell& operator=(const NOSLoadCell& rhs)
+    NosLoadCell& operator=(const NosLoadCell& rhs)
     {
       set_nos1_mass(rhs.get_nos1_mass());
       set_nos2_mass(rhs.get_nos2_mass());
       return *this;
     }
 
-    NOSLoadCell& operator=(const NOSLoadCell&& rhs) noexcept
+    NosLoadCell& operator=(const NosLoadCell&& rhs) noexcept
     {
       set_nos1_mass(rhs.get_nos1_mass());
       set_nos2_mass(rhs.get_nos2_mass());
@@ -2955,23 +2523,309 @@ class NOSLoadCell final: public ::EmbeddedProto::MessageInterface
 
 };
 
-class PBBPressure final: public ::EmbeddedProto::MessageInterface
+class PadBoxStatus final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    PBBPressure() = default;
-    PBBPressure(const PBBPressure& rhs )
+    PadBoxStatus() = default;
+    PadBoxStatus(const PadBoxStatus& rhs )
+    {
+      set_continuity_1(rhs.get_continuity_1());
+      set_continuity_2(rhs.get_continuity_2());
+      set_box1_on(rhs.get_box1_on());
+      set_box2_on(rhs.get_box2_on());
+    }
+
+    PadBoxStatus(const PadBoxStatus&& rhs ) noexcept
+    {
+      set_continuity_1(rhs.get_continuity_1());
+      set_continuity_2(rhs.get_continuity_2());
+      set_box1_on(rhs.get_box1_on());
+      set_box2_on(rhs.get_box2_on());
+    }
+
+    ~PadBoxStatus() override = default;
+
+    enum class FieldNumber : uint32_t
+    {
+      NOT_SET = 0,
+      CONTINUITY_1 = 1,
+      CONTINUITY_2 = 2,
+      BOX1_ON = 3,
+      BOX2_ON = 4
+    };
+
+    PadBoxStatus& operator=(const PadBoxStatus& rhs)
+    {
+      set_continuity_1(rhs.get_continuity_1());
+      set_continuity_2(rhs.get_continuity_2());
+      set_box1_on(rhs.get_box1_on());
+      set_box2_on(rhs.get_box2_on());
+      return *this;
+    }
+
+    PadBoxStatus& operator=(const PadBoxStatus&& rhs) noexcept
+    {
+      set_continuity_1(rhs.get_continuity_1());
+      set_continuity_2(rhs.get_continuity_2());
+      set_box1_on(rhs.get_box1_on());
+      set_box2_on(rhs.get_box2_on());
+      return *this;
+    }
+
+    static constexpr char const* CONTINUITY_1_NAME = "continuity_1";
+    inline void clear_continuity_1() { continuity_1_.clear(); }
+    inline void set_continuity_1(const bool& value) { continuity_1_ = value; }
+    inline void set_continuity_1(const bool&& value) { continuity_1_ = value; }
+    inline bool& mutable_continuity_1() { return continuity_1_.get(); }
+    inline const bool& get_continuity_1() const { return continuity_1_.get(); }
+    inline bool continuity_1() const { return continuity_1_.get(); }
+
+    static constexpr char const* CONTINUITY_2_NAME = "continuity_2";
+    inline void clear_continuity_2() { continuity_2_.clear(); }
+    inline void set_continuity_2(const bool& value) { continuity_2_ = value; }
+    inline void set_continuity_2(const bool&& value) { continuity_2_ = value; }
+    inline bool& mutable_continuity_2() { return continuity_2_.get(); }
+    inline const bool& get_continuity_2() const { return continuity_2_.get(); }
+    inline bool continuity_2() const { return continuity_2_.get(); }
+
+    static constexpr char const* BOX1_ON_NAME = "box1_on";
+    inline void clear_box1_on() { box1_on_.clear(); }
+    inline void set_box1_on(const bool& value) { box1_on_ = value; }
+    inline void set_box1_on(const bool&& value) { box1_on_ = value; }
+    inline bool& mutable_box1_on() { return box1_on_.get(); }
+    inline const bool& get_box1_on() const { return box1_on_.get(); }
+    inline bool box1_on() const { return box1_on_.get(); }
+
+    static constexpr char const* BOX2_ON_NAME = "box2_on";
+    inline void clear_box2_on() { box2_on_.clear(); }
+    inline void set_box2_on(const bool& value) { box2_on_ = value; }
+    inline void set_box2_on(const bool&& value) { box2_on_ = value; }
+    inline bool& mutable_box2_on() { return box2_on_.get(); }
+    inline const bool& get_box2_on() const { return box2_on_.get(); }
+    inline bool box2_on() const { return box2_on_.get(); }
+
+
+    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+
+      if((false != continuity_1_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = continuity_1_.serialize_with_id(static_cast<uint32_t>(FieldNumber::CONTINUITY_1), buffer, false);
+      }
+
+      if((false != continuity_2_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = continuity_2_.serialize_with_id(static_cast<uint32_t>(FieldNumber::CONTINUITY_2), buffer, false);
+      }
+
+      if((false != box1_on_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = box1_on_.serialize_with_id(static_cast<uint32_t>(FieldNumber::BOX1_ON), buffer, false);
+      }
+
+      if((false != box2_on_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = box2_on_.serialize_with_id(static_cast<uint32_t>(FieldNumber::BOX2_ON), buffer, false);
+      }
+
+      return return_value;
+    };
+
+    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
+      uint32_t id_number = 0;
+      FieldNumber id_tag = FieldNumber::NOT_SET;
+
+      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
+      {
+        id_tag = static_cast<FieldNumber>(id_number);
+        switch(id_tag)
+        {
+          case FieldNumber::CONTINUITY_1:
+            return_value = continuity_1_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::CONTINUITY_2:
+            return_value = continuity_2_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::BOX1_ON:
+            return_value = box1_on_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::BOX2_ON:
+            return_value = box2_on_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::NOT_SET:
+            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
+            break;
+
+          default:
+            return_value = skip_unknown_field(buffer, wire_type);
+            break;
+        }
+
+        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+        {
+          // Read the next tag.
+          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+        }
+      }
+
+      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
+      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
+         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
+         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
+      {
+        return_value = tag_value;
+      }
+
+      return return_value;
+    };
+
+    void clear() override
+    {
+      clear_continuity_1();
+      clear_continuity_2();
+      clear_box1_on();
+      clear_box2_on();
+
+    }
+
+    static char const* field_number_to_name(const FieldNumber fieldNumber)
+    {
+      char const* name = nullptr;
+      switch(fieldNumber)
+      {
+        case FieldNumber::CONTINUITY_1:
+          name = CONTINUITY_1_NAME;
+          break;
+        case FieldNumber::CONTINUITY_2:
+          name = CONTINUITY_2_NAME;
+          break;
+        case FieldNumber::BOX1_ON:
+          name = BOX1_ON_NAME;
+          break;
+        case FieldNumber::BOX2_ON:
+          name = BOX2_ON_NAME;
+          break;
+        default:
+          name = "Invalid FieldNumber";
+          break;
+      }
+      return name;
+    }
+
+#ifdef MSG_TO_STRING
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
+    {
+      return this->to_string(str, 0, nullptr, true);
+    }
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
+    {
+      ::EmbeddedProto::string_view left_chars = str;
+      int32_t n_chars_used = 0;
+
+      if(!first_field)
+      {
+        // Add a comma behind the previous field.
+        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
+        if(0 < n_chars_used)
+        {
+          // Update the character pointer and characters left in the array.
+          left_chars.data += n_chars_used;
+          left_chars.size -= n_chars_used;
+        }
+      }
+
+      if(nullptr != name)
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
+        }
+      }
+      else
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
+        }
+      }
+      
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      left_chars = continuity_1_.to_string(left_chars, indent_level + 2, CONTINUITY_1_NAME, true);
+      left_chars = continuity_2_.to_string(left_chars, indent_level + 2, CONTINUITY_2_NAME, false);
+      left_chars = box1_on_.to_string(left_chars, indent_level + 2, BOX1_ON_NAME, false);
+      left_chars = box2_on_.to_string(left_chars, indent_level + 2, BOX2_ON_NAME, false);
+  
+      if( 0 == indent_level) 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
+      }
+      else 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
+      }
+
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      return left_chars;
+    }
+
+#endif // End of MSG_TO_STRING
+
+  private:
+
+
+      EmbeddedProto::boolean continuity_1_ = false;
+      EmbeddedProto::boolean continuity_2_ = false;
+      EmbeddedProto::boolean box1_on_ = false;
+      EmbeddedProto::boolean box2_on_ = false;
+
+};
+
+class PbbPressure final: public ::EmbeddedProto::MessageInterface
+{
+  public:
+    PbbPressure() = default;
+    PbbPressure(const PbbPressure& rhs )
     {
       set_ib_pressure(rhs.get_ib_pressure());
       set_lower_pv_pressure(rhs.get_lower_pv_pressure());
     }
 
-    PBBPressure(const PBBPressure&& rhs ) noexcept
+    PbbPressure(const PbbPressure&& rhs ) noexcept
     {
       set_ib_pressure(rhs.get_ib_pressure());
       set_lower_pv_pressure(rhs.get_lower_pv_pressure());
     }
 
-    ~PBBPressure() override = default;
+    ~PbbPressure() override = default;
 
     enum class FieldNumber : uint32_t
     {
@@ -2980,14 +2834,14 @@ class PBBPressure final: public ::EmbeddedProto::MessageInterface
       LOWER_PV_PRESSURE = 2
     };
 
-    PBBPressure& operator=(const PBBPressure& rhs)
+    PbbPressure& operator=(const PbbPressure& rhs)
     {
       set_ib_pressure(rhs.get_ib_pressure());
       set_lower_pv_pressure(rhs.get_lower_pv_pressure());
       return *this;
     }
 
-    PBBPressure& operator=(const PBBPressure&& rhs) noexcept
+    PbbPressure& operator=(const PbbPressure&& rhs) noexcept
     {
       set_ib_pressure(rhs.get_ib_pressure());
       set_lower_pv_pressure(rhs.get_lower_pv_pressure());
@@ -3185,23 +3039,23 @@ class PBBPressure final: public ::EmbeddedProto::MessageInterface
 
 };
 
-class PBBTemp final: public ::EmbeddedProto::MessageInterface
+class PbbTemperature final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    PBBTemp() = default;
-    PBBTemp(const PBBTemp& rhs )
+    PbbTemperature() = default;
+    PbbTemperature(const PbbTemperature& rhs )
     {
       set_ib_temperature(rhs.get_ib_temperature());
       set_pv_temperature(rhs.get_pv_temperature());
     }
 
-    PBBTemp(const PBBTemp&& rhs ) noexcept
+    PbbTemperature(const PbbTemperature&& rhs ) noexcept
     {
       set_ib_temperature(rhs.get_ib_temperature());
       set_pv_temperature(rhs.get_pv_temperature());
     }
 
-    ~PBBTemp() override = default;
+    ~PbbTemperature() override = default;
 
     enum class FieldNumber : uint32_t
     {
@@ -3210,14 +3064,14 @@ class PBBTemp final: public ::EmbeddedProto::MessageInterface
       PV_TEMPERATURE = 2
     };
 
-    PBBTemp& operator=(const PBBTemp& rhs)
+    PbbTemperature& operator=(const PbbTemperature& rhs)
     {
       set_ib_temperature(rhs.get_ib_temperature());
       set_pv_temperature(rhs.get_pv_temperature());
       return *this;
     }
 
-    PBBTemp& operator=(const PBBTemp&& rhs) noexcept
+    PbbTemperature& operator=(const PbbTemperature&& rhs) noexcept
     {
       set_ib_temperature(rhs.get_ib_temperature());
       set_pv_temperature(rhs.get_pv_temperature());
@@ -3415,297 +3269,11 @@ class PBBTemp final: public ::EmbeddedProto::MessageInterface
 
 };
 
-class PadBoxStatus final: public ::EmbeddedProto::MessageInterface
+class RcuPressure final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    PadBoxStatus() = default;
-    PadBoxStatus(const PadBoxStatus& rhs )
-    {
-      set_cont1(rhs.get_cont1());
-      set_cont2(rhs.get_cont2());
-      set_box1_on(rhs.get_box1_on());
-      set_box2_on(rhs.get_box2_on());
-    }
-
-    PadBoxStatus(const PadBoxStatus&& rhs ) noexcept
-    {
-      set_cont1(rhs.get_cont1());
-      set_cont2(rhs.get_cont2());
-      set_box1_on(rhs.get_box1_on());
-      set_box2_on(rhs.get_box2_on());
-    }
-
-    ~PadBoxStatus() override = default;
-
-    enum class FieldNumber : uint32_t
-    {
-      NOT_SET = 0,
-      CONT1 = 1,
-      CONT2 = 2,
-      BOX1_ON = 3,
-      BOX2_ON = 4
-    };
-
-    PadBoxStatus& operator=(const PadBoxStatus& rhs)
-    {
-      set_cont1(rhs.get_cont1());
-      set_cont2(rhs.get_cont2());
-      set_box1_on(rhs.get_box1_on());
-      set_box2_on(rhs.get_box2_on());
-      return *this;
-    }
-
-    PadBoxStatus& operator=(const PadBoxStatus&& rhs) noexcept
-    {
-      set_cont1(rhs.get_cont1());
-      set_cont2(rhs.get_cont2());
-      set_box1_on(rhs.get_box1_on());
-      set_box2_on(rhs.get_box2_on());
-      return *this;
-    }
-
-    static constexpr char const* CONT1_NAME = "cont1";
-    inline void clear_cont1() { cont1_.clear(); }
-    inline void set_cont1(const bool& value) { cont1_ = value; }
-    inline void set_cont1(const bool&& value) { cont1_ = value; }
-    inline bool& mutable_cont1() { return cont1_.get(); }
-    inline const bool& get_cont1() const { return cont1_.get(); }
-    inline bool cont1() const { return cont1_.get(); }
-
-    static constexpr char const* CONT2_NAME = "cont2";
-    inline void clear_cont2() { cont2_.clear(); }
-    inline void set_cont2(const bool& value) { cont2_ = value; }
-    inline void set_cont2(const bool&& value) { cont2_ = value; }
-    inline bool& mutable_cont2() { return cont2_.get(); }
-    inline const bool& get_cont2() const { return cont2_.get(); }
-    inline bool cont2() const { return cont2_.get(); }
-
-    static constexpr char const* BOX1_ON_NAME = "box1_on";
-    inline void clear_box1_on() { box1_on_.clear(); }
-    inline void set_box1_on(const bool& value) { box1_on_ = value; }
-    inline void set_box1_on(const bool&& value) { box1_on_ = value; }
-    inline bool& mutable_box1_on() { return box1_on_.get(); }
-    inline const bool& get_box1_on() const { return box1_on_.get(); }
-    inline bool box1_on() const { return box1_on_.get(); }
-
-    static constexpr char const* BOX2_ON_NAME = "box2_on";
-    inline void clear_box2_on() { box2_on_.clear(); }
-    inline void set_box2_on(const bool& value) { box2_on_ = value; }
-    inline void set_box2_on(const bool&& value) { box2_on_ = value; }
-    inline bool& mutable_box2_on() { return box2_on_.get(); }
-    inline const bool& get_box2_on() const { return box2_on_.get(); }
-    inline bool box2_on() const { return box2_on_.get(); }
-
-
-    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
-    {
-      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
-
-      if((false != cont1_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = cont1_.serialize_with_id(static_cast<uint32_t>(FieldNumber::CONT1), buffer, false);
-      }
-
-      if((false != cont2_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = cont2_.serialize_with_id(static_cast<uint32_t>(FieldNumber::CONT2), buffer, false);
-      }
-
-      if((false != box1_on_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = box1_on_.serialize_with_id(static_cast<uint32_t>(FieldNumber::BOX1_ON), buffer, false);
-      }
-
-      if((false != box2_on_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = box2_on_.serialize_with_id(static_cast<uint32_t>(FieldNumber::BOX2_ON), buffer, false);
-      }
-
-      return return_value;
-    };
-
-    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
-    {
-      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
-      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
-      uint32_t id_number = 0;
-      FieldNumber id_tag = FieldNumber::NOT_SET;
-
-      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
-      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
-      {
-        id_tag = static_cast<FieldNumber>(id_number);
-        switch(id_tag)
-        {
-          case FieldNumber::CONT1:
-            return_value = cont1_.deserialize_check_type(buffer, wire_type);
-            break;
-
-          case FieldNumber::CONT2:
-            return_value = cont2_.deserialize_check_type(buffer, wire_type);
-            break;
-
-          case FieldNumber::BOX1_ON:
-            return_value = box1_on_.deserialize_check_type(buffer, wire_type);
-            break;
-
-          case FieldNumber::BOX2_ON:
-            return_value = box2_on_.deserialize_check_type(buffer, wire_type);
-            break;
-
-          case FieldNumber::NOT_SET:
-            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
-            break;
-
-          default:
-            return_value = skip_unknown_field(buffer, wire_type);
-            break;
-        }
-
-        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
-        {
-          // Read the next tag.
-          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
-        }
-      }
-
-      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
-      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
-         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
-         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
-      {
-        return_value = tag_value;
-      }
-
-      return return_value;
-    };
-
-    void clear() override
-    {
-      clear_cont1();
-      clear_cont2();
-      clear_box1_on();
-      clear_box2_on();
-
-    }
-
-    static char const* field_number_to_name(const FieldNumber fieldNumber)
-    {
-      char const* name = nullptr;
-      switch(fieldNumber)
-      {
-        case FieldNumber::CONT1:
-          name = CONT1_NAME;
-          break;
-        case FieldNumber::CONT2:
-          name = CONT2_NAME;
-          break;
-        case FieldNumber::BOX1_ON:
-          name = BOX1_ON_NAME;
-          break;
-        case FieldNumber::BOX2_ON:
-          name = BOX2_ON_NAME;
-          break;
-        default:
-          name = "Invalid FieldNumber";
-          break;
-      }
-      return name;
-    }
-
-#ifdef MSG_TO_STRING
-
-    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
-    {
-      return this->to_string(str, 0, nullptr, true);
-    }
-
-    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
-    {
-      ::EmbeddedProto::string_view left_chars = str;
-      int32_t n_chars_used = 0;
-
-      if(!first_field)
-      {
-        // Add a comma behind the previous field.
-        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
-        if(0 < n_chars_used)
-        {
-          // Update the character pointer and characters left in the array.
-          left_chars.data += n_chars_used;
-          left_chars.size -= n_chars_used;
-        }
-      }
-
-      if(nullptr != name)
-      {
-        if( 0 == indent_level)
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
-        }
-        else
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
-        }
-      }
-      else
-      {
-        if( 0 == indent_level)
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
-        }
-        else
-        {
-          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
-        }
-      }
-      
-      if(0 < n_chars_used)
-      {
-        left_chars.data += n_chars_used;
-        left_chars.size -= n_chars_used;
-      }
-
-      left_chars = cont1_.to_string(left_chars, indent_level + 2, CONT1_NAME, true);
-      left_chars = cont2_.to_string(left_chars, indent_level + 2, CONT2_NAME, false);
-      left_chars = box1_on_.to_string(left_chars, indent_level + 2, BOX1_ON_NAME, false);
-      left_chars = box2_on_.to_string(left_chars, indent_level + 2, BOX2_ON_NAME, false);
-  
-      if( 0 == indent_level) 
-      {
-        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
-      }
-      else 
-      {
-        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
-      }
-
-      if(0 < n_chars_used)
-      {
-        left_chars.data += n_chars_used;
-        left_chars.size -= n_chars_used;
-      }
-
-      return left_chars;
-    }
-
-#endif // End of MSG_TO_STRING
-
-  private:
-
-
-      EmbeddedProto::boolean cont1_ = false;
-      EmbeddedProto::boolean cont2_ = false;
-      EmbeddedProto::boolean box1_on_ = false;
-      EmbeddedProto::boolean box2_on_ = false;
-
-};
-
-class RCUPressure final: public ::EmbeddedProto::MessageInterface
-{
-  public:
-    RCUPressure() = default;
-    RCUPressure(const RCUPressure& rhs )
+    RcuPressure() = default;
+    RcuPressure(const RcuPressure& rhs )
     {
       set_pt1_pressure(rhs.get_pt1_pressure());
       set_pt2_pressure(rhs.get_pt2_pressure());
@@ -3713,7 +3281,7 @@ class RCUPressure final: public ::EmbeddedProto::MessageInterface
       set_pt4_pressure(rhs.get_pt4_pressure());
     }
 
-    RCUPressure(const RCUPressure&& rhs ) noexcept
+    RcuPressure(const RcuPressure&& rhs ) noexcept
     {
       set_pt1_pressure(rhs.get_pt1_pressure());
       set_pt2_pressure(rhs.get_pt2_pressure());
@@ -3721,7 +3289,7 @@ class RCUPressure final: public ::EmbeddedProto::MessageInterface
       set_pt4_pressure(rhs.get_pt4_pressure());
     }
 
-    ~RCUPressure() override = default;
+    ~RcuPressure() override = default;
 
     enum class FieldNumber : uint32_t
     {
@@ -3732,7 +3300,7 @@ class RCUPressure final: public ::EmbeddedProto::MessageInterface
       PT4_PRESSURE = 4
     };
 
-    RCUPressure& operator=(const RCUPressure& rhs)
+    RcuPressure& operator=(const RcuPressure& rhs)
     {
       set_pt1_pressure(rhs.get_pt1_pressure());
       set_pt2_pressure(rhs.get_pt2_pressure());
@@ -3741,7 +3309,7 @@ class RCUPressure final: public ::EmbeddedProto::MessageInterface
       return *this;
     }
 
-    RCUPressure& operator=(const RCUPressure&& rhs) noexcept
+    RcuPressure& operator=(const RcuPressure&& rhs) noexcept
     {
       set_pt1_pressure(rhs.get_pt1_pressure());
       set_pt2_pressure(rhs.get_pt2_pressure());
@@ -3987,74 +3555,74 @@ class RCUPressure final: public ::EmbeddedProto::MessageInterface
 
 };
 
-class RCUTemp final: public ::EmbeddedProto::MessageInterface
+class RcuTemperature final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    RCUTemp() = default;
-    RCUTemp(const RCUTemp& rhs )
+    RcuTemperature() = default;
+    RcuTemperature(const RcuTemperature& rhs )
     {
-      set_tc1_temp(rhs.get_tc1_temp());
-      set_tc2_temp(rhs.get_tc2_temp());
+      set_tc1_temperature(rhs.get_tc1_temperature());
+      set_tc2_temperature(rhs.get_tc2_temperature());
     }
 
-    RCUTemp(const RCUTemp&& rhs ) noexcept
+    RcuTemperature(const RcuTemperature&& rhs ) noexcept
     {
-      set_tc1_temp(rhs.get_tc1_temp());
-      set_tc2_temp(rhs.get_tc2_temp());
+      set_tc1_temperature(rhs.get_tc1_temperature());
+      set_tc2_temperature(rhs.get_tc2_temperature());
     }
 
-    ~RCUTemp() override = default;
+    ~RcuTemperature() override = default;
 
     enum class FieldNumber : uint32_t
     {
       NOT_SET = 0,
-      TC1_TEMP = 1,
-      TC2_TEMP = 2
+      TC1_TEMPERATURE = 1,
+      TC2_TEMPERATURE = 2
     };
 
-    RCUTemp& operator=(const RCUTemp& rhs)
+    RcuTemperature& operator=(const RcuTemperature& rhs)
     {
-      set_tc1_temp(rhs.get_tc1_temp());
-      set_tc2_temp(rhs.get_tc2_temp());
+      set_tc1_temperature(rhs.get_tc1_temperature());
+      set_tc2_temperature(rhs.get_tc2_temperature());
       return *this;
     }
 
-    RCUTemp& operator=(const RCUTemp&& rhs) noexcept
+    RcuTemperature& operator=(const RcuTemperature&& rhs) noexcept
     {
-      set_tc1_temp(rhs.get_tc1_temp());
-      set_tc2_temp(rhs.get_tc2_temp());
+      set_tc1_temperature(rhs.get_tc1_temperature());
+      set_tc2_temperature(rhs.get_tc2_temperature());
       return *this;
     }
 
-    static constexpr char const* TC1_TEMP_NAME = "tc1_temp";
-    inline void clear_tc1_temp() { tc1_temp_.clear(); }
-    inline void set_tc1_temp(const int32_t& value) { tc1_temp_ = value; }
-    inline void set_tc1_temp(const int32_t&& value) { tc1_temp_ = value; }
-    inline int32_t& mutable_tc1_temp() { return tc1_temp_.get(); }
-    inline const int32_t& get_tc1_temp() const { return tc1_temp_.get(); }
-    inline int32_t tc1_temp() const { return tc1_temp_.get(); }
+    static constexpr char const* TC1_TEMPERATURE_NAME = "tc1_temperature";
+    inline void clear_tc1_temperature() { tc1_temperature_.clear(); }
+    inline void set_tc1_temperature(const int32_t& value) { tc1_temperature_ = value; }
+    inline void set_tc1_temperature(const int32_t&& value) { tc1_temperature_ = value; }
+    inline int32_t& mutable_tc1_temperature() { return tc1_temperature_.get(); }
+    inline const int32_t& get_tc1_temperature() const { return tc1_temperature_.get(); }
+    inline int32_t tc1_temperature() const { return tc1_temperature_.get(); }
 
-    static constexpr char const* TC2_TEMP_NAME = "tc2_temp";
-    inline void clear_tc2_temp() { tc2_temp_.clear(); }
-    inline void set_tc2_temp(const int32_t& value) { tc2_temp_ = value; }
-    inline void set_tc2_temp(const int32_t&& value) { tc2_temp_ = value; }
-    inline int32_t& mutable_tc2_temp() { return tc2_temp_.get(); }
-    inline const int32_t& get_tc2_temp() const { return tc2_temp_.get(); }
-    inline int32_t tc2_temp() const { return tc2_temp_.get(); }
+    static constexpr char const* TC2_TEMPERATURE_NAME = "tc2_temperature";
+    inline void clear_tc2_temperature() { tc2_temperature_.clear(); }
+    inline void set_tc2_temperature(const int32_t& value) { tc2_temperature_ = value; }
+    inline void set_tc2_temperature(const int32_t&& value) { tc2_temperature_ = value; }
+    inline int32_t& mutable_tc2_temperature() { return tc2_temperature_.get(); }
+    inline const int32_t& get_tc2_temperature() const { return tc2_temperature_.get(); }
+    inline int32_t tc2_temperature() const { return tc2_temperature_.get(); }
 
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
     {
       ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
 
-      if((0 != tc1_temp_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != tc1_temperature_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = tc1_temp_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TC1_TEMP), buffer, false);
+        return_value = tc1_temperature_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TC1_TEMPERATURE), buffer, false);
       }
 
-      if((0 != tc2_temp_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != tc2_temperature_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = tc2_temp_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TC2_TEMP), buffer, false);
+        return_value = tc2_temperature_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TC2_TEMPERATURE), buffer, false);
       }
 
       return return_value;
@@ -4073,12 +3641,12 @@ class RCUTemp final: public ::EmbeddedProto::MessageInterface
         id_tag = static_cast<FieldNumber>(id_number);
         switch(id_tag)
         {
-          case FieldNumber::TC1_TEMP:
-            return_value = tc1_temp_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::TC1_TEMPERATURE:
+            return_value = tc1_temperature_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::TC2_TEMP:
-            return_value = tc2_temp_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::TC2_TEMPERATURE:
+            return_value = tc2_temperature_.deserialize_check_type(buffer, wire_type);
             break;
 
           case FieldNumber::NOT_SET:
@@ -4110,8 +3678,8 @@ class RCUTemp final: public ::EmbeddedProto::MessageInterface
 
     void clear() override
     {
-      clear_tc1_temp();
-      clear_tc2_temp();
+      clear_tc1_temperature();
+      clear_tc2_temperature();
 
     }
 
@@ -4120,11 +3688,11 @@ class RCUTemp final: public ::EmbeddedProto::MessageInterface
       char const* name = nullptr;
       switch(fieldNumber)
       {
-        case FieldNumber::TC1_TEMP:
-          name = TC1_TEMP_NAME;
+        case FieldNumber::TC1_TEMPERATURE:
+          name = TC1_TEMPERATURE_NAME;
           break;
-        case FieldNumber::TC2_TEMP:
-          name = TC2_TEMP_NAME;
+        case FieldNumber::TC2_TEMPERATURE:
+          name = TC2_TEMPERATURE_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -4186,8 +3754,8 @@ class RCUTemp final: public ::EmbeddedProto::MessageInterface
         left_chars.size -= n_chars_used;
       }
 
-      left_chars = tc1_temp_.to_string(left_chars, indent_level + 2, TC1_TEMP_NAME, true);
-      left_chars = tc2_temp_.to_string(left_chars, indent_level + 2, TC2_TEMP_NAME, false);
+      left_chars = tc1_temperature_.to_string(left_chars, indent_level + 2, TC1_TEMPERATURE_NAME, true);
+      left_chars = tc2_temperature_.to_string(left_chars, indent_level + 2, TC2_TEMPERATURE_NAME, false);
   
       if( 0 == indent_level) 
       {
@@ -4212,8 +3780,8 @@ class RCUTemp final: public ::EmbeddedProto::MessageInterface
   private:
 
 
-      EmbeddedProto::int32 tc1_temp_ = 0;
-      EmbeddedProto::int32 tc2_temp_ = 0;
+      EmbeddedProto::int32 tc1_temperature_ = 0;
+      EmbeddedProto::int32 tc2_temperature_ = 0;
 
 };
 
@@ -4783,74 +4351,74 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
 
 };
 
-class SOBTemp final: public ::EmbeddedProto::MessageInterface
+class SobTemperature final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    SOBTemp() = default;
-    SOBTemp(const SOBTemp& rhs )
+    SobTemperature() = default;
+    SobTemperature(const SobTemperature& rhs )
     {
-      set_tc1_temp(rhs.get_tc1_temp());
-      set_tc2_temp(rhs.get_tc2_temp());
+      set_tc1_temperature(rhs.get_tc1_temperature());
+      set_tc2_temperature(rhs.get_tc2_temperature());
     }
 
-    SOBTemp(const SOBTemp&& rhs ) noexcept
+    SobTemperature(const SobTemperature&& rhs ) noexcept
     {
-      set_tc1_temp(rhs.get_tc1_temp());
-      set_tc2_temp(rhs.get_tc2_temp());
+      set_tc1_temperature(rhs.get_tc1_temperature());
+      set_tc2_temperature(rhs.get_tc2_temperature());
     }
 
-    ~SOBTemp() override = default;
+    ~SobTemperature() override = default;
 
     enum class FieldNumber : uint32_t
     {
       NOT_SET = 0,
-      TC1_TEMP = 1,
-      TC2_TEMP = 2
+      TC1_TEMPERATURE = 1,
+      TC2_TEMPERATURE = 2
     };
 
-    SOBTemp& operator=(const SOBTemp& rhs)
+    SobTemperature& operator=(const SobTemperature& rhs)
     {
-      set_tc1_temp(rhs.get_tc1_temp());
-      set_tc2_temp(rhs.get_tc2_temp());
+      set_tc1_temperature(rhs.get_tc1_temperature());
+      set_tc2_temperature(rhs.get_tc2_temperature());
       return *this;
     }
 
-    SOBTemp& operator=(const SOBTemp&& rhs) noexcept
+    SobTemperature& operator=(const SobTemperature&& rhs) noexcept
     {
-      set_tc1_temp(rhs.get_tc1_temp());
-      set_tc2_temp(rhs.get_tc2_temp());
+      set_tc1_temperature(rhs.get_tc1_temperature());
+      set_tc2_temperature(rhs.get_tc2_temperature());
       return *this;
     }
 
-    static constexpr char const* TC1_TEMP_NAME = "tc1_temp";
-    inline void clear_tc1_temp() { tc1_temp_.clear(); }
-    inline void set_tc1_temp(const int32_t& value) { tc1_temp_ = value; }
-    inline void set_tc1_temp(const int32_t&& value) { tc1_temp_ = value; }
-    inline int32_t& mutable_tc1_temp() { return tc1_temp_.get(); }
-    inline const int32_t& get_tc1_temp() const { return tc1_temp_.get(); }
-    inline int32_t tc1_temp() const { return tc1_temp_.get(); }
+    static constexpr char const* TC1_TEMPERATURE_NAME = "tc1_temperature";
+    inline void clear_tc1_temperature() { tc1_temperature_.clear(); }
+    inline void set_tc1_temperature(const int32_t& value) { tc1_temperature_ = value; }
+    inline void set_tc1_temperature(const int32_t&& value) { tc1_temperature_ = value; }
+    inline int32_t& mutable_tc1_temperature() { return tc1_temperature_.get(); }
+    inline const int32_t& get_tc1_temperature() const { return tc1_temperature_.get(); }
+    inline int32_t tc1_temperature() const { return tc1_temperature_.get(); }
 
-    static constexpr char const* TC2_TEMP_NAME = "tc2_temp";
-    inline void clear_tc2_temp() { tc2_temp_.clear(); }
-    inline void set_tc2_temp(const int32_t& value) { tc2_temp_ = value; }
-    inline void set_tc2_temp(const int32_t&& value) { tc2_temp_ = value; }
-    inline int32_t& mutable_tc2_temp() { return tc2_temp_.get(); }
-    inline const int32_t& get_tc2_temp() const { return tc2_temp_.get(); }
-    inline int32_t tc2_temp() const { return tc2_temp_.get(); }
+    static constexpr char const* TC2_TEMPERATURE_NAME = "tc2_temperature";
+    inline void clear_tc2_temperature() { tc2_temperature_.clear(); }
+    inline void set_tc2_temperature(const int32_t& value) { tc2_temperature_ = value; }
+    inline void set_tc2_temperature(const int32_t&& value) { tc2_temperature_ = value; }
+    inline int32_t& mutable_tc2_temperature() { return tc2_temperature_.get(); }
+    inline const int32_t& get_tc2_temperature() const { return tc2_temperature_.get(); }
+    inline int32_t tc2_temperature() const { return tc2_temperature_.get(); }
 
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
     {
       ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
 
-      if((0 != tc1_temp_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != tc1_temperature_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = tc1_temp_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TC1_TEMP), buffer, false);
+        return_value = tc1_temperature_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TC1_TEMPERATURE), buffer, false);
       }
 
-      if((0 != tc2_temp_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((0 != tc2_temperature_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = tc2_temp_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TC2_TEMP), buffer, false);
+        return_value = tc2_temperature_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TC2_TEMPERATURE), buffer, false);
       }
 
       return return_value;
@@ -4869,12 +4437,12 @@ class SOBTemp final: public ::EmbeddedProto::MessageInterface
         id_tag = static_cast<FieldNumber>(id_number);
         switch(id_tag)
         {
-          case FieldNumber::TC1_TEMP:
-            return_value = tc1_temp_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::TC1_TEMPERATURE:
+            return_value = tc1_temperature_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::TC2_TEMP:
-            return_value = tc2_temp_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::TC2_TEMPERATURE:
+            return_value = tc2_temperature_.deserialize_check_type(buffer, wire_type);
             break;
 
           case FieldNumber::NOT_SET:
@@ -4906,8 +4474,8 @@ class SOBTemp final: public ::EmbeddedProto::MessageInterface
 
     void clear() override
     {
-      clear_tc1_temp();
-      clear_tc2_temp();
+      clear_tc1_temperature();
+      clear_tc2_temperature();
 
     }
 
@@ -4916,11 +4484,11 @@ class SOBTemp final: public ::EmbeddedProto::MessageInterface
       char const* name = nullptr;
       switch(fieldNumber)
       {
-        case FieldNumber::TC1_TEMP:
-          name = TC1_TEMP_NAME;
+        case FieldNumber::TC1_TEMPERATURE:
+          name = TC1_TEMPERATURE_NAME;
           break;
-        case FieldNumber::TC2_TEMP:
-          name = TC2_TEMP_NAME;
+        case FieldNumber::TC2_TEMPERATURE:
+          name = TC2_TEMPERATURE_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -4982,8 +4550,8 @@ class SOBTemp final: public ::EmbeddedProto::MessageInterface
         left_chars.size -= n_chars_used;
       }
 
-      left_chars = tc1_temp_.to_string(left_chars, indent_level + 2, TC1_TEMP_NAME, true);
-      left_chars = tc2_temp_.to_string(left_chars, indent_level + 2, TC2_TEMP_NAME, false);
+      left_chars = tc1_temperature_.to_string(left_chars, indent_level + 2, TC1_TEMPERATURE_NAME, true);
+      left_chars = tc2_temperature_.to_string(left_chars, indent_level + 2, TC2_TEMPERATURE_NAME, false);
   
       if( 0 == indent_level) 
       {
@@ -5008,109 +4576,109 @@ class SOBTemp final: public ::EmbeddedProto::MessageInterface
   private:
 
 
-      EmbeddedProto::int32 tc1_temp_ = 0;
-      EmbeddedProto::int32 tc2_temp_ = 0;
+      EmbeddedProto::int32 tc1_temperature_ = 0;
+      EmbeddedProto::int32 tc2_temperature_ = 0;
 
 };
 
-class GPS final: public ::EmbeddedProto::MessageInterface
+class Gps final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    GPS() = default;
-    GPS(const GPS& rhs )
+    Gps() = default;
+    Gps(const Gps& rhs )
     {
       set_latitude(rhs.get_latitude());
       set_longitude(rhs.get_longitude());
-      set_antenna_alt(rhs.get_antenna_alt());
-      set_geoidAltitude(rhs.get_geoidAltitude());
-      set_total_alt(rhs.get_total_alt());
+      set_antenna_altitude(rhs.get_antenna_altitude());
+      set_geo_id_altitude(rhs.get_geo_id_altitude());
+      set_total_altitude(rhs.get_total_altitude());
       set_time(rhs.get_time());
     }
 
-    GPS(const GPS&& rhs ) noexcept
+    Gps(const Gps&& rhs ) noexcept
     {
       set_latitude(rhs.get_latitude());
       set_longitude(rhs.get_longitude());
-      set_antenna_alt(rhs.get_antenna_alt());
-      set_geoidAltitude(rhs.get_geoidAltitude());
-      set_total_alt(rhs.get_total_alt());
+      set_antenna_altitude(rhs.get_antenna_altitude());
+      set_geo_id_altitude(rhs.get_geo_id_altitude());
+      set_total_altitude(rhs.get_total_altitude());
       set_time(rhs.get_time());
     }
 
-    ~GPS() override = default;
+    ~Gps() override = default;
 
     enum class FieldNumber : uint32_t
     {
       NOT_SET = 0,
       LATITUDE = 1,
       LONGITUDE = 2,
-      ANTENNA_ALT = 3,
-      GEOIDALTITUDE = 4,
-      TOTAL_ALT = 5,
+      ANTENNA_ALTITUDE = 3,
+      GEO_ID_ALTITUDE = 4,
+      TOTAL_ALTITUDE = 5,
       TIME = 6
     };
 
-    GPS& operator=(const GPS& rhs)
+    Gps& operator=(const Gps& rhs)
     {
       set_latitude(rhs.get_latitude());
       set_longitude(rhs.get_longitude());
-      set_antenna_alt(rhs.get_antenna_alt());
-      set_geoidAltitude(rhs.get_geoidAltitude());
-      set_total_alt(rhs.get_total_alt());
+      set_antenna_altitude(rhs.get_antenna_altitude());
+      set_geo_id_altitude(rhs.get_geo_id_altitude());
+      set_total_altitude(rhs.get_total_altitude());
       set_time(rhs.get_time());
       return *this;
     }
 
-    GPS& operator=(const GPS&& rhs) noexcept
+    Gps& operator=(const Gps&& rhs) noexcept
     {
       set_latitude(rhs.get_latitude());
       set_longitude(rhs.get_longitude());
-      set_antenna_alt(rhs.get_antenna_alt());
-      set_geoidAltitude(rhs.get_geoidAltitude());
-      set_total_alt(rhs.get_total_alt());
+      set_antenna_altitude(rhs.get_antenna_altitude());
+      set_geo_id_altitude(rhs.get_geo_id_altitude());
+      set_total_altitude(rhs.get_total_altitude());
       set_time(rhs.get_time());
       return *this;
     }
 
     static constexpr char const* LATITUDE_NAME = "latitude";
     inline void clear_latitude() { latitude_.clear(); }
-    inline void set_latitude(const LatLong& value) { latitude_ = value; }
-    inline void set_latitude(const LatLong&& value) { latitude_ = value; }
-    inline LatLong& mutable_latitude() { return latitude_; }
-    inline const LatLong& get_latitude() const { return latitude_; }
-    inline const LatLong& latitude() const { return latitude_; }
+    inline void set_latitude(const CoordinateType& value) { latitude_ = value; }
+    inline void set_latitude(const CoordinateType&& value) { latitude_ = value; }
+    inline CoordinateType& mutable_latitude() { return latitude_; }
+    inline const CoordinateType& get_latitude() const { return latitude_; }
+    inline const CoordinateType& latitude() const { return latitude_; }
 
     static constexpr char const* LONGITUDE_NAME = "longitude";
     inline void clear_longitude() { longitude_.clear(); }
-    inline void set_longitude(const LatLong& value) { longitude_ = value; }
-    inline void set_longitude(const LatLong&& value) { longitude_ = value; }
-    inline LatLong& mutable_longitude() { return longitude_; }
-    inline const LatLong& get_longitude() const { return longitude_; }
-    inline const LatLong& longitude() const { return longitude_; }
+    inline void set_longitude(const CoordinateType& value) { longitude_ = value; }
+    inline void set_longitude(const CoordinateType&& value) { longitude_ = value; }
+    inline CoordinateType& mutable_longitude() { return longitude_; }
+    inline const CoordinateType& get_longitude() const { return longitude_; }
+    inline const CoordinateType& longitude() const { return longitude_; }
 
-    static constexpr char const* ANTENNA_ALT_NAME = "antenna_alt";
-    inline void clear_antenna_alt() { antenna_alt_.clear(); }
-    inline void set_antenna_alt(const AltitudeType& value) { antenna_alt_ = value; }
-    inline void set_antenna_alt(const AltitudeType&& value) { antenna_alt_ = value; }
-    inline AltitudeType& mutable_antenna_alt() { return antenna_alt_; }
-    inline const AltitudeType& get_antenna_alt() const { return antenna_alt_; }
-    inline const AltitudeType& antenna_alt() const { return antenna_alt_; }
+    static constexpr char const* ANTENNA_ALTITUDE_NAME = "antenna_altitude";
+    inline void clear_antenna_altitude() { antenna_altitude_.clear(); }
+    inline void set_antenna_altitude(const AltitudeType& value) { antenna_altitude_ = value; }
+    inline void set_antenna_altitude(const AltitudeType&& value) { antenna_altitude_ = value; }
+    inline AltitudeType& mutable_antenna_altitude() { return antenna_altitude_; }
+    inline const AltitudeType& get_antenna_altitude() const { return antenna_altitude_; }
+    inline const AltitudeType& antenna_altitude() const { return antenna_altitude_; }
 
-    static constexpr char const* GEOIDALTITUDE_NAME = "geoidAltitude";
-    inline void clear_geoidAltitude() { geoidAltitude_.clear(); }
-    inline void set_geoidAltitude(const AltitudeType& value) { geoidAltitude_ = value; }
-    inline void set_geoidAltitude(const AltitudeType&& value) { geoidAltitude_ = value; }
-    inline AltitudeType& mutable_geoidAltitude() { return geoidAltitude_; }
-    inline const AltitudeType& get_geoidAltitude() const { return geoidAltitude_; }
-    inline const AltitudeType& geoidAltitude() const { return geoidAltitude_; }
+    static constexpr char const* GEO_ID_ALTITUDE_NAME = "geo_id_altitude";
+    inline void clear_geo_id_altitude() { geo_id_altitude_.clear(); }
+    inline void set_geo_id_altitude(const AltitudeType& value) { geo_id_altitude_ = value; }
+    inline void set_geo_id_altitude(const AltitudeType&& value) { geo_id_altitude_ = value; }
+    inline AltitudeType& mutable_geo_id_altitude() { return geo_id_altitude_; }
+    inline const AltitudeType& get_geo_id_altitude() const { return geo_id_altitude_; }
+    inline const AltitudeType& geo_id_altitude() const { return geo_id_altitude_; }
 
-    static constexpr char const* TOTAL_ALT_NAME = "total_alt";
-    inline void clear_total_alt() { total_alt_.clear(); }
-    inline void set_total_alt(const AltitudeType& value) { total_alt_ = value; }
-    inline void set_total_alt(const AltitudeType&& value) { total_alt_ = value; }
-    inline AltitudeType& mutable_total_alt() { return total_alt_; }
-    inline const AltitudeType& get_total_alt() const { return total_alt_; }
-    inline const AltitudeType& total_alt() const { return total_alt_; }
+    static constexpr char const* TOTAL_ALTITUDE_NAME = "total_altitude";
+    inline void clear_total_altitude() { total_altitude_.clear(); }
+    inline void set_total_altitude(const AltitudeType& value) { total_altitude_ = value; }
+    inline void set_total_altitude(const AltitudeType&& value) { total_altitude_ = value; }
+    inline AltitudeType& mutable_total_altitude() { return total_altitude_; }
+    inline const AltitudeType& get_total_altitude() const { return total_altitude_; }
+    inline const AltitudeType& total_altitude() const { return total_altitude_; }
 
     static constexpr char const* TIME_NAME = "time";
     inline void clear_time() { time_.clear(); }
@@ -5137,17 +4705,17 @@ class GPS final: public ::EmbeddedProto::MessageInterface
 
       if(::EmbeddedProto::Error::NO_ERRORS == return_value)
       {
-        return_value = antenna_alt_.serialize_with_id(static_cast<uint32_t>(FieldNumber::ANTENNA_ALT), buffer, false);
+        return_value = antenna_altitude_.serialize_with_id(static_cast<uint32_t>(FieldNumber::ANTENNA_ALTITUDE), buffer, false);
       }
 
       if(::EmbeddedProto::Error::NO_ERRORS == return_value)
       {
-        return_value = geoidAltitude_.serialize_with_id(static_cast<uint32_t>(FieldNumber::GEOIDALTITUDE), buffer, false);
+        return_value = geo_id_altitude_.serialize_with_id(static_cast<uint32_t>(FieldNumber::GEO_ID_ALTITUDE), buffer, false);
       }
 
       if(::EmbeddedProto::Error::NO_ERRORS == return_value)
       {
-        return_value = total_alt_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TOTAL_ALT), buffer, false);
+        return_value = total_altitude_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TOTAL_ALTITUDE), buffer, false);
       }
 
       if((0U != time_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
@@ -5179,16 +4747,16 @@ class GPS final: public ::EmbeddedProto::MessageInterface
             return_value = longitude_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::ANTENNA_ALT:
-            return_value = antenna_alt_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::ANTENNA_ALTITUDE:
+            return_value = antenna_altitude_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::GEOIDALTITUDE:
-            return_value = geoidAltitude_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::GEO_ID_ALTITUDE:
+            return_value = geo_id_altitude_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::TOTAL_ALT:
-            return_value = total_alt_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::TOTAL_ALTITUDE:
+            return_value = total_altitude_.deserialize_check_type(buffer, wire_type);
             break;
 
           case FieldNumber::TIME:
@@ -5226,9 +4794,9 @@ class GPS final: public ::EmbeddedProto::MessageInterface
     {
       clear_latitude();
       clear_longitude();
-      clear_antenna_alt();
-      clear_geoidAltitude();
-      clear_total_alt();
+      clear_antenna_altitude();
+      clear_geo_id_altitude();
+      clear_total_altitude();
       clear_time();
 
     }
@@ -5244,14 +4812,14 @@ class GPS final: public ::EmbeddedProto::MessageInterface
         case FieldNumber::LONGITUDE:
           name = LONGITUDE_NAME;
           break;
-        case FieldNumber::ANTENNA_ALT:
-          name = ANTENNA_ALT_NAME;
+        case FieldNumber::ANTENNA_ALTITUDE:
+          name = ANTENNA_ALTITUDE_NAME;
           break;
-        case FieldNumber::GEOIDALTITUDE:
-          name = GEOIDALTITUDE_NAME;
+        case FieldNumber::GEO_ID_ALTITUDE:
+          name = GEO_ID_ALTITUDE_NAME;
           break;
-        case FieldNumber::TOTAL_ALT:
-          name = TOTAL_ALT_NAME;
+        case FieldNumber::TOTAL_ALTITUDE:
+          name = TOTAL_ALTITUDE_NAME;
           break;
         case FieldNumber::TIME:
           name = TIME_NAME;
@@ -5318,9 +4886,9 @@ class GPS final: public ::EmbeddedProto::MessageInterface
 
       left_chars = latitude_.to_string(left_chars, indent_level + 2, LATITUDE_NAME, true);
       left_chars = longitude_.to_string(left_chars, indent_level + 2, LONGITUDE_NAME, false);
-      left_chars = antenna_alt_.to_string(left_chars, indent_level + 2, ANTENNA_ALT_NAME, false);
-      left_chars = geoidAltitude_.to_string(left_chars, indent_level + 2, GEOIDALTITUDE_NAME, false);
-      left_chars = total_alt_.to_string(left_chars, indent_level + 2, TOTAL_ALT_NAME, false);
+      left_chars = antenna_altitude_.to_string(left_chars, indent_level + 2, ANTENNA_ALTITUDE_NAME, false);
+      left_chars = geo_id_altitude_.to_string(left_chars, indent_level + 2, GEO_ID_ALTITUDE_NAME, false);
+      left_chars = total_altitude_.to_string(left_chars, indent_level + 2, TOTAL_ALTITUDE_NAME, false);
       left_chars = time_.to_string(left_chars, indent_level + 2, TIME_NAME, false);
   
       if( 0 == indent_level) 
@@ -5346,11 +4914,11 @@ class GPS final: public ::EmbeddedProto::MessageInterface
   private:
 
 
-      LatLong latitude_;
-      LatLong longitude_;
-      AltitudeType antenna_alt_;
-      AltitudeType geoidAltitude_;
-      AltitudeType total_alt_;
+      CoordinateType latitude_;
+      CoordinateType longitude_;
+      AltitudeType antenna_altitude_;
+      AltitudeType geo_id_altitude_;
+      AltitudeType total_altitude_;
       EmbeddedProto::uint32 time_ = 0U;
 
 };
@@ -5363,7 +4931,6 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       if(rhs.get_which_message() != which_message_)
       {
         // First delete the old object in the oneof.
@@ -5372,8 +4939,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
 
       switch(rhs.get_which_message())
       {
-        case FieldNumber::COORD:
-          set_coord(rhs.get_coord());
+        case FieldNumber::GPS:
+          set_gps(rhs.get_gps());
           break;
 
         case FieldNumber::BARO:
@@ -5384,64 +4951,56 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           set_imu(rhs.get_imu());
           break;
 
-        case FieldNumber::BAT:
-          set_bat(rhs.get_bat());
+        case FieldNumber::BATTERY:
+          set_battery(rhs.get_battery());
           break;
 
-        case FieldNumber::FLASHINFO:
-          set_flashInfo(rhs.get_flashInfo());
+        case FieldNumber::FLASHSTATE:
+          set_flashState(rhs.get_flashState());
           break;
 
-        case FieldNumber::PRESSDMB:
-          set_pressdmb(rhs.get_pressdmb());
+        case FieldNumber::DMBPRESSURE:
+          set_dmbPressure(rhs.get_dmbPressure());
           break;
 
-        case FieldNumber::PRESSPBB:
-          set_presspbb(rhs.get_presspbb());
+        case FieldNumber::PBBPRESSURE:
+          set_pbbPressure(rhs.get_pbbPressure());
           break;
 
-        case FieldNumber::TEMPPBB:
-          set_temppbb(rhs.get_temppbb());
+        case FieldNumber::PBBTEMPERATURE:
+          set_pbbTemperature(rhs.get_pbbTemperature());
           break;
 
-        case FieldNumber::GPIO:
-          set_gpio(rhs.get_gpio());
+        case FieldNumber::COMBUSTIONCONTROLSTATUS:
+          set_combustionControlStatus(rhs.get_combustionControlStatus());
           break;
 
-        case FieldNumber::PRESSRCU:
-          set_pressrcu(rhs.get_pressrcu());
+        case FieldNumber::RCUPRESSURE:
+          set_rcuPressure(rhs.get_rcuPressure());
           break;
 
-        case FieldNumber::TEMPRCU:
-          set_temprcu(rhs.get_temprcu());
+        case FieldNumber::RCUTEMPERATURE:
+          set_rcuTemperature(rhs.get_rcuTemperature());
           break;
 
-        case FieldNumber::NOS:
-          set_nos(rhs.get_nos());
+        case FieldNumber::NOSLOADCELL:
+          set_nosLoadCell(rhs.get_nosLoadCell());
           break;
 
-        case FieldNumber::RELAY:
-          set_relay(rhs.get_relay());
+        case FieldNumber::RELAYSTATUS:
+          set_relayStatus(rhs.get_relayStatus());
           break;
 
-        case FieldNumber::PADBOX:
-          set_padbox(rhs.get_padbox());
+        case FieldNumber::PADBOXSTATUS:
+          set_padBoxStatus(rhs.get_padBoxStatus());
           break;
 
-        case FieldNumber::LR:
-          set_lr(rhs.get_lr());
+        case FieldNumber::LAUNCHRAILLOADCELL:
+          set_launchRailLoadCell(rhs.get_launchRailLoadCell());
           break;
 
-        case FieldNumber::TEMPSOB:
-          set_tempsob(rhs.get_tempsob());
-          break;
-
-        case FieldNumber::IRTEMP:
-          set_irtemp(rhs.get_irtemp());
-          break;
-
-        case FieldNumber::MEVSTATE:
-          set_mevstate(rhs.get_mevstate());
+        case FieldNumber::SOBTEMPERATURE:
+          set_sobTemperature(rhs.get_sobTemperature());
           break;
 
         default:
@@ -5454,7 +5013,6 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       if(rhs.get_which_message() != which_message_)
       {
         // First delete the old object in the oneof.
@@ -5463,8 +5021,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
 
       switch(rhs.get_which_message())
       {
-        case FieldNumber::COORD:
-          set_coord(rhs.get_coord());
+        case FieldNumber::GPS:
+          set_gps(rhs.get_gps());
           break;
 
         case FieldNumber::BARO:
@@ -5475,64 +5033,56 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           set_imu(rhs.get_imu());
           break;
 
-        case FieldNumber::BAT:
-          set_bat(rhs.get_bat());
+        case FieldNumber::BATTERY:
+          set_battery(rhs.get_battery());
           break;
 
-        case FieldNumber::FLASHINFO:
-          set_flashInfo(rhs.get_flashInfo());
+        case FieldNumber::FLASHSTATE:
+          set_flashState(rhs.get_flashState());
           break;
 
-        case FieldNumber::PRESSDMB:
-          set_pressdmb(rhs.get_pressdmb());
+        case FieldNumber::DMBPRESSURE:
+          set_dmbPressure(rhs.get_dmbPressure());
           break;
 
-        case FieldNumber::PRESSPBB:
-          set_presspbb(rhs.get_presspbb());
+        case FieldNumber::PBBPRESSURE:
+          set_pbbPressure(rhs.get_pbbPressure());
           break;
 
-        case FieldNumber::TEMPPBB:
-          set_temppbb(rhs.get_temppbb());
+        case FieldNumber::PBBTEMPERATURE:
+          set_pbbTemperature(rhs.get_pbbTemperature());
           break;
 
-        case FieldNumber::GPIO:
-          set_gpio(rhs.get_gpio());
+        case FieldNumber::COMBUSTIONCONTROLSTATUS:
+          set_combustionControlStatus(rhs.get_combustionControlStatus());
           break;
 
-        case FieldNumber::PRESSRCU:
-          set_pressrcu(rhs.get_pressrcu());
+        case FieldNumber::RCUPRESSURE:
+          set_rcuPressure(rhs.get_rcuPressure());
           break;
 
-        case FieldNumber::TEMPRCU:
-          set_temprcu(rhs.get_temprcu());
+        case FieldNumber::RCUTEMPERATURE:
+          set_rcuTemperature(rhs.get_rcuTemperature());
           break;
 
-        case FieldNumber::NOS:
-          set_nos(rhs.get_nos());
+        case FieldNumber::NOSLOADCELL:
+          set_nosLoadCell(rhs.get_nosLoadCell());
           break;
 
-        case FieldNumber::RELAY:
-          set_relay(rhs.get_relay());
+        case FieldNumber::RELAYSTATUS:
+          set_relayStatus(rhs.get_relayStatus());
           break;
 
-        case FieldNumber::PADBOX:
-          set_padbox(rhs.get_padbox());
+        case FieldNumber::PADBOXSTATUS:
+          set_padBoxStatus(rhs.get_padBoxStatus());
           break;
 
-        case FieldNumber::LR:
-          set_lr(rhs.get_lr());
+        case FieldNumber::LAUNCHRAILLOADCELL:
+          set_launchRailLoadCell(rhs.get_launchRailLoadCell());
           break;
 
-        case FieldNumber::TEMPSOB:
-          set_tempsob(rhs.get_tempsob());
-          break;
-
-        case FieldNumber::IRTEMP:
-          set_irtemp(rhs.get_irtemp());
-          break;
-
-        case FieldNumber::MEVSTATE:
-          set_mevstate(rhs.get_mevstate());
+        case FieldNumber::SOBTEMPERATURE:
+          set_sobTemperature(rhs.get_sobTemperature());
           break;
 
         default:
@@ -5548,32 +5098,28 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
       NOT_SET = 0,
       SOURCE = 1,
       TARGET = 2,
-      MESSAGE_ID = 3,
-      COORD = 4,
-      BARO = 5,
-      IMU = 6,
-      BAT = 7,
-      FLASHINFO = 8,
-      PRESSDMB = 9,
-      PRESSPBB = 10,
-      TEMPPBB = 11,
-      GPIO = 12,
-      PRESSRCU = 13,
-      TEMPRCU = 14,
-      NOS = 15,
-      RELAY = 16,
-      PADBOX = 17,
-      LR = 18,
-      TEMPSOB = 19,
-      IRTEMP = 20,
-      MEVSTATE = 21
+      GPS = 3,
+      BARO = 4,
+      IMU = 5,
+      BATTERY = 6,
+      FLASHSTATE = 7,
+      DMBPRESSURE = 8,
+      PBBPRESSURE = 9,
+      PBBTEMPERATURE = 10,
+      COMBUSTIONCONTROLSTATUS = 11,
+      RCUPRESSURE = 12,
+      RCUTEMPERATURE = 13,
+      NOSLOADCELL = 14,
+      RELAYSTATUS = 15,
+      PADBOXSTATUS = 16,
+      LAUNCHRAILLOADCELL = 17,
+      SOBTEMPERATURE = 18
     };
 
     TelemetryMessage& operator=(const TelemetryMessage& rhs)
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       if(rhs.get_which_message() != which_message_)
       {
         // First delete the old object in the oneof.
@@ -5582,8 +5128,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
 
       switch(rhs.get_which_message())
       {
-        case FieldNumber::COORD:
-          set_coord(rhs.get_coord());
+        case FieldNumber::GPS:
+          set_gps(rhs.get_gps());
           break;
 
         case FieldNumber::BARO:
@@ -5594,64 +5140,56 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           set_imu(rhs.get_imu());
           break;
 
-        case FieldNumber::BAT:
-          set_bat(rhs.get_bat());
+        case FieldNumber::BATTERY:
+          set_battery(rhs.get_battery());
           break;
 
-        case FieldNumber::FLASHINFO:
-          set_flashInfo(rhs.get_flashInfo());
+        case FieldNumber::FLASHSTATE:
+          set_flashState(rhs.get_flashState());
           break;
 
-        case FieldNumber::PRESSDMB:
-          set_pressdmb(rhs.get_pressdmb());
+        case FieldNumber::DMBPRESSURE:
+          set_dmbPressure(rhs.get_dmbPressure());
           break;
 
-        case FieldNumber::PRESSPBB:
-          set_presspbb(rhs.get_presspbb());
+        case FieldNumber::PBBPRESSURE:
+          set_pbbPressure(rhs.get_pbbPressure());
           break;
 
-        case FieldNumber::TEMPPBB:
-          set_temppbb(rhs.get_temppbb());
+        case FieldNumber::PBBTEMPERATURE:
+          set_pbbTemperature(rhs.get_pbbTemperature());
           break;
 
-        case FieldNumber::GPIO:
-          set_gpio(rhs.get_gpio());
+        case FieldNumber::COMBUSTIONCONTROLSTATUS:
+          set_combustionControlStatus(rhs.get_combustionControlStatus());
           break;
 
-        case FieldNumber::PRESSRCU:
-          set_pressrcu(rhs.get_pressrcu());
+        case FieldNumber::RCUPRESSURE:
+          set_rcuPressure(rhs.get_rcuPressure());
           break;
 
-        case FieldNumber::TEMPRCU:
-          set_temprcu(rhs.get_temprcu());
+        case FieldNumber::RCUTEMPERATURE:
+          set_rcuTemperature(rhs.get_rcuTemperature());
           break;
 
-        case FieldNumber::NOS:
-          set_nos(rhs.get_nos());
+        case FieldNumber::NOSLOADCELL:
+          set_nosLoadCell(rhs.get_nosLoadCell());
           break;
 
-        case FieldNumber::RELAY:
-          set_relay(rhs.get_relay());
+        case FieldNumber::RELAYSTATUS:
+          set_relayStatus(rhs.get_relayStatus());
           break;
 
-        case FieldNumber::PADBOX:
-          set_padbox(rhs.get_padbox());
+        case FieldNumber::PADBOXSTATUS:
+          set_padBoxStatus(rhs.get_padBoxStatus());
           break;
 
-        case FieldNumber::LR:
-          set_lr(rhs.get_lr());
+        case FieldNumber::LAUNCHRAILLOADCELL:
+          set_launchRailLoadCell(rhs.get_launchRailLoadCell());
           break;
 
-        case FieldNumber::TEMPSOB:
-          set_tempsob(rhs.get_tempsob());
-          break;
-
-        case FieldNumber::IRTEMP:
-          set_irtemp(rhs.get_irtemp());
-          break;
-
-        case FieldNumber::MEVSTATE:
-          set_mevstate(rhs.get_mevstate());
+        case FieldNumber::SOBTEMPERATURE:
+          set_sobTemperature(rhs.get_sobTemperature());
           break;
 
         default:
@@ -5665,7 +5203,6 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       if(rhs.get_which_message() != which_message_)
       {
         // First delete the old object in the oneof.
@@ -5674,8 +5211,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
 
       switch(rhs.get_which_message())
       {
-        case FieldNumber::COORD:
-          set_coord(rhs.get_coord());
+        case FieldNumber::GPS:
+          set_gps(rhs.get_gps());
           break;
 
         case FieldNumber::BARO:
@@ -5686,64 +5223,56 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           set_imu(rhs.get_imu());
           break;
 
-        case FieldNumber::BAT:
-          set_bat(rhs.get_bat());
+        case FieldNumber::BATTERY:
+          set_battery(rhs.get_battery());
           break;
 
-        case FieldNumber::FLASHINFO:
-          set_flashInfo(rhs.get_flashInfo());
+        case FieldNumber::FLASHSTATE:
+          set_flashState(rhs.get_flashState());
           break;
 
-        case FieldNumber::PRESSDMB:
-          set_pressdmb(rhs.get_pressdmb());
+        case FieldNumber::DMBPRESSURE:
+          set_dmbPressure(rhs.get_dmbPressure());
           break;
 
-        case FieldNumber::PRESSPBB:
-          set_presspbb(rhs.get_presspbb());
+        case FieldNumber::PBBPRESSURE:
+          set_pbbPressure(rhs.get_pbbPressure());
           break;
 
-        case FieldNumber::TEMPPBB:
-          set_temppbb(rhs.get_temppbb());
+        case FieldNumber::PBBTEMPERATURE:
+          set_pbbTemperature(rhs.get_pbbTemperature());
           break;
 
-        case FieldNumber::GPIO:
-          set_gpio(rhs.get_gpio());
+        case FieldNumber::COMBUSTIONCONTROLSTATUS:
+          set_combustionControlStatus(rhs.get_combustionControlStatus());
           break;
 
-        case FieldNumber::PRESSRCU:
-          set_pressrcu(rhs.get_pressrcu());
+        case FieldNumber::RCUPRESSURE:
+          set_rcuPressure(rhs.get_rcuPressure());
           break;
 
-        case FieldNumber::TEMPRCU:
-          set_temprcu(rhs.get_temprcu());
+        case FieldNumber::RCUTEMPERATURE:
+          set_rcuTemperature(rhs.get_rcuTemperature());
           break;
 
-        case FieldNumber::NOS:
-          set_nos(rhs.get_nos());
+        case FieldNumber::NOSLOADCELL:
+          set_nosLoadCell(rhs.get_nosLoadCell());
           break;
 
-        case FieldNumber::RELAY:
-          set_relay(rhs.get_relay());
+        case FieldNumber::RELAYSTATUS:
+          set_relayStatus(rhs.get_relayStatus());
           break;
 
-        case FieldNumber::PADBOX:
-          set_padbox(rhs.get_padbox());
+        case FieldNumber::PADBOXSTATUS:
+          set_padBoxStatus(rhs.get_padBoxStatus());
           break;
 
-        case FieldNumber::LR:
-          set_lr(rhs.get_lr());
+        case FieldNumber::LAUNCHRAILLOADCELL:
+          set_launchRailLoadCell(rhs.get_launchRailLoadCell());
           break;
 
-        case FieldNumber::TEMPSOB:
-          set_tempsob(rhs.get_tempsob());
-          break;
-
-        case FieldNumber::IRTEMP:
-          set_irtemp(rhs.get_irtemp());
-          break;
-
-        case FieldNumber::MEVSTATE:
-          set_mevstate(rhs.get_mevstate());
+        case FieldNumber::SOBTEMPERATURE:
+          set_sobTemperature(rhs.get_sobTemperature());
           break;
 
         default:
@@ -5767,55 +5296,47 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
     inline const Node& get_target() const { return target_.get(); }
     inline Node target() const { return target_.get(); }
 
-    static constexpr char const* MESSAGE_ID_NAME = "message_id";
-    inline void clear_message_id() { message_id_.clear(); }
-    inline void set_message_id(const uint32_t& value) { message_id_ = value; }
-    inline void set_message_id(const uint32_t&& value) { message_id_ = value; }
-    inline uint32_t& mutable_message_id() { return message_id_.get(); }
-    inline const uint32_t& get_message_id() const { return message_id_.get(); }
-    inline uint32_t message_id() const { return message_id_.get(); }
-
     FieldNumber get_which_message() const { return which_message_; }
 
-    static constexpr char const* COORD_NAME = "coord";
-    inline bool has_coord() const
+    static constexpr char const* GPS_NAME = "gps";
+    inline bool has_gps() const
     {
-      return FieldNumber::COORD == which_message_;
+      return FieldNumber::GPS == which_message_;
     }
-    inline void clear_coord()
+    inline void clear_gps()
     {
-      if(FieldNumber::COORD == which_message_)
+      if(FieldNumber::GPS == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.coord_.~GPS();
+        message_.gps_.~Gps();
       }
     }
-    inline void set_coord(const GPS& value)
+    inline void set_gps(const Gps& value)
     {
-      if(FieldNumber::COORD != which_message_)
+      if(FieldNumber::GPS != which_message_)
       {
-        init_message(FieldNumber::COORD);
+        init_message(FieldNumber::GPS);
       }
-      message_.coord_ = value;
+      message_.gps_ = value;
     }
-    inline void set_coord(const GPS&& value)
+    inline void set_gps(const Gps&& value)
     {
-      if(FieldNumber::COORD != which_message_)
+      if(FieldNumber::GPS != which_message_)
       {
-        init_message(FieldNumber::COORD);
+        init_message(FieldNumber::GPS);
       }
-      message_.coord_ = value;
+      message_.gps_ = value;
     }
-    inline GPS& mutable_coord()
+    inline Gps& mutable_gps()
     {
-      if(FieldNumber::COORD != which_message_)
+      if(FieldNumber::GPS != which_message_)
       {
-        init_message(FieldNumber::COORD);
+        init_message(FieldNumber::GPS);
       }
-      return message_.coord_;
+      return message_.gps_;
     }
-    inline const GPS& get_coord() const { return message_.coord_; }
-    inline const GPS& coord() const { return message_.coord_; }
+    inline const Gps& get_gps() const { return message_.gps_; }
+    inline const Gps& gps() const { return message_.gps_; }
 
     static constexpr char const* BARO_NAME = "baro";
     inline bool has_baro() const
@@ -5867,10 +5388,10 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
       if(FieldNumber::IMU == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.imu_.~IMU();
+        message_.imu_.~Imu();
       }
     }
-    inline void set_imu(const IMU& value)
+    inline void set_imu(const Imu& value)
     {
       if(FieldNumber::IMU != which_message_)
       {
@@ -5878,7 +5399,7 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
       }
       message_.imu_ = value;
     }
-    inline void set_imu(const IMU&& value)
+    inline void set_imu(const Imu&& value)
     {
       if(FieldNumber::IMU != which_message_)
       {
@@ -5886,7 +5407,7 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
       }
       message_.imu_ = value;
     }
-    inline IMU& mutable_imu()
+    inline Imu& mutable_imu()
     {
       if(FieldNumber::IMU != which_message_)
       {
@@ -5894,608 +5415,528 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
       }
       return message_.imu_;
     }
-    inline const IMU& get_imu() const { return message_.imu_; }
-    inline const IMU& imu() const { return message_.imu_; }
+    inline const Imu& get_imu() const { return message_.imu_; }
+    inline const Imu& imu() const { return message_.imu_; }
 
-    static constexpr char const* BAT_NAME = "bat";
-    inline bool has_bat() const
+    static constexpr char const* BATTERY_NAME = "battery";
+    inline bool has_battery() const
     {
-      return FieldNumber::BAT == which_message_;
+      return FieldNumber::BATTERY == which_message_;
     }
-    inline void clear_bat()
+    inline void clear_battery()
     {
-      if(FieldNumber::BAT == which_message_)
+      if(FieldNumber::BATTERY == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.bat_.~Battery();
+        message_.battery_.~Battery();
       }
     }
-    inline void set_bat(const Battery& value)
+    inline void set_battery(const Battery& value)
     {
-      if(FieldNumber::BAT != which_message_)
+      if(FieldNumber::BATTERY != which_message_)
       {
-        init_message(FieldNumber::BAT);
+        init_message(FieldNumber::BATTERY);
       }
-      message_.bat_ = value;
+      message_.battery_ = value;
     }
-    inline void set_bat(const Battery&& value)
+    inline void set_battery(const Battery&& value)
     {
-      if(FieldNumber::BAT != which_message_)
+      if(FieldNumber::BATTERY != which_message_)
       {
-        init_message(FieldNumber::BAT);
+        init_message(FieldNumber::BATTERY);
       }
-      message_.bat_ = value;
+      message_.battery_ = value;
     }
-    inline Battery& mutable_bat()
+    inline Battery& mutable_battery()
     {
-      if(FieldNumber::BAT != which_message_)
+      if(FieldNumber::BATTERY != which_message_)
       {
-        init_message(FieldNumber::BAT);
+        init_message(FieldNumber::BATTERY);
       }
-      return message_.bat_;
+      return message_.battery_;
     }
-    inline const Battery& get_bat() const { return message_.bat_; }
-    inline const Battery& bat() const { return message_.bat_; }
+    inline const Battery& get_battery() const { return message_.battery_; }
+    inline const Battery& battery() const { return message_.battery_; }
 
-    static constexpr char const* FLASHINFO_NAME = "flashInfo";
-    inline bool has_flashInfo() const
+    static constexpr char const* FLASHSTATE_NAME = "flashState";
+    inline bool has_flashState() const
     {
-      return FieldNumber::FLASHINFO == which_message_;
+      return FieldNumber::FLASHSTATE == which_message_;
     }
-    inline void clear_flashInfo()
+    inline void clear_flashState()
     {
-      if(FieldNumber::FLASHINFO == which_message_)
+      if(FieldNumber::FLASHSTATE == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.flashInfo_.~Flash();
+        message_.flashState_.~Flash();
       }
     }
-    inline void set_flashInfo(const Flash& value)
+    inline void set_flashState(const Flash& value)
     {
-      if(FieldNumber::FLASHINFO != which_message_)
+      if(FieldNumber::FLASHSTATE != which_message_)
       {
-        init_message(FieldNumber::FLASHINFO);
+        init_message(FieldNumber::FLASHSTATE);
       }
-      message_.flashInfo_ = value;
+      message_.flashState_ = value;
     }
-    inline void set_flashInfo(const Flash&& value)
+    inline void set_flashState(const Flash&& value)
     {
-      if(FieldNumber::FLASHINFO != which_message_)
+      if(FieldNumber::FLASHSTATE != which_message_)
       {
-        init_message(FieldNumber::FLASHINFO);
+        init_message(FieldNumber::FLASHSTATE);
       }
-      message_.flashInfo_ = value;
+      message_.flashState_ = value;
     }
-    inline Flash& mutable_flashInfo()
+    inline Flash& mutable_flashState()
     {
-      if(FieldNumber::FLASHINFO != which_message_)
+      if(FieldNumber::FLASHSTATE != which_message_)
       {
-        init_message(FieldNumber::FLASHINFO);
+        init_message(FieldNumber::FLASHSTATE);
       }
-      return message_.flashInfo_;
+      return message_.flashState_;
     }
-    inline const Flash& get_flashInfo() const { return message_.flashInfo_; }
-    inline const Flash& flashInfo() const { return message_.flashInfo_; }
+    inline const Flash& get_flashState() const { return message_.flashState_; }
+    inline const Flash& flashState() const { return message_.flashState_; }
 
-    static constexpr char const* PRESSDMB_NAME = "pressdmb";
-    inline bool has_pressdmb() const
+    static constexpr char const* DMBPRESSURE_NAME = "dmbPressure";
+    inline bool has_dmbPressure() const
     {
-      return FieldNumber::PRESSDMB == which_message_;
+      return FieldNumber::DMBPRESSURE == which_message_;
     }
-    inline void clear_pressdmb()
+    inline void clear_dmbPressure()
     {
-      if(FieldNumber::PRESSDMB == which_message_)
+      if(FieldNumber::DMBPRESSURE == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.pressdmb_.~DMBPressure();
+        message_.dmbPressure_.~DmbPressure();
       }
     }
-    inline void set_pressdmb(const DMBPressure& value)
+    inline void set_dmbPressure(const DmbPressure& value)
     {
-      if(FieldNumber::PRESSDMB != which_message_)
+      if(FieldNumber::DMBPRESSURE != which_message_)
       {
-        init_message(FieldNumber::PRESSDMB);
+        init_message(FieldNumber::DMBPRESSURE);
       }
-      message_.pressdmb_ = value;
+      message_.dmbPressure_ = value;
     }
-    inline void set_pressdmb(const DMBPressure&& value)
+    inline void set_dmbPressure(const DmbPressure&& value)
     {
-      if(FieldNumber::PRESSDMB != which_message_)
+      if(FieldNumber::DMBPRESSURE != which_message_)
       {
-        init_message(FieldNumber::PRESSDMB);
+        init_message(FieldNumber::DMBPRESSURE);
       }
-      message_.pressdmb_ = value;
+      message_.dmbPressure_ = value;
     }
-    inline DMBPressure& mutable_pressdmb()
+    inline DmbPressure& mutable_dmbPressure()
     {
-      if(FieldNumber::PRESSDMB != which_message_)
+      if(FieldNumber::DMBPRESSURE != which_message_)
       {
-        init_message(FieldNumber::PRESSDMB);
+        init_message(FieldNumber::DMBPRESSURE);
       }
-      return message_.pressdmb_;
+      return message_.dmbPressure_;
     }
-    inline const DMBPressure& get_pressdmb() const { return message_.pressdmb_; }
-    inline const DMBPressure& pressdmb() const { return message_.pressdmb_; }
+    inline const DmbPressure& get_dmbPressure() const { return message_.dmbPressure_; }
+    inline const DmbPressure& dmbPressure() const { return message_.dmbPressure_; }
 
-    static constexpr char const* PRESSPBB_NAME = "presspbb";
-    inline bool has_presspbb() const
+    static constexpr char const* PBBPRESSURE_NAME = "pbbPressure";
+    inline bool has_pbbPressure() const
     {
-      return FieldNumber::PRESSPBB == which_message_;
+      return FieldNumber::PBBPRESSURE == which_message_;
     }
-    inline void clear_presspbb()
+    inline void clear_pbbPressure()
     {
-      if(FieldNumber::PRESSPBB == which_message_)
+      if(FieldNumber::PBBPRESSURE == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.presspbb_.~PBBPressure();
+        message_.pbbPressure_.~PbbPressure();
       }
     }
-    inline void set_presspbb(const PBBPressure& value)
+    inline void set_pbbPressure(const PbbPressure& value)
     {
-      if(FieldNumber::PRESSPBB != which_message_)
+      if(FieldNumber::PBBPRESSURE != which_message_)
       {
-        init_message(FieldNumber::PRESSPBB);
+        init_message(FieldNumber::PBBPRESSURE);
       }
-      message_.presspbb_ = value;
+      message_.pbbPressure_ = value;
     }
-    inline void set_presspbb(const PBBPressure&& value)
+    inline void set_pbbPressure(const PbbPressure&& value)
     {
-      if(FieldNumber::PRESSPBB != which_message_)
+      if(FieldNumber::PBBPRESSURE != which_message_)
       {
-        init_message(FieldNumber::PRESSPBB);
+        init_message(FieldNumber::PBBPRESSURE);
       }
-      message_.presspbb_ = value;
+      message_.pbbPressure_ = value;
     }
-    inline PBBPressure& mutable_presspbb()
+    inline PbbPressure& mutable_pbbPressure()
     {
-      if(FieldNumber::PRESSPBB != which_message_)
+      if(FieldNumber::PBBPRESSURE != which_message_)
       {
-        init_message(FieldNumber::PRESSPBB);
+        init_message(FieldNumber::PBBPRESSURE);
       }
-      return message_.presspbb_;
+      return message_.pbbPressure_;
     }
-    inline const PBBPressure& get_presspbb() const { return message_.presspbb_; }
-    inline const PBBPressure& presspbb() const { return message_.presspbb_; }
+    inline const PbbPressure& get_pbbPressure() const { return message_.pbbPressure_; }
+    inline const PbbPressure& pbbPressure() const { return message_.pbbPressure_; }
 
-    static constexpr char const* TEMPPBB_NAME = "temppbb";
-    inline bool has_temppbb() const
+    static constexpr char const* PBBTEMPERATURE_NAME = "pbbTemperature";
+    inline bool has_pbbTemperature() const
     {
-      return FieldNumber::TEMPPBB == which_message_;
+      return FieldNumber::PBBTEMPERATURE == which_message_;
     }
-    inline void clear_temppbb()
+    inline void clear_pbbTemperature()
     {
-      if(FieldNumber::TEMPPBB == which_message_)
+      if(FieldNumber::PBBTEMPERATURE == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.temppbb_.~PBBTemp();
+        message_.pbbTemperature_.~PbbTemperature();
       }
     }
-    inline void set_temppbb(const PBBTemp& value)
+    inline void set_pbbTemperature(const PbbTemperature& value)
     {
-      if(FieldNumber::TEMPPBB != which_message_)
+      if(FieldNumber::PBBTEMPERATURE != which_message_)
       {
-        init_message(FieldNumber::TEMPPBB);
+        init_message(FieldNumber::PBBTEMPERATURE);
       }
-      message_.temppbb_ = value;
+      message_.pbbTemperature_ = value;
     }
-    inline void set_temppbb(const PBBTemp&& value)
+    inline void set_pbbTemperature(const PbbTemperature&& value)
     {
-      if(FieldNumber::TEMPPBB != which_message_)
+      if(FieldNumber::PBBTEMPERATURE != which_message_)
       {
-        init_message(FieldNumber::TEMPPBB);
+        init_message(FieldNumber::PBBTEMPERATURE);
       }
-      message_.temppbb_ = value;
+      message_.pbbTemperature_ = value;
     }
-    inline PBBTemp& mutable_temppbb()
+    inline PbbTemperature& mutable_pbbTemperature()
     {
-      if(FieldNumber::TEMPPBB != which_message_)
+      if(FieldNumber::PBBTEMPERATURE != which_message_)
       {
-        init_message(FieldNumber::TEMPPBB);
+        init_message(FieldNumber::PBBTEMPERATURE);
       }
-      return message_.temppbb_;
+      return message_.pbbTemperature_;
     }
-    inline const PBBTemp& get_temppbb() const { return message_.temppbb_; }
-    inline const PBBTemp& temppbb() const { return message_.temppbb_; }
+    inline const PbbTemperature& get_pbbTemperature() const { return message_.pbbTemperature_; }
+    inline const PbbTemperature& pbbTemperature() const { return message_.pbbTemperature_; }
 
-    static constexpr char const* GPIO_NAME = "gpio";
-    inline bool has_gpio() const
+    static constexpr char const* COMBUSTIONCONTROLSTATUS_NAME = "combustionControlStatus";
+    inline bool has_combustionControlStatus() const
     {
-      return FieldNumber::GPIO == which_message_;
+      return FieldNumber::COMBUSTIONCONTROLSTATUS == which_message_;
     }
-    inline void clear_gpio()
+    inline void clear_combustionControlStatus()
     {
-      if(FieldNumber::GPIO == which_message_)
+      if(FieldNumber::COMBUSTIONCONTROLSTATUS == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.gpio_.~CombustionControlStatus();
+        message_.combustionControlStatus_.~CombustionControlStatus();
       }
     }
-    inline void set_gpio(const CombustionControlStatus& value)
+    inline void set_combustionControlStatus(const CombustionControlStatus& value)
     {
-      if(FieldNumber::GPIO != which_message_)
+      if(FieldNumber::COMBUSTIONCONTROLSTATUS != which_message_)
       {
-        init_message(FieldNumber::GPIO);
+        init_message(FieldNumber::COMBUSTIONCONTROLSTATUS);
       }
-      message_.gpio_ = value;
+      message_.combustionControlStatus_ = value;
     }
-    inline void set_gpio(const CombustionControlStatus&& value)
+    inline void set_combustionControlStatus(const CombustionControlStatus&& value)
     {
-      if(FieldNumber::GPIO != which_message_)
+      if(FieldNumber::COMBUSTIONCONTROLSTATUS != which_message_)
       {
-        init_message(FieldNumber::GPIO);
+        init_message(FieldNumber::COMBUSTIONCONTROLSTATUS);
       }
-      message_.gpio_ = value;
+      message_.combustionControlStatus_ = value;
     }
-    inline CombustionControlStatus& mutable_gpio()
+    inline CombustionControlStatus& mutable_combustionControlStatus()
     {
-      if(FieldNumber::GPIO != which_message_)
+      if(FieldNumber::COMBUSTIONCONTROLSTATUS != which_message_)
       {
-        init_message(FieldNumber::GPIO);
+        init_message(FieldNumber::COMBUSTIONCONTROLSTATUS);
       }
-      return message_.gpio_;
+      return message_.combustionControlStatus_;
     }
-    inline const CombustionControlStatus& get_gpio() const { return message_.gpio_; }
-    inline const CombustionControlStatus& gpio() const { return message_.gpio_; }
+    inline const CombustionControlStatus& get_combustionControlStatus() const { return message_.combustionControlStatus_; }
+    inline const CombustionControlStatus& combustionControlStatus() const { return message_.combustionControlStatus_; }
 
-    static constexpr char const* PRESSRCU_NAME = "pressrcu";
-    inline bool has_pressrcu() const
+    static constexpr char const* RCUPRESSURE_NAME = "rcuPressure";
+    inline bool has_rcuPressure() const
     {
-      return FieldNumber::PRESSRCU == which_message_;
+      return FieldNumber::RCUPRESSURE == which_message_;
     }
-    inline void clear_pressrcu()
+    inline void clear_rcuPressure()
     {
-      if(FieldNumber::PRESSRCU == which_message_)
+      if(FieldNumber::RCUPRESSURE == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.pressrcu_.~RCUPressure();
+        message_.rcuPressure_.~RcuPressure();
       }
     }
-    inline void set_pressrcu(const RCUPressure& value)
+    inline void set_rcuPressure(const RcuPressure& value)
     {
-      if(FieldNumber::PRESSRCU != which_message_)
+      if(FieldNumber::RCUPRESSURE != which_message_)
       {
-        init_message(FieldNumber::PRESSRCU);
+        init_message(FieldNumber::RCUPRESSURE);
       }
-      message_.pressrcu_ = value;
+      message_.rcuPressure_ = value;
     }
-    inline void set_pressrcu(const RCUPressure&& value)
+    inline void set_rcuPressure(const RcuPressure&& value)
     {
-      if(FieldNumber::PRESSRCU != which_message_)
+      if(FieldNumber::RCUPRESSURE != which_message_)
       {
-        init_message(FieldNumber::PRESSRCU);
+        init_message(FieldNumber::RCUPRESSURE);
       }
-      message_.pressrcu_ = value;
+      message_.rcuPressure_ = value;
     }
-    inline RCUPressure& mutable_pressrcu()
+    inline RcuPressure& mutable_rcuPressure()
     {
-      if(FieldNumber::PRESSRCU != which_message_)
+      if(FieldNumber::RCUPRESSURE != which_message_)
       {
-        init_message(FieldNumber::PRESSRCU);
+        init_message(FieldNumber::RCUPRESSURE);
       }
-      return message_.pressrcu_;
+      return message_.rcuPressure_;
     }
-    inline const RCUPressure& get_pressrcu() const { return message_.pressrcu_; }
-    inline const RCUPressure& pressrcu() const { return message_.pressrcu_; }
+    inline const RcuPressure& get_rcuPressure() const { return message_.rcuPressure_; }
+    inline const RcuPressure& rcuPressure() const { return message_.rcuPressure_; }
 
-    static constexpr char const* TEMPRCU_NAME = "temprcu";
-    inline bool has_temprcu() const
+    static constexpr char const* RCUTEMPERATURE_NAME = "rcuTemperature";
+    inline bool has_rcuTemperature() const
     {
-      return FieldNumber::TEMPRCU == which_message_;
+      return FieldNumber::RCUTEMPERATURE == which_message_;
     }
-    inline void clear_temprcu()
+    inline void clear_rcuTemperature()
     {
-      if(FieldNumber::TEMPRCU == which_message_)
+      if(FieldNumber::RCUTEMPERATURE == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.temprcu_.~RCUTemp();
+        message_.rcuTemperature_.~RcuTemperature();
       }
     }
-    inline void set_temprcu(const RCUTemp& value)
+    inline void set_rcuTemperature(const RcuTemperature& value)
     {
-      if(FieldNumber::TEMPRCU != which_message_)
+      if(FieldNumber::RCUTEMPERATURE != which_message_)
       {
-        init_message(FieldNumber::TEMPRCU);
+        init_message(FieldNumber::RCUTEMPERATURE);
       }
-      message_.temprcu_ = value;
+      message_.rcuTemperature_ = value;
     }
-    inline void set_temprcu(const RCUTemp&& value)
+    inline void set_rcuTemperature(const RcuTemperature&& value)
     {
-      if(FieldNumber::TEMPRCU != which_message_)
+      if(FieldNumber::RCUTEMPERATURE != which_message_)
       {
-        init_message(FieldNumber::TEMPRCU);
+        init_message(FieldNumber::RCUTEMPERATURE);
       }
-      message_.temprcu_ = value;
+      message_.rcuTemperature_ = value;
     }
-    inline RCUTemp& mutable_temprcu()
+    inline RcuTemperature& mutable_rcuTemperature()
     {
-      if(FieldNumber::TEMPRCU != which_message_)
+      if(FieldNumber::RCUTEMPERATURE != which_message_)
       {
-        init_message(FieldNumber::TEMPRCU);
+        init_message(FieldNumber::RCUTEMPERATURE);
       }
-      return message_.temprcu_;
+      return message_.rcuTemperature_;
     }
-    inline const RCUTemp& get_temprcu() const { return message_.temprcu_; }
-    inline const RCUTemp& temprcu() const { return message_.temprcu_; }
+    inline const RcuTemperature& get_rcuTemperature() const { return message_.rcuTemperature_; }
+    inline const RcuTemperature& rcuTemperature() const { return message_.rcuTemperature_; }
 
-    static constexpr char const* NOS_NAME = "nos";
-    inline bool has_nos() const
+    static constexpr char const* NOSLOADCELL_NAME = "nosLoadCell";
+    inline bool has_nosLoadCell() const
     {
-      return FieldNumber::NOS == which_message_;
+      return FieldNumber::NOSLOADCELL == which_message_;
     }
-    inline void clear_nos()
+    inline void clear_nosLoadCell()
     {
-      if(FieldNumber::NOS == which_message_)
+      if(FieldNumber::NOSLOADCELL == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.nos_.~NOSLoadCell();
+        message_.nosLoadCell_.~NosLoadCell();
       }
     }
-    inline void set_nos(const NOSLoadCell& value)
+    inline void set_nosLoadCell(const NosLoadCell& value)
     {
-      if(FieldNumber::NOS != which_message_)
+      if(FieldNumber::NOSLOADCELL != which_message_)
       {
-        init_message(FieldNumber::NOS);
+        init_message(FieldNumber::NOSLOADCELL);
       }
-      message_.nos_ = value;
+      message_.nosLoadCell_ = value;
     }
-    inline void set_nos(const NOSLoadCell&& value)
+    inline void set_nosLoadCell(const NosLoadCell&& value)
     {
-      if(FieldNumber::NOS != which_message_)
+      if(FieldNumber::NOSLOADCELL != which_message_)
       {
-        init_message(FieldNumber::NOS);
+        init_message(FieldNumber::NOSLOADCELL);
       }
-      message_.nos_ = value;
+      message_.nosLoadCell_ = value;
     }
-    inline NOSLoadCell& mutable_nos()
+    inline NosLoadCell& mutable_nosLoadCell()
     {
-      if(FieldNumber::NOS != which_message_)
+      if(FieldNumber::NOSLOADCELL != which_message_)
       {
-        init_message(FieldNumber::NOS);
+        init_message(FieldNumber::NOSLOADCELL);
       }
-      return message_.nos_;
+      return message_.nosLoadCell_;
     }
-    inline const NOSLoadCell& get_nos() const { return message_.nos_; }
-    inline const NOSLoadCell& nos() const { return message_.nos_; }
+    inline const NosLoadCell& get_nosLoadCell() const { return message_.nosLoadCell_; }
+    inline const NosLoadCell& nosLoadCell() const { return message_.nosLoadCell_; }
 
-    static constexpr char const* RELAY_NAME = "relay";
-    inline bool has_relay() const
+    static constexpr char const* RELAYSTATUS_NAME = "relayStatus";
+    inline bool has_relayStatus() const
     {
-      return FieldNumber::RELAY == which_message_;
+      return FieldNumber::RELAYSTATUS == which_message_;
     }
-    inline void clear_relay()
+    inline void clear_relayStatus()
     {
-      if(FieldNumber::RELAY == which_message_)
+      if(FieldNumber::RELAYSTATUS == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.relay_.~RelayStatus();
+        message_.relayStatus_.~RelayStatus();
       }
     }
-    inline void set_relay(const RelayStatus& value)
+    inline void set_relayStatus(const RelayStatus& value)
     {
-      if(FieldNumber::RELAY != which_message_)
+      if(FieldNumber::RELAYSTATUS != which_message_)
       {
-        init_message(FieldNumber::RELAY);
+        init_message(FieldNumber::RELAYSTATUS);
       }
-      message_.relay_ = value;
+      message_.relayStatus_ = value;
     }
-    inline void set_relay(const RelayStatus&& value)
+    inline void set_relayStatus(const RelayStatus&& value)
     {
-      if(FieldNumber::RELAY != which_message_)
+      if(FieldNumber::RELAYSTATUS != which_message_)
       {
-        init_message(FieldNumber::RELAY);
+        init_message(FieldNumber::RELAYSTATUS);
       }
-      message_.relay_ = value;
+      message_.relayStatus_ = value;
     }
-    inline RelayStatus& mutable_relay()
+    inline RelayStatus& mutable_relayStatus()
     {
-      if(FieldNumber::RELAY != which_message_)
+      if(FieldNumber::RELAYSTATUS != which_message_)
       {
-        init_message(FieldNumber::RELAY);
+        init_message(FieldNumber::RELAYSTATUS);
       }
-      return message_.relay_;
+      return message_.relayStatus_;
     }
-    inline const RelayStatus& get_relay() const { return message_.relay_; }
-    inline const RelayStatus& relay() const { return message_.relay_; }
+    inline const RelayStatus& get_relayStatus() const { return message_.relayStatus_; }
+    inline const RelayStatus& relayStatus() const { return message_.relayStatus_; }
 
-    static constexpr char const* PADBOX_NAME = "padbox";
-    inline bool has_padbox() const
+    static constexpr char const* PADBOXSTATUS_NAME = "padBoxStatus";
+    inline bool has_padBoxStatus() const
     {
-      return FieldNumber::PADBOX == which_message_;
+      return FieldNumber::PADBOXSTATUS == which_message_;
     }
-    inline void clear_padbox()
+    inline void clear_padBoxStatus()
     {
-      if(FieldNumber::PADBOX == which_message_)
+      if(FieldNumber::PADBOXSTATUS == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.padbox_.~PadBoxStatus();
+        message_.padBoxStatus_.~PadBoxStatus();
       }
     }
-    inline void set_padbox(const PadBoxStatus& value)
+    inline void set_padBoxStatus(const PadBoxStatus& value)
     {
-      if(FieldNumber::PADBOX != which_message_)
+      if(FieldNumber::PADBOXSTATUS != which_message_)
       {
-        init_message(FieldNumber::PADBOX);
+        init_message(FieldNumber::PADBOXSTATUS);
       }
-      message_.padbox_ = value;
+      message_.padBoxStatus_ = value;
     }
-    inline void set_padbox(const PadBoxStatus&& value)
+    inline void set_padBoxStatus(const PadBoxStatus&& value)
     {
-      if(FieldNumber::PADBOX != which_message_)
+      if(FieldNumber::PADBOXSTATUS != which_message_)
       {
-        init_message(FieldNumber::PADBOX);
+        init_message(FieldNumber::PADBOXSTATUS);
       }
-      message_.padbox_ = value;
+      message_.padBoxStatus_ = value;
     }
-    inline PadBoxStatus& mutable_padbox()
+    inline PadBoxStatus& mutable_padBoxStatus()
     {
-      if(FieldNumber::PADBOX != which_message_)
+      if(FieldNumber::PADBOXSTATUS != which_message_)
       {
-        init_message(FieldNumber::PADBOX);
+        init_message(FieldNumber::PADBOXSTATUS);
       }
-      return message_.padbox_;
+      return message_.padBoxStatus_;
     }
-    inline const PadBoxStatus& get_padbox() const { return message_.padbox_; }
-    inline const PadBoxStatus& padbox() const { return message_.padbox_; }
+    inline const PadBoxStatus& get_padBoxStatus() const { return message_.padBoxStatus_; }
+    inline const PadBoxStatus& padBoxStatus() const { return message_.padBoxStatus_; }
 
-    static constexpr char const* LR_NAME = "lr";
-    inline bool has_lr() const
+    static constexpr char const* LAUNCHRAILLOADCELL_NAME = "launchRailLoadCell";
+    inline bool has_launchRailLoadCell() const
     {
-      return FieldNumber::LR == which_message_;
+      return FieldNumber::LAUNCHRAILLOADCELL == which_message_;
     }
-    inline void clear_lr()
+    inline void clear_launchRailLoadCell()
     {
-      if(FieldNumber::LR == which_message_)
+      if(FieldNumber::LAUNCHRAILLOADCELL == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.lr_.~LRLoadCell();
+        message_.launchRailLoadCell_.~LaunchRailLoadCell();
       }
     }
-    inline void set_lr(const LRLoadCell& value)
+    inline void set_launchRailLoadCell(const LaunchRailLoadCell& value)
     {
-      if(FieldNumber::LR != which_message_)
+      if(FieldNumber::LAUNCHRAILLOADCELL != which_message_)
       {
-        init_message(FieldNumber::LR);
+        init_message(FieldNumber::LAUNCHRAILLOADCELL);
       }
-      message_.lr_ = value;
+      message_.launchRailLoadCell_ = value;
     }
-    inline void set_lr(const LRLoadCell&& value)
+    inline void set_launchRailLoadCell(const LaunchRailLoadCell&& value)
     {
-      if(FieldNumber::LR != which_message_)
+      if(FieldNumber::LAUNCHRAILLOADCELL != which_message_)
       {
-        init_message(FieldNumber::LR);
+        init_message(FieldNumber::LAUNCHRAILLOADCELL);
       }
-      message_.lr_ = value;
+      message_.launchRailLoadCell_ = value;
     }
-    inline LRLoadCell& mutable_lr()
+    inline LaunchRailLoadCell& mutable_launchRailLoadCell()
     {
-      if(FieldNumber::LR != which_message_)
+      if(FieldNumber::LAUNCHRAILLOADCELL != which_message_)
       {
-        init_message(FieldNumber::LR);
+        init_message(FieldNumber::LAUNCHRAILLOADCELL);
       }
-      return message_.lr_;
+      return message_.launchRailLoadCell_;
     }
-    inline const LRLoadCell& get_lr() const { return message_.lr_; }
-    inline const LRLoadCell& lr() const { return message_.lr_; }
+    inline const LaunchRailLoadCell& get_launchRailLoadCell() const { return message_.launchRailLoadCell_; }
+    inline const LaunchRailLoadCell& launchRailLoadCell() const { return message_.launchRailLoadCell_; }
 
-    static constexpr char const* TEMPSOB_NAME = "tempsob";
-    inline bool has_tempsob() const
+    static constexpr char const* SOBTEMPERATURE_NAME = "sobTemperature";
+    inline bool has_sobTemperature() const
     {
-      return FieldNumber::TEMPSOB == which_message_;
+      return FieldNumber::SOBTEMPERATURE == which_message_;
     }
-    inline void clear_tempsob()
+    inline void clear_sobTemperature()
     {
-      if(FieldNumber::TEMPSOB == which_message_)
+      if(FieldNumber::SOBTEMPERATURE == which_message_)
       {
         which_message_ = FieldNumber::NOT_SET;
-        message_.tempsob_.~SOBTemp();
+        message_.sobTemperature_.~SobTemperature();
       }
     }
-    inline void set_tempsob(const SOBTemp& value)
+    inline void set_sobTemperature(const SobTemperature& value)
     {
-      if(FieldNumber::TEMPSOB != which_message_)
+      if(FieldNumber::SOBTEMPERATURE != which_message_)
       {
-        init_message(FieldNumber::TEMPSOB);
+        init_message(FieldNumber::SOBTEMPERATURE);
       }
-      message_.tempsob_ = value;
+      message_.sobTemperature_ = value;
     }
-    inline void set_tempsob(const SOBTemp&& value)
+    inline void set_sobTemperature(const SobTemperature&& value)
     {
-      if(FieldNumber::TEMPSOB != which_message_)
+      if(FieldNumber::SOBTEMPERATURE != which_message_)
       {
-        init_message(FieldNumber::TEMPSOB);
+        init_message(FieldNumber::SOBTEMPERATURE);
       }
-      message_.tempsob_ = value;
+      message_.sobTemperature_ = value;
     }
-    inline SOBTemp& mutable_tempsob()
+    inline SobTemperature& mutable_sobTemperature()
     {
-      if(FieldNumber::TEMPSOB != which_message_)
+      if(FieldNumber::SOBTEMPERATURE != which_message_)
       {
-        init_message(FieldNumber::TEMPSOB);
+        init_message(FieldNumber::SOBTEMPERATURE);
       }
-      return message_.tempsob_;
+      return message_.sobTemperature_;
     }
-    inline const SOBTemp& get_tempsob() const { return message_.tempsob_; }
-    inline const SOBTemp& tempsob() const { return message_.tempsob_; }
-
-    static constexpr char const* IRTEMP_NAME = "irtemp";
-    inline bool has_irtemp() const
-    {
-      return FieldNumber::IRTEMP == which_message_;
-    }
-    inline void clear_irtemp()
-    {
-      if(FieldNumber::IRTEMP == which_message_)
-      {
-        which_message_ = FieldNumber::NOT_SET;
-        message_.irtemp_.~IRTemperature();
-      }
-    }
-    inline void set_irtemp(const IRTemperature& value)
-    {
-      if(FieldNumber::IRTEMP != which_message_)
-      {
-        init_message(FieldNumber::IRTEMP);
-      }
-      message_.irtemp_ = value;
-    }
-    inline void set_irtemp(const IRTemperature&& value)
-    {
-      if(FieldNumber::IRTEMP != which_message_)
-      {
-        init_message(FieldNumber::IRTEMP);
-      }
-      message_.irtemp_ = value;
-    }
-    inline IRTemperature& mutable_irtemp()
-    {
-      if(FieldNumber::IRTEMP != which_message_)
-      {
-        init_message(FieldNumber::IRTEMP);
-      }
-      return message_.irtemp_;
-    }
-    inline const IRTemperature& get_irtemp() const { return message_.irtemp_; }
-    inline const IRTemperature& irtemp() const { return message_.irtemp_; }
-
-    static constexpr char const* MEVSTATE_NAME = "mevstate";
-    inline bool has_mevstate() const
-    {
-      return FieldNumber::MEVSTATE == which_message_;
-    }
-    inline void clear_mevstate()
-    {
-      if(FieldNumber::MEVSTATE == which_message_)
-      {
-        which_message_ = FieldNumber::NOT_SET;
-        message_.mevstate_.~MEVState();
-      }
-    }
-    inline void set_mevstate(const MEVState& value)
-    {
-      if(FieldNumber::MEVSTATE != which_message_)
-      {
-        init_message(FieldNumber::MEVSTATE);
-      }
-      message_.mevstate_ = value;
-    }
-    inline void set_mevstate(const MEVState&& value)
-    {
-      if(FieldNumber::MEVSTATE != which_message_)
-      {
-        init_message(FieldNumber::MEVSTATE);
-      }
-      message_.mevstate_ = value;
-    }
-    inline MEVState& mutable_mevstate()
-    {
-      if(FieldNumber::MEVSTATE != which_message_)
-      {
-        init_message(FieldNumber::MEVSTATE);
-      }
-      return message_.mevstate_;
-    }
-    inline const MEVState& get_mevstate() const { return message_.mevstate_; }
-    inline const MEVState& mevstate() const { return message_.mevstate_; }
+    inline const SobTemperature& get_sobTemperature() const { return message_.sobTemperature_; }
+    inline const SobTemperature& sobTemperature() const { return message_.sobTemperature_; }
 
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
@@ -6512,17 +5953,12 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
         return_value = target_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TARGET), buffer, false);
       }
 
-      if((0U != message_id_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = message_id_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MESSAGE_ID), buffer, false);
-      }
-
       switch(which_message_)
       {
-        case FieldNumber::COORD:
-          if(has_coord() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::GPS:
+          if(has_gps() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.coord_.serialize_with_id(static_cast<uint32_t>(FieldNumber::COORD), buffer, true);
+            return_value = message_.gps_.serialize_with_id(static_cast<uint32_t>(FieldNumber::GPS), buffer, true);
           }
           break;
 
@@ -6540,108 +5976,94 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           }
           break;
 
-        case FieldNumber::BAT:
-          if(has_bat() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::BATTERY:
+          if(has_battery() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.bat_.serialize_with_id(static_cast<uint32_t>(FieldNumber::BAT), buffer, true);
+            return_value = message_.battery_.serialize_with_id(static_cast<uint32_t>(FieldNumber::BATTERY), buffer, true);
           }
           break;
 
-        case FieldNumber::FLASHINFO:
-          if(has_flashInfo() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::FLASHSTATE:
+          if(has_flashState() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.flashInfo_.serialize_with_id(static_cast<uint32_t>(FieldNumber::FLASHINFO), buffer, true);
+            return_value = message_.flashState_.serialize_with_id(static_cast<uint32_t>(FieldNumber::FLASHSTATE), buffer, true);
           }
           break;
 
-        case FieldNumber::PRESSDMB:
-          if(has_pressdmb() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::DMBPRESSURE:
+          if(has_dmbPressure() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.pressdmb_.serialize_with_id(static_cast<uint32_t>(FieldNumber::PRESSDMB), buffer, true);
+            return_value = message_.dmbPressure_.serialize_with_id(static_cast<uint32_t>(FieldNumber::DMBPRESSURE), buffer, true);
           }
           break;
 
-        case FieldNumber::PRESSPBB:
-          if(has_presspbb() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::PBBPRESSURE:
+          if(has_pbbPressure() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.presspbb_.serialize_with_id(static_cast<uint32_t>(FieldNumber::PRESSPBB), buffer, true);
+            return_value = message_.pbbPressure_.serialize_with_id(static_cast<uint32_t>(FieldNumber::PBBPRESSURE), buffer, true);
           }
           break;
 
-        case FieldNumber::TEMPPBB:
-          if(has_temppbb() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::PBBTEMPERATURE:
+          if(has_pbbTemperature() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.temppbb_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TEMPPBB), buffer, true);
+            return_value = message_.pbbTemperature_.serialize_with_id(static_cast<uint32_t>(FieldNumber::PBBTEMPERATURE), buffer, true);
           }
           break;
 
-        case FieldNumber::GPIO:
-          if(has_gpio() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::COMBUSTIONCONTROLSTATUS:
+          if(has_combustionControlStatus() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.gpio_.serialize_with_id(static_cast<uint32_t>(FieldNumber::GPIO), buffer, true);
+            return_value = message_.combustionControlStatus_.serialize_with_id(static_cast<uint32_t>(FieldNumber::COMBUSTIONCONTROLSTATUS), buffer, true);
           }
           break;
 
-        case FieldNumber::PRESSRCU:
-          if(has_pressrcu() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::RCUPRESSURE:
+          if(has_rcuPressure() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.pressrcu_.serialize_with_id(static_cast<uint32_t>(FieldNumber::PRESSRCU), buffer, true);
+            return_value = message_.rcuPressure_.serialize_with_id(static_cast<uint32_t>(FieldNumber::RCUPRESSURE), buffer, true);
           }
           break;
 
-        case FieldNumber::TEMPRCU:
-          if(has_temprcu() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::RCUTEMPERATURE:
+          if(has_rcuTemperature() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.temprcu_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TEMPRCU), buffer, true);
+            return_value = message_.rcuTemperature_.serialize_with_id(static_cast<uint32_t>(FieldNumber::RCUTEMPERATURE), buffer, true);
           }
           break;
 
-        case FieldNumber::NOS:
-          if(has_nos() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::NOSLOADCELL:
+          if(has_nosLoadCell() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.nos_.serialize_with_id(static_cast<uint32_t>(FieldNumber::NOS), buffer, true);
+            return_value = message_.nosLoadCell_.serialize_with_id(static_cast<uint32_t>(FieldNumber::NOSLOADCELL), buffer, true);
           }
           break;
 
-        case FieldNumber::RELAY:
-          if(has_relay() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::RELAYSTATUS:
+          if(has_relayStatus() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.relay_.serialize_with_id(static_cast<uint32_t>(FieldNumber::RELAY), buffer, true);
+            return_value = message_.relayStatus_.serialize_with_id(static_cast<uint32_t>(FieldNumber::RELAYSTATUS), buffer, true);
           }
           break;
 
-        case FieldNumber::PADBOX:
-          if(has_padbox() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::PADBOXSTATUS:
+          if(has_padBoxStatus() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.padbox_.serialize_with_id(static_cast<uint32_t>(FieldNumber::PADBOX), buffer, true);
+            return_value = message_.padBoxStatus_.serialize_with_id(static_cast<uint32_t>(FieldNumber::PADBOXSTATUS), buffer, true);
           }
           break;
 
-        case FieldNumber::LR:
-          if(has_lr() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::LAUNCHRAILLOADCELL:
+          if(has_launchRailLoadCell() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.lr_.serialize_with_id(static_cast<uint32_t>(FieldNumber::LR), buffer, true);
+            return_value = message_.launchRailLoadCell_.serialize_with_id(static_cast<uint32_t>(FieldNumber::LAUNCHRAILLOADCELL), buffer, true);
           }
           break;
 
-        case FieldNumber::TEMPSOB:
-          if(has_tempsob() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+        case FieldNumber::SOBTEMPERATURE:
+          if(has_sobTemperature() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
           {
-            return_value = message_.tempsob_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TEMPSOB), buffer, true);
-          }
-          break;
-
-        case FieldNumber::IRTEMP:
-          if(has_irtemp() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-          {
-            return_value = message_.irtemp_.serialize_with_id(static_cast<uint32_t>(FieldNumber::IRTEMP), buffer, true);
-          }
-          break;
-
-        case FieldNumber::MEVSTATE:
-          if(has_mevstate() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-          {
-            return_value = message_.mevstate_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MEVSTATE), buffer, true);
+            return_value = message_.sobTemperature_.serialize_with_id(static_cast<uint32_t>(FieldNumber::SOBTEMPERATURE), buffer, true);
           }
           break;
 
@@ -6673,28 +6095,22 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
             return_value = target_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::MESSAGE_ID:
-            return_value = message_id_.deserialize_check_type(buffer, wire_type);
-            break;
-
-          case FieldNumber::COORD:
+          case FieldNumber::GPS:
           case FieldNumber::BARO:
           case FieldNumber::IMU:
-          case FieldNumber::BAT:
-          case FieldNumber::FLASHINFO:
-          case FieldNumber::PRESSDMB:
-          case FieldNumber::PRESSPBB:
-          case FieldNumber::TEMPPBB:
-          case FieldNumber::GPIO:
-          case FieldNumber::PRESSRCU:
-          case FieldNumber::TEMPRCU:
-          case FieldNumber::NOS:
-          case FieldNumber::RELAY:
-          case FieldNumber::PADBOX:
-          case FieldNumber::LR:
-          case FieldNumber::TEMPSOB:
-          case FieldNumber::IRTEMP:
-          case FieldNumber::MEVSTATE:
+          case FieldNumber::BATTERY:
+          case FieldNumber::FLASHSTATE:
+          case FieldNumber::DMBPRESSURE:
+          case FieldNumber::PBBPRESSURE:
+          case FieldNumber::PBBTEMPERATURE:
+          case FieldNumber::COMBUSTIONCONTROLSTATUS:
+          case FieldNumber::RCUPRESSURE:
+          case FieldNumber::RCUTEMPERATURE:
+          case FieldNumber::NOSLOADCELL:
+          case FieldNumber::RELAYSTATUS:
+          case FieldNumber::PADBOXSTATUS:
+          case FieldNumber::LAUNCHRAILLOADCELL:
+          case FieldNumber::SOBTEMPERATURE:
             return_value = deserialize_message(id_tag, buffer, wire_type);
             break;
 
@@ -6729,7 +6145,6 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
     {
       clear_source();
       clear_target();
-      clear_message_id();
       clear_message();
 
     }
@@ -6745,11 +6160,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
         case FieldNumber::TARGET:
           name = TARGET_NAME;
           break;
-        case FieldNumber::MESSAGE_ID:
-          name = MESSAGE_ID_NAME;
-          break;
-        case FieldNumber::COORD:
-          name = COORD_NAME;
+        case FieldNumber::GPS:
+          name = GPS_NAME;
           break;
         case FieldNumber::BARO:
           name = BARO_NAME;
@@ -6757,50 +6169,44 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
         case FieldNumber::IMU:
           name = IMU_NAME;
           break;
-        case FieldNumber::BAT:
-          name = BAT_NAME;
+        case FieldNumber::BATTERY:
+          name = BATTERY_NAME;
           break;
-        case FieldNumber::FLASHINFO:
-          name = FLASHINFO_NAME;
+        case FieldNumber::FLASHSTATE:
+          name = FLASHSTATE_NAME;
           break;
-        case FieldNumber::PRESSDMB:
-          name = PRESSDMB_NAME;
+        case FieldNumber::DMBPRESSURE:
+          name = DMBPRESSURE_NAME;
           break;
-        case FieldNumber::PRESSPBB:
-          name = PRESSPBB_NAME;
+        case FieldNumber::PBBPRESSURE:
+          name = PBBPRESSURE_NAME;
           break;
-        case FieldNumber::TEMPPBB:
-          name = TEMPPBB_NAME;
+        case FieldNumber::PBBTEMPERATURE:
+          name = PBBTEMPERATURE_NAME;
           break;
-        case FieldNumber::GPIO:
-          name = GPIO_NAME;
+        case FieldNumber::COMBUSTIONCONTROLSTATUS:
+          name = COMBUSTIONCONTROLSTATUS_NAME;
           break;
-        case FieldNumber::PRESSRCU:
-          name = PRESSRCU_NAME;
+        case FieldNumber::RCUPRESSURE:
+          name = RCUPRESSURE_NAME;
           break;
-        case FieldNumber::TEMPRCU:
-          name = TEMPRCU_NAME;
+        case FieldNumber::RCUTEMPERATURE:
+          name = RCUTEMPERATURE_NAME;
           break;
-        case FieldNumber::NOS:
-          name = NOS_NAME;
+        case FieldNumber::NOSLOADCELL:
+          name = NOSLOADCELL_NAME;
           break;
-        case FieldNumber::RELAY:
-          name = RELAY_NAME;
+        case FieldNumber::RELAYSTATUS:
+          name = RELAYSTATUS_NAME;
           break;
-        case FieldNumber::PADBOX:
-          name = PADBOX_NAME;
+        case FieldNumber::PADBOXSTATUS:
+          name = PADBOXSTATUS_NAME;
           break;
-        case FieldNumber::LR:
-          name = LR_NAME;
+        case FieldNumber::LAUNCHRAILLOADCELL:
+          name = LAUNCHRAILLOADCELL_NAME;
           break;
-        case FieldNumber::TEMPSOB:
-          name = TEMPSOB_NAME;
-          break;
-        case FieldNumber::IRTEMP:
-          name = IRTEMP_NAME;
-          break;
-        case FieldNumber::MEVSTATE:
-          name = MEVSTATE_NAME;
+        case FieldNumber::SOBTEMPERATURE:
+          name = SOBTEMPERATURE_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -6864,7 +6270,6 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
 
       left_chars = source_.to_string(left_chars, indent_level + 2, SOURCE_NAME, true);
       left_chars = target_.to_string(left_chars, indent_level + 2, TARGET_NAME, false);
-      left_chars = message_id_.to_string(left_chars, indent_level + 2, MESSAGE_ID_NAME, false);
       left_chars = to_string_message(left_chars, indent_level + 2, false);
   
       if( 0 == indent_level) 
@@ -6892,31 +6297,28 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
 
       EmbeddedProto::enumeration<Node> source_ = static_cast<Node>(0);
       EmbeddedProto::enumeration<Node> target_ = static_cast<Node>(0);
-      EmbeddedProto::uint32 message_id_ = 0U;
 
       FieldNumber which_message_ = FieldNumber::NOT_SET;
       union message
       {
         message() {}
         ~message() {}
-        GPS coord_;
+        Gps gps_;
         Baro baro_;
-        IMU imu_;
-        Battery bat_;
-        Flash flashInfo_;
-        DMBPressure pressdmb_;
-        PBBPressure presspbb_;
-        PBBTemp temppbb_;
-        CombustionControlStatus gpio_;
-        RCUPressure pressrcu_;
-        RCUTemp temprcu_;
-        NOSLoadCell nos_;
-        RelayStatus relay_;
-        PadBoxStatus padbox_;
-        LRLoadCell lr_;
-        SOBTemp tempsob_;
-        IRTemperature irtemp_;
-        MEVState mevstate_;
+        Imu imu_;
+        Battery battery_;
+        Flash flashState_;
+        DmbPressure dmbPressure_;
+        PbbPressure pbbPressure_;
+        PbbTemperature pbbTemperature_;
+        CombustionControlStatus combustionControlStatus_;
+        RcuPressure rcuPressure_;
+        RcuTemperature rcuTemperature_;
+        NosLoadCell nosLoadCell_;
+        RelayStatus relayStatus_;
+        PadBoxStatus padBoxStatus_;
+        LaunchRailLoadCell launchRailLoadCell_;
+        SobTemperature sobTemperature_;
       };
       message message_;
 
@@ -6931,8 +6333,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
         // C++11 unions only support nontrivial members when you explicitly call the placement new statement.
         switch(field_id)
         {
-          case FieldNumber::COORD:
-            new(&message_.coord_) GPS;
+          case FieldNumber::GPS:
+            new(&message_.gps_) Gps;
             break;
 
           case FieldNumber::BARO:
@@ -6940,67 +6342,59 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
             break;
 
           case FieldNumber::IMU:
-            new(&message_.imu_) IMU;
+            new(&message_.imu_) Imu;
             break;
 
-          case FieldNumber::BAT:
-            new(&message_.bat_) Battery;
+          case FieldNumber::BATTERY:
+            new(&message_.battery_) Battery;
             break;
 
-          case FieldNumber::FLASHINFO:
-            new(&message_.flashInfo_) Flash;
+          case FieldNumber::FLASHSTATE:
+            new(&message_.flashState_) Flash;
             break;
 
-          case FieldNumber::PRESSDMB:
-            new(&message_.pressdmb_) DMBPressure;
+          case FieldNumber::DMBPRESSURE:
+            new(&message_.dmbPressure_) DmbPressure;
             break;
 
-          case FieldNumber::PRESSPBB:
-            new(&message_.presspbb_) PBBPressure;
+          case FieldNumber::PBBPRESSURE:
+            new(&message_.pbbPressure_) PbbPressure;
             break;
 
-          case FieldNumber::TEMPPBB:
-            new(&message_.temppbb_) PBBTemp;
+          case FieldNumber::PBBTEMPERATURE:
+            new(&message_.pbbTemperature_) PbbTemperature;
             break;
 
-          case FieldNumber::GPIO:
-            new(&message_.gpio_) CombustionControlStatus;
+          case FieldNumber::COMBUSTIONCONTROLSTATUS:
+            new(&message_.combustionControlStatus_) CombustionControlStatus;
             break;
 
-          case FieldNumber::PRESSRCU:
-            new(&message_.pressrcu_) RCUPressure;
+          case FieldNumber::RCUPRESSURE:
+            new(&message_.rcuPressure_) RcuPressure;
             break;
 
-          case FieldNumber::TEMPRCU:
-            new(&message_.temprcu_) RCUTemp;
+          case FieldNumber::RCUTEMPERATURE:
+            new(&message_.rcuTemperature_) RcuTemperature;
             break;
 
-          case FieldNumber::NOS:
-            new(&message_.nos_) NOSLoadCell;
+          case FieldNumber::NOSLOADCELL:
+            new(&message_.nosLoadCell_) NosLoadCell;
             break;
 
-          case FieldNumber::RELAY:
-            new(&message_.relay_) RelayStatus;
+          case FieldNumber::RELAYSTATUS:
+            new(&message_.relayStatus_) RelayStatus;
             break;
 
-          case FieldNumber::PADBOX:
-            new(&message_.padbox_) PadBoxStatus;
+          case FieldNumber::PADBOXSTATUS:
+            new(&message_.padBoxStatus_) PadBoxStatus;
             break;
 
-          case FieldNumber::LR:
-            new(&message_.lr_) LRLoadCell;
+          case FieldNumber::LAUNCHRAILLOADCELL:
+            new(&message_.launchRailLoadCell_) LaunchRailLoadCell;
             break;
 
-          case FieldNumber::TEMPSOB:
-            new(&message_.tempsob_) SOBTemp;
-            break;
-
-          case FieldNumber::IRTEMP:
-            new(&message_.irtemp_) IRTemperature;
-            break;
-
-          case FieldNumber::MEVSTATE:
-            new(&message_.mevstate_) MEVState;
+          case FieldNumber::SOBTEMPERATURE:
+            new(&message_.sobTemperature_) SobTemperature;
             break;
 
           default:
@@ -7014,8 +6408,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
       {
         switch(which_message_)
         {
-          case FieldNumber::COORD:
-            ::EmbeddedProto::destroy_at(&message_.coord_);
+          case FieldNumber::GPS:
+            ::EmbeddedProto::destroy_at(&message_.gps_);
             break;
           case FieldNumber::BARO:
             ::EmbeddedProto::destroy_at(&message_.baro_);
@@ -7023,50 +6417,44 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::IMU:
             ::EmbeddedProto::destroy_at(&message_.imu_);
             break;
-          case FieldNumber::BAT:
-            ::EmbeddedProto::destroy_at(&message_.bat_);
+          case FieldNumber::BATTERY:
+            ::EmbeddedProto::destroy_at(&message_.battery_);
             break;
-          case FieldNumber::FLASHINFO:
-            ::EmbeddedProto::destroy_at(&message_.flashInfo_);
+          case FieldNumber::FLASHSTATE:
+            ::EmbeddedProto::destroy_at(&message_.flashState_);
             break;
-          case FieldNumber::PRESSDMB:
-            ::EmbeddedProto::destroy_at(&message_.pressdmb_);
+          case FieldNumber::DMBPRESSURE:
+            ::EmbeddedProto::destroy_at(&message_.dmbPressure_);
             break;
-          case FieldNumber::PRESSPBB:
-            ::EmbeddedProto::destroy_at(&message_.presspbb_);
+          case FieldNumber::PBBPRESSURE:
+            ::EmbeddedProto::destroy_at(&message_.pbbPressure_);
             break;
-          case FieldNumber::TEMPPBB:
-            ::EmbeddedProto::destroy_at(&message_.temppbb_);
+          case FieldNumber::PBBTEMPERATURE:
+            ::EmbeddedProto::destroy_at(&message_.pbbTemperature_);
             break;
-          case FieldNumber::GPIO:
-            ::EmbeddedProto::destroy_at(&message_.gpio_);
+          case FieldNumber::COMBUSTIONCONTROLSTATUS:
+            ::EmbeddedProto::destroy_at(&message_.combustionControlStatus_);
             break;
-          case FieldNumber::PRESSRCU:
-            ::EmbeddedProto::destroy_at(&message_.pressrcu_);
+          case FieldNumber::RCUPRESSURE:
+            ::EmbeddedProto::destroy_at(&message_.rcuPressure_);
             break;
-          case FieldNumber::TEMPRCU:
-            ::EmbeddedProto::destroy_at(&message_.temprcu_);
+          case FieldNumber::RCUTEMPERATURE:
+            ::EmbeddedProto::destroy_at(&message_.rcuTemperature_);
             break;
-          case FieldNumber::NOS:
-            ::EmbeddedProto::destroy_at(&message_.nos_);
+          case FieldNumber::NOSLOADCELL:
+            ::EmbeddedProto::destroy_at(&message_.nosLoadCell_);
             break;
-          case FieldNumber::RELAY:
-            ::EmbeddedProto::destroy_at(&message_.relay_);
+          case FieldNumber::RELAYSTATUS:
+            ::EmbeddedProto::destroy_at(&message_.relayStatus_);
             break;
-          case FieldNumber::PADBOX:
-            ::EmbeddedProto::destroy_at(&message_.padbox_);
+          case FieldNumber::PADBOXSTATUS:
+            ::EmbeddedProto::destroy_at(&message_.padBoxStatus_);
             break;
-          case FieldNumber::LR:
-            ::EmbeddedProto::destroy_at(&message_.lr_);
+          case FieldNumber::LAUNCHRAILLOADCELL:
+            ::EmbeddedProto::destroy_at(&message_.launchRailLoadCell_);
             break;
-          case FieldNumber::TEMPSOB:
-            ::EmbeddedProto::destroy_at(&message_.tempsob_);
-            break;
-          case FieldNumber::IRTEMP:
-            ::EmbeddedProto::destroy_at(&message_.irtemp_);
-            break;
-          case FieldNumber::MEVSTATE:
-            ::EmbeddedProto::destroy_at(&message_.mevstate_);
+          case FieldNumber::SOBTEMPERATURE:
+            ::EmbeddedProto::destroy_at(&message_.sobTemperature_);
             break;
           default:
             break;
@@ -7087,8 +6475,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
 
         switch(which_message_)
         {
-          case FieldNumber::COORD:
-            return_value = message_.coord_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::GPS:
+            return_value = message_.gps_.deserialize_check_type(buffer, wire_type);
             break;
           case FieldNumber::BARO:
             return_value = message_.baro_.deserialize_check_type(buffer, wire_type);
@@ -7096,50 +6484,44 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::IMU:
             return_value = message_.imu_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::BAT:
-            return_value = message_.bat_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::BATTERY:
+            return_value = message_.battery_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::FLASHINFO:
-            return_value = message_.flashInfo_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::FLASHSTATE:
+            return_value = message_.flashState_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::PRESSDMB:
-            return_value = message_.pressdmb_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::DMBPRESSURE:
+            return_value = message_.dmbPressure_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::PRESSPBB:
-            return_value = message_.presspbb_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::PBBPRESSURE:
+            return_value = message_.pbbPressure_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::TEMPPBB:
-            return_value = message_.temppbb_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::PBBTEMPERATURE:
+            return_value = message_.pbbTemperature_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::GPIO:
-            return_value = message_.gpio_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::COMBUSTIONCONTROLSTATUS:
+            return_value = message_.combustionControlStatus_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::PRESSRCU:
-            return_value = message_.pressrcu_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::RCUPRESSURE:
+            return_value = message_.rcuPressure_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::TEMPRCU:
-            return_value = message_.temprcu_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::RCUTEMPERATURE:
+            return_value = message_.rcuTemperature_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::NOS:
-            return_value = message_.nos_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::NOSLOADCELL:
+            return_value = message_.nosLoadCell_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::RELAY:
-            return_value = message_.relay_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::RELAYSTATUS:
+            return_value = message_.relayStatus_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::PADBOX:
-            return_value = message_.padbox_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::PADBOXSTATUS:
+            return_value = message_.padBoxStatus_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::LR:
-            return_value = message_.lr_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::LAUNCHRAILLOADCELL:
+            return_value = message_.launchRailLoadCell_.deserialize_check_type(buffer, wire_type);
             break;
-          case FieldNumber::TEMPSOB:
-            return_value = message_.tempsob_.deserialize_check_type(buffer, wire_type);
-            break;
-          case FieldNumber::IRTEMP:
-            return_value = message_.irtemp_.deserialize_check_type(buffer, wire_type);
-            break;
-          case FieldNumber::MEVSTATE:
-            return_value = message_.mevstate_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::SOBTEMPERATURE:
+            return_value = message_.sobTemperature_.deserialize_check_type(buffer, wire_type);
             break;
           default:
             break;
@@ -7159,8 +6541,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
 
         switch(which_message_)
         {
-          case FieldNumber::COORD:
-            left_chars = message_.coord_.to_string(left_chars, indent_level, COORD_NAME, first_field);
+          case FieldNumber::GPS:
+            left_chars = message_.gps_.to_string(left_chars, indent_level, GPS_NAME, first_field);
             break;
           case FieldNumber::BARO:
             left_chars = message_.baro_.to_string(left_chars, indent_level, BARO_NAME, first_field);
@@ -7168,50 +6550,44 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::IMU:
             left_chars = message_.imu_.to_string(left_chars, indent_level, IMU_NAME, first_field);
             break;
-          case FieldNumber::BAT:
-            left_chars = message_.bat_.to_string(left_chars, indent_level, BAT_NAME, first_field);
+          case FieldNumber::BATTERY:
+            left_chars = message_.battery_.to_string(left_chars, indent_level, BATTERY_NAME, first_field);
             break;
-          case FieldNumber::FLASHINFO:
-            left_chars = message_.flashInfo_.to_string(left_chars, indent_level, FLASHINFO_NAME, first_field);
+          case FieldNumber::FLASHSTATE:
+            left_chars = message_.flashState_.to_string(left_chars, indent_level, FLASHSTATE_NAME, first_field);
             break;
-          case FieldNumber::PRESSDMB:
-            left_chars = message_.pressdmb_.to_string(left_chars, indent_level, PRESSDMB_NAME, first_field);
+          case FieldNumber::DMBPRESSURE:
+            left_chars = message_.dmbPressure_.to_string(left_chars, indent_level, DMBPRESSURE_NAME, first_field);
             break;
-          case FieldNumber::PRESSPBB:
-            left_chars = message_.presspbb_.to_string(left_chars, indent_level, PRESSPBB_NAME, first_field);
+          case FieldNumber::PBBPRESSURE:
+            left_chars = message_.pbbPressure_.to_string(left_chars, indent_level, PBBPRESSURE_NAME, first_field);
             break;
-          case FieldNumber::TEMPPBB:
-            left_chars = message_.temppbb_.to_string(left_chars, indent_level, TEMPPBB_NAME, first_field);
+          case FieldNumber::PBBTEMPERATURE:
+            left_chars = message_.pbbTemperature_.to_string(left_chars, indent_level, PBBTEMPERATURE_NAME, first_field);
             break;
-          case FieldNumber::GPIO:
-            left_chars = message_.gpio_.to_string(left_chars, indent_level, GPIO_NAME, first_field);
+          case FieldNumber::COMBUSTIONCONTROLSTATUS:
+            left_chars = message_.combustionControlStatus_.to_string(left_chars, indent_level, COMBUSTIONCONTROLSTATUS_NAME, first_field);
             break;
-          case FieldNumber::PRESSRCU:
-            left_chars = message_.pressrcu_.to_string(left_chars, indent_level, PRESSRCU_NAME, first_field);
+          case FieldNumber::RCUPRESSURE:
+            left_chars = message_.rcuPressure_.to_string(left_chars, indent_level, RCUPRESSURE_NAME, first_field);
             break;
-          case FieldNumber::TEMPRCU:
-            left_chars = message_.temprcu_.to_string(left_chars, indent_level, TEMPRCU_NAME, first_field);
+          case FieldNumber::RCUTEMPERATURE:
+            left_chars = message_.rcuTemperature_.to_string(left_chars, indent_level, RCUTEMPERATURE_NAME, first_field);
             break;
-          case FieldNumber::NOS:
-            left_chars = message_.nos_.to_string(left_chars, indent_level, NOS_NAME, first_field);
+          case FieldNumber::NOSLOADCELL:
+            left_chars = message_.nosLoadCell_.to_string(left_chars, indent_level, NOSLOADCELL_NAME, first_field);
             break;
-          case FieldNumber::RELAY:
-            left_chars = message_.relay_.to_string(left_chars, indent_level, RELAY_NAME, first_field);
+          case FieldNumber::RELAYSTATUS:
+            left_chars = message_.relayStatus_.to_string(left_chars, indent_level, RELAYSTATUS_NAME, first_field);
             break;
-          case FieldNumber::PADBOX:
-            left_chars = message_.padbox_.to_string(left_chars, indent_level, PADBOX_NAME, first_field);
+          case FieldNumber::PADBOXSTATUS:
+            left_chars = message_.padBoxStatus_.to_string(left_chars, indent_level, PADBOXSTATUS_NAME, first_field);
             break;
-          case FieldNumber::LR:
-            left_chars = message_.lr_.to_string(left_chars, indent_level, LR_NAME, first_field);
+          case FieldNumber::LAUNCHRAILLOADCELL:
+            left_chars = message_.launchRailLoadCell_.to_string(left_chars, indent_level, LAUNCHRAILLOADCELL_NAME, first_field);
             break;
-          case FieldNumber::TEMPSOB:
-            left_chars = message_.tempsob_.to_string(left_chars, indent_level, TEMPSOB_NAME, first_field);
-            break;
-          case FieldNumber::IRTEMP:
-            left_chars = message_.irtemp_.to_string(left_chars, indent_level, IRTEMP_NAME, first_field);
-            break;
-          case FieldNumber::MEVSTATE:
-            left_chars = message_.mevstate_.to_string(left_chars, indent_level, MEVSTATE_NAME, first_field);
+          case FieldNumber::SOBTEMPERATURE:
+            left_chars = message_.sobTemperature_.to_string(left_chars, indent_level, SOBTEMPERATURE_NAME, first_field);
             break;
           default:
             break;

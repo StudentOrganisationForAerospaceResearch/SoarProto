@@ -1337,7 +1337,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
       {
@@ -1381,7 +1380,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
       {
@@ -1428,7 +1426,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
       NOT_SET = 0,
       SOURCE = 1,
       TARGET = 2,
-      MESSAGE_ID = 3,
       SOURCE_SEQUENCE_NUM = 4,
       ACK = 5,
       NACK = 6,
@@ -1442,7 +1439,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
       {
@@ -1487,7 +1483,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     {
       set_source(rhs.get_source());
       set_target(rhs.get_target());
-      set_message_id(rhs.get_message_id());
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
       {
@@ -1541,13 +1536,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     inline void set_target(const Node&& value) { target_ = value; }
     inline const Node& get_target() const { return target_.get(); }
     inline Node target() const { return target_.get(); }
-
-    static constexpr char const* MESSAGE_ID_NAME = "message_id";
-    inline void clear_message_id() { message_id_.clear(); }
-    inline void set_message_id(const MessageID& value) { message_id_ = value; }
-    inline void set_message_id(const MessageID&& value) { message_id_ = value; }
-    inline const MessageID& get_message_id() const { return message_id_.get(); }
-    inline MessageID message_id() const { return message_id_.get(); }
 
     static constexpr char const* SOURCE_SEQUENCE_NUM_NAME = "source_sequence_num";
     inline void clear_source_sequence_num() { source_sequence_num_.clear(); }
@@ -1814,11 +1802,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
         return_value = target_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TARGET), buffer, false);
       }
 
-      if((static_cast<MessageID>(0) != message_id_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = message_id_.serialize_with_id(static_cast<uint32_t>(FieldNumber::MESSAGE_ID), buffer, false);
-      }
-
       if((0U != source_sequence_num_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
         return_value = source_sequence_num_.serialize_with_id(static_cast<uint32_t>(FieldNumber::SOURCE_SEQUENCE_NUM), buffer, false);
@@ -1896,10 +1879,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
             return_value = target_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::MESSAGE_ID:
-            return_value = message_id_.deserialize_check_type(buffer, wire_type);
-            break;
-
           case FieldNumber::SOURCE_SEQUENCE_NUM:
             return_value = source_sequence_num_.deserialize_check_type(buffer, wire_type);
             break;
@@ -1944,7 +1923,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     {
       clear_source();
       clear_target();
-      clear_message_id();
       clear_source_sequence_num();
       clear_message();
 
@@ -1960,9 +1938,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           break;
         case FieldNumber::TARGET:
           name = TARGET_NAME;
-          break;
-        case FieldNumber::MESSAGE_ID:
-          name = MESSAGE_ID_NAME;
           break;
         case FieldNumber::SOURCE_SEQUENCE_NUM:
           name = SOURCE_SEQUENCE_NUM_NAME;
@@ -2047,7 +2022,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
 
       left_chars = source_.to_string(left_chars, indent_level + 2, SOURCE_NAME, true);
       left_chars = target_.to_string(left_chars, indent_level + 2, TARGET_NAME, false);
-      left_chars = message_id_.to_string(left_chars, indent_level + 2, MESSAGE_ID_NAME, false);
       left_chars = source_sequence_num_.to_string(left_chars, indent_level + 2, SOURCE_SEQUENCE_NUM_NAME, false);
       left_chars = to_string_message(left_chars, indent_level + 2, false);
   
@@ -2076,7 +2050,6 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
 
       EmbeddedProto::enumeration<Node> source_ = static_cast<Node>(0);
       EmbeddedProto::enumeration<Node> target_ = static_cast<Node>(0);
-      EmbeddedProto::enumeration<MessageID> message_id_ = static_cast<MessageID>(0);
       EmbeddedProto::uint32 source_sequence_num_ = 0U;
 
       FieldNumber which_message_ = FieldNumber::NOT_SET;

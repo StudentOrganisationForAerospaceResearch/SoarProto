@@ -20,28 +20,26 @@ message CommandMessage {
     Node source = 1; // This is the source of the message (the node that sent the message)
     Node target = 2; // This is the destination of the message, if this is a broadcast message, this should be set to NODE_ANY
 
-    // Message Identifiers
-    MessageID message_id = 3; // This is the message ID of the message, this is used to identify the message type
-
     /* There are much more robust RDT implementations, but for simplicity, we will use a sequence number simply to verify
      * ACKs are for the correct respective message. Each SOURCE node maintains a counting UINT32_T that is incremented for EVERY
      * message send to ANY source (if we want to make this more robust, we can use a unique sequence number per message path but that
      * would require an N_NODES array of sequence numbers which is not necessary for our purposes).
      */
-    uint32 source_sequence_num = 4; // This is the sequence number of the message, should start at (1), if its 0 it does not need to be ACKed (ie. Non-essential Telemetry)
+    uint32 source_sequence_num = 3; // This is the sequence number of the message, should start at (1), if its 0 it does not need to be ACKed (ie. Non-essential Telemetry)
+    
 
     // Message Data
     oneof message {
         // Command Messages
-        DMBCommand dmb_command = 5;
-        PBBCommand pbb_command = 6;
-        RCUCommand rcu_command = 7;
-        SOBCommand sob_command = 8;
+        DmbCommand dmb_command = 4;
+        PbbCommand pbb_command = 5;
+        RcuCommand rcu_command = 6;
+        SobCommand sob_command = 7;
     }
 
 }
 
-message DMBCommand {
+message DmbCommand {
     enum Command {
         RSC_FIRST_INVALID = 0;
 
@@ -102,7 +100,7 @@ message DMBCommand {
     Command command_enum = 1;
 }
 
-message PBBCommand {
+message PbbCommand {
     enum Command {
         PBB_NONE = 0;
 
@@ -115,7 +113,7 @@ message PBBCommand {
     Command command_enum = 1;
 }
 
-message SOBCommand {
+message SobCommand {
     enum Command {
         SOB_NONE = 0;
 
@@ -132,7 +130,7 @@ message SOBCommand {
     int32 command_param = 2; //for mass calibration
 }
 
-message RCUCommand {
+message RcuCommand {
     enum Command {
         RCU_NONE = 0;
 

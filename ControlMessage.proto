@@ -21,9 +21,6 @@ message ControlMessage {
     Node source = 1; // This is the source of the message (the node that sent the message)
     Node target = 2; // This is the destination of the message, if this is a broadcast message, this should be set to NODE_ANY
 
-    // Message Identifiers
-    MessageID message_id = 3; // This is the message ID of the message, this is used to identify the message type
-
     /* There are much more robust RDT implementations, but for simplicity, we will use a sequence number simply to verify
      * ACKs are for the correct respective message. Each SOURCE node maintains a counting UINT32_T that is incremented for EVERY
      * message send to ANY source (if we want to make this more robust, we can use a unique sequence number per message path but that
@@ -59,7 +56,6 @@ message AckNack {
 message Ping {
     uint32 ping_ack_id = 1; // The expected response message ID in the ACK response to this message
     uint32 ping_response_sequence_num = 2; // The expected response sequence number in the ACK response to this message
-
     bool sys_state_response_required = 3;  // If true, the target node should respond with a SystemState message
 }
 
