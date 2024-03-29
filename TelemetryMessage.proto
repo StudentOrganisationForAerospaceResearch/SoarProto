@@ -141,12 +141,9 @@ message RelayStatus {
     bool pbv1_open = 3; //pneumatic ball valev state
     bool pbv2_open = 4;
     bool pbv3_open = 5;
+    bool pbv4_open = 6;
 
-    bool sol1_open = 6; //solenoid states
-    bool sol2_open = 7;
-    bool sol3_open = 8;
-    bool sol4_open = 9;
-    bool sol5_open = 10;
+    bool sol5_open = 10; // solenoid state
     bool sol6_open = 11;
     bool sol7_open = 12;
     bool sol8a_open = 13;
