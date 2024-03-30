@@ -82,10 +82,7 @@ class RcuCommand(_message.Message):
     RCU_CLOSE_PBV1: RcuCommand.Command
     RCU_CLOSE_PBV2: RcuCommand.Command
     RCU_CLOSE_PBV3: RcuCommand.Command
-    RCU_CLOSE_SOL1: RcuCommand.Command
-    RCU_CLOSE_SOL2: RcuCommand.Command
-    RCU_CLOSE_SOL3: RcuCommand.Command
-    RCU_CLOSE_SOL4: RcuCommand.Command
+    RCU_CLOSE_PBV4: RcuCommand.Command
     RCU_CLOSE_SOL5: RcuCommand.Command
     RCU_CLOSE_SOL6: RcuCommand.Command
     RCU_CLOSE_SOL7: RcuCommand.Command
@@ -102,10 +99,7 @@ class RcuCommand(_message.Message):
     RCU_OPEN_PBV1: RcuCommand.Command
     RCU_OPEN_PBV2: RcuCommand.Command
     RCU_OPEN_PBV3: RcuCommand.Command
-    RCU_OPEN_SOL1: RcuCommand.Command
-    RCU_OPEN_SOL2: RcuCommand.Command
-    RCU_OPEN_SOL3: RcuCommand.Command
-    RCU_OPEN_SOL4: RcuCommand.Command
+    RCU_OPEN_PBV4: RcuCommand.Command
     RCU_OPEN_SOL5: RcuCommand.Command
     RCU_OPEN_SOL6: RcuCommand.Command
     RCU_OPEN_SOL7: RcuCommand.Command

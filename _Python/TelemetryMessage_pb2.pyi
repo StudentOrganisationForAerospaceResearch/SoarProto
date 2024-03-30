@@ -168,16 +168,13 @@ class RcuTemperature(_message.Message):
     def __init__(self, tc1_temperature: _Optional[int] = ..., tc2_temperature: _Optional[int] = ...) -> None: ...
 
 class RelayStatus(_message.Message):
-    __slots__ = ["ac1_open", "ac2_open", "pbv1_open", "pbv2_open", "pbv3_open", "sol1_open", "sol2_open", "sol3_open", "sol4_open", "sol5_open", "sol6_open", "sol7_open", "sol8a_open", "sol8b_open"]
+    __slots__ = ["ac1_open", "ac2_open", "pbv1_open", "pbv2_open", "pbv3_open", "pbv4_open", "sol5_open", "sol6_open", "sol7_open", "sol8a_open", "sol8b_open"]
     AC1_OPEN_FIELD_NUMBER: _ClassVar[int]
     AC2_OPEN_FIELD_NUMBER: _ClassVar[int]
     PBV1_OPEN_FIELD_NUMBER: _ClassVar[int]
     PBV2_OPEN_FIELD_NUMBER: _ClassVar[int]
     PBV3_OPEN_FIELD_NUMBER: _ClassVar[int]
-    SOL1_OPEN_FIELD_NUMBER: _ClassVar[int]
-    SOL2_OPEN_FIELD_NUMBER: _ClassVar[int]
-    SOL3_OPEN_FIELD_NUMBER: _ClassVar[int]
-    SOL4_OPEN_FIELD_NUMBER: _ClassVar[int]
+    PBV4_OPEN_FIELD_NUMBER: _ClassVar[int]
     SOL5_OPEN_FIELD_NUMBER: _ClassVar[int]
     SOL6_OPEN_FIELD_NUMBER: _ClassVar[int]
     SOL7_OPEN_FIELD_NUMBER: _ClassVar[int]
@@ -188,16 +185,13 @@ class RelayStatus(_message.Message):
     pbv1_open: bool
     pbv2_open: bool
     pbv3_open: bool
-    sol1_open: bool
-    sol2_open: bool
-    sol3_open: bool
-    sol4_open: bool
+    pbv4_open: bool
     sol5_open: bool
     sol6_open: bool
     sol7_open: bool
     sol8a_open: bool
     sol8b_open: bool
-    def __init__(self, ac1_open: bool = ..., ac2_open: bool = ..., pbv1_open: bool = ..., pbv2_open: bool = ..., pbv3_open: bool = ..., sol1_open: bool = ..., sol2_open: bool = ..., sol3_open: bool = ..., sol4_open: bool = ..., sol5_open: bool = ..., sol6_open: bool = ..., sol7_open: bool = ..., sol8a_open: bool = ..., sol8b_open: bool = ...) -> None: ...
+    def __init__(self, ac1_open: bool = ..., ac2_open: bool = ..., pbv1_open: bool = ..., pbv2_open: bool = ..., pbv3_open: bool = ..., pbv4_open: bool = ..., sol5_open: bool = ..., sol6_open: bool = ..., sol7_open: bool = ..., sol8a_open: bool = ..., sol8b_open: bool = ...) -> None: ...
 
 class SobTemperature(_message.Message):
     __slots__ = ["tc1_temperature", "tc2_temperature"]
