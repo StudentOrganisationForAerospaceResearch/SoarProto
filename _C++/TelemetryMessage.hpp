@@ -3796,10 +3796,7 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
       set_pbv1_open(rhs.get_pbv1_open());
       set_pbv2_open(rhs.get_pbv2_open());
       set_pbv3_open(rhs.get_pbv3_open());
-      set_sol1_open(rhs.get_sol1_open());
-      set_sol2_open(rhs.get_sol2_open());
-      set_sol3_open(rhs.get_sol3_open());
-      set_sol4_open(rhs.get_sol4_open());
+      set_pbv4_open(rhs.get_pbv4_open());
       set_sol5_open(rhs.get_sol5_open());
       set_sol6_open(rhs.get_sol6_open());
       set_sol7_open(rhs.get_sol7_open());
@@ -3814,10 +3811,7 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
       set_pbv1_open(rhs.get_pbv1_open());
       set_pbv2_open(rhs.get_pbv2_open());
       set_pbv3_open(rhs.get_pbv3_open());
-      set_sol1_open(rhs.get_sol1_open());
-      set_sol2_open(rhs.get_sol2_open());
-      set_sol3_open(rhs.get_sol3_open());
-      set_sol4_open(rhs.get_sol4_open());
+      set_pbv4_open(rhs.get_pbv4_open());
       set_sol5_open(rhs.get_sol5_open());
       set_sol6_open(rhs.get_sol6_open());
       set_sol7_open(rhs.get_sol7_open());
@@ -3835,10 +3829,7 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
       PBV1_OPEN = 3,
       PBV2_OPEN = 4,
       PBV3_OPEN = 5,
-      SOL1_OPEN = 6,
-      SOL2_OPEN = 7,
-      SOL3_OPEN = 8,
-      SOL4_OPEN = 9,
+      PBV4_OPEN = 6,
       SOL5_OPEN = 10,
       SOL6_OPEN = 11,
       SOL7_OPEN = 12,
@@ -3853,10 +3844,7 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
       set_pbv1_open(rhs.get_pbv1_open());
       set_pbv2_open(rhs.get_pbv2_open());
       set_pbv3_open(rhs.get_pbv3_open());
-      set_sol1_open(rhs.get_sol1_open());
-      set_sol2_open(rhs.get_sol2_open());
-      set_sol3_open(rhs.get_sol3_open());
-      set_sol4_open(rhs.get_sol4_open());
+      set_pbv4_open(rhs.get_pbv4_open());
       set_sol5_open(rhs.get_sol5_open());
       set_sol6_open(rhs.get_sol6_open());
       set_sol7_open(rhs.get_sol7_open());
@@ -3872,10 +3860,7 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
       set_pbv1_open(rhs.get_pbv1_open());
       set_pbv2_open(rhs.get_pbv2_open());
       set_pbv3_open(rhs.get_pbv3_open());
-      set_sol1_open(rhs.get_sol1_open());
-      set_sol2_open(rhs.get_sol2_open());
-      set_sol3_open(rhs.get_sol3_open());
-      set_sol4_open(rhs.get_sol4_open());
+      set_pbv4_open(rhs.get_pbv4_open());
       set_sol5_open(rhs.get_sol5_open());
       set_sol6_open(rhs.get_sol6_open());
       set_sol7_open(rhs.get_sol7_open());
@@ -3924,37 +3909,13 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
     inline const bool& get_pbv3_open() const { return pbv3_open_.get(); }
     inline bool pbv3_open() const { return pbv3_open_.get(); }
 
-    static constexpr char const* SOL1_OPEN_NAME = "sol1_open";
-    inline void clear_sol1_open() { sol1_open_.clear(); }
-    inline void set_sol1_open(const bool& value) { sol1_open_ = value; }
-    inline void set_sol1_open(const bool&& value) { sol1_open_ = value; }
-    inline bool& mutable_sol1_open() { return sol1_open_.get(); }
-    inline const bool& get_sol1_open() const { return sol1_open_.get(); }
-    inline bool sol1_open() const { return sol1_open_.get(); }
-
-    static constexpr char const* SOL2_OPEN_NAME = "sol2_open";
-    inline void clear_sol2_open() { sol2_open_.clear(); }
-    inline void set_sol2_open(const bool& value) { sol2_open_ = value; }
-    inline void set_sol2_open(const bool&& value) { sol2_open_ = value; }
-    inline bool& mutable_sol2_open() { return sol2_open_.get(); }
-    inline const bool& get_sol2_open() const { return sol2_open_.get(); }
-    inline bool sol2_open() const { return sol2_open_.get(); }
-
-    static constexpr char const* SOL3_OPEN_NAME = "sol3_open";
-    inline void clear_sol3_open() { sol3_open_.clear(); }
-    inline void set_sol3_open(const bool& value) { sol3_open_ = value; }
-    inline void set_sol3_open(const bool&& value) { sol3_open_ = value; }
-    inline bool& mutable_sol3_open() { return sol3_open_.get(); }
-    inline const bool& get_sol3_open() const { return sol3_open_.get(); }
-    inline bool sol3_open() const { return sol3_open_.get(); }
-
-    static constexpr char const* SOL4_OPEN_NAME = "sol4_open";
-    inline void clear_sol4_open() { sol4_open_.clear(); }
-    inline void set_sol4_open(const bool& value) { sol4_open_ = value; }
-    inline void set_sol4_open(const bool&& value) { sol4_open_ = value; }
-    inline bool& mutable_sol4_open() { return sol4_open_.get(); }
-    inline const bool& get_sol4_open() const { return sol4_open_.get(); }
-    inline bool sol4_open() const { return sol4_open_.get(); }
+    static constexpr char const* PBV4_OPEN_NAME = "pbv4_open";
+    inline void clear_pbv4_open() { pbv4_open_.clear(); }
+    inline void set_pbv4_open(const bool& value) { pbv4_open_ = value; }
+    inline void set_pbv4_open(const bool&& value) { pbv4_open_ = value; }
+    inline bool& mutable_pbv4_open() { return pbv4_open_.get(); }
+    inline const bool& get_pbv4_open() const { return pbv4_open_.get(); }
+    inline bool pbv4_open() const { return pbv4_open_.get(); }
 
     static constexpr char const* SOL5_OPEN_NAME = "sol5_open";
     inline void clear_sol5_open() { sol5_open_.clear(); }
@@ -4026,24 +3987,9 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
         return_value = pbv3_open_.serialize_with_id(static_cast<uint32_t>(FieldNumber::PBV3_OPEN), buffer, false);
       }
 
-      if((false != sol1_open_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      if((false != pbv4_open_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
       {
-        return_value = sol1_open_.serialize_with_id(static_cast<uint32_t>(FieldNumber::SOL1_OPEN), buffer, false);
-      }
-
-      if((false != sol2_open_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = sol2_open_.serialize_with_id(static_cast<uint32_t>(FieldNumber::SOL2_OPEN), buffer, false);
-      }
-
-      if((false != sol3_open_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = sol3_open_.serialize_with_id(static_cast<uint32_t>(FieldNumber::SOL3_OPEN), buffer, false);
-      }
-
-      if((false != sol4_open_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
-      {
-        return_value = sol4_open_.serialize_with_id(static_cast<uint32_t>(FieldNumber::SOL4_OPEN), buffer, false);
+        return_value = pbv4_open_.serialize_with_id(static_cast<uint32_t>(FieldNumber::PBV4_OPEN), buffer, false);
       }
 
       if((false != sol5_open_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
@@ -4107,20 +4053,8 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
             return_value = pbv3_open_.deserialize_check_type(buffer, wire_type);
             break;
 
-          case FieldNumber::SOL1_OPEN:
-            return_value = sol1_open_.deserialize_check_type(buffer, wire_type);
-            break;
-
-          case FieldNumber::SOL2_OPEN:
-            return_value = sol2_open_.deserialize_check_type(buffer, wire_type);
-            break;
-
-          case FieldNumber::SOL3_OPEN:
-            return_value = sol3_open_.deserialize_check_type(buffer, wire_type);
-            break;
-
-          case FieldNumber::SOL4_OPEN:
-            return_value = sol4_open_.deserialize_check_type(buffer, wire_type);
+          case FieldNumber::PBV4_OPEN:
+            return_value = pbv4_open_.deserialize_check_type(buffer, wire_type);
             break;
 
           case FieldNumber::SOL5_OPEN:
@@ -4177,10 +4111,7 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
       clear_pbv1_open();
       clear_pbv2_open();
       clear_pbv3_open();
-      clear_sol1_open();
-      clear_sol2_open();
-      clear_sol3_open();
-      clear_sol4_open();
+      clear_pbv4_open();
       clear_sol5_open();
       clear_sol6_open();
       clear_sol7_open();
@@ -4209,17 +4140,8 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
         case FieldNumber::PBV3_OPEN:
           name = PBV3_OPEN_NAME;
           break;
-        case FieldNumber::SOL1_OPEN:
-          name = SOL1_OPEN_NAME;
-          break;
-        case FieldNumber::SOL2_OPEN:
-          name = SOL2_OPEN_NAME;
-          break;
-        case FieldNumber::SOL3_OPEN:
-          name = SOL3_OPEN_NAME;
-          break;
-        case FieldNumber::SOL4_OPEN:
-          name = SOL4_OPEN_NAME;
+        case FieldNumber::PBV4_OPEN:
+          name = PBV4_OPEN_NAME;
           break;
         case FieldNumber::SOL5_OPEN:
           name = SOL5_OPEN_NAME;
@@ -4301,10 +4223,7 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
       left_chars = pbv1_open_.to_string(left_chars, indent_level + 2, PBV1_OPEN_NAME, false);
       left_chars = pbv2_open_.to_string(left_chars, indent_level + 2, PBV2_OPEN_NAME, false);
       left_chars = pbv3_open_.to_string(left_chars, indent_level + 2, PBV3_OPEN_NAME, false);
-      left_chars = sol1_open_.to_string(left_chars, indent_level + 2, SOL1_OPEN_NAME, false);
-      left_chars = sol2_open_.to_string(left_chars, indent_level + 2, SOL2_OPEN_NAME, false);
-      left_chars = sol3_open_.to_string(left_chars, indent_level + 2, SOL3_OPEN_NAME, false);
-      left_chars = sol4_open_.to_string(left_chars, indent_level + 2, SOL4_OPEN_NAME, false);
+      left_chars = pbv4_open_.to_string(left_chars, indent_level + 2, PBV4_OPEN_NAME, false);
       left_chars = sol5_open_.to_string(left_chars, indent_level + 2, SOL5_OPEN_NAME, false);
       left_chars = sol6_open_.to_string(left_chars, indent_level + 2, SOL6_OPEN_NAME, false);
       left_chars = sol7_open_.to_string(left_chars, indent_level + 2, SOL7_OPEN_NAME, false);
@@ -4339,10 +4258,7 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
       EmbeddedProto::boolean pbv1_open_ = false;
       EmbeddedProto::boolean pbv2_open_ = false;
       EmbeddedProto::boolean pbv3_open_ = false;
-      EmbeddedProto::boolean sol1_open_ = false;
-      EmbeddedProto::boolean sol2_open_ = false;
-      EmbeddedProto::boolean sol3_open_ = false;
-      EmbeddedProto::boolean sol4_open_ = false;
+      EmbeddedProto::boolean pbv4_open_ = false;
       EmbeddedProto::boolean sol5_open_ = false;
       EmbeddedProto::boolean sol6_open_ = false;
       EmbeddedProto::boolean sol7_open_ = false;
