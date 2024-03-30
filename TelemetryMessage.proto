@@ -135,15 +135,15 @@ message NosLoadCell {
 
 message RelayStatus {
 
-    bool ac1_open = 1; // air conditioner state
+    bool ac1_open = 1; // air conditioner states
     bool ac2_open = 2;
 
-    bool pbv1_open = 3; //pneumatic ball valev state
+    bool pbv1_open = 3; //pneumatic ball valve states
     bool pbv2_open = 4;
     bool pbv3_open = 5;
     bool pbv4_open = 6;
 
-    bool sol5_open = 10; // solenoid state
+    bool sol5_open = 10; // solenoid states
     bool sol6_open = 11;
     bool sol7_open = 12;
     bool sol8a_open = 13;

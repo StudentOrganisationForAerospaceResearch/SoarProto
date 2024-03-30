@@ -113,9 +113,10 @@ message PbbCommand {
     Command command_enum = 1;
 }
 
+// Not used in GUI V2
 message SobCommand {
     enum Command {
-        // Not used in GUI V2
+        
         SOB_NONE = 0;
 
         SOB_SLOW_SAMPLE_IR = 1;
