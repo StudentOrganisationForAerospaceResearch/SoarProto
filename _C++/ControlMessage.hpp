@@ -507,6 +507,271 @@ class Heartbeat final: public ::EmbeddedProto::MessageInterface
 
 };
 
+class HeartbeatState final: public ::EmbeddedProto::MessageInterface
+{
+  public:
+    HeartbeatState() = default;
+    HeartbeatState(const HeartbeatState& rhs )
+    {
+      set_timer_state(rhs.get_timer_state());
+      set_timer_period(rhs.get_timer_period());
+      set_timer_remaining(rhs.get_timer_remaining());
+    }
+
+    HeartbeatState(const HeartbeatState&& rhs ) noexcept
+    {
+      set_timer_state(rhs.get_timer_state());
+      set_timer_period(rhs.get_timer_period());
+      set_timer_remaining(rhs.get_timer_remaining());
+    }
+
+    ~HeartbeatState() override = default;
+
+    enum class TimerState : uint32_t
+    {
+      UNINITIALIZED = 0,
+      COUNTING = 1,
+      PAUSED = 2,
+      COMPLETE = 3
+    };
+
+    enum class FieldNumber : uint32_t
+    {
+      NOT_SET = 0,
+      TIMER_STATE = 1,
+      TIMER_PERIOD = 2,
+      TIMER_REMAINING = 3
+    };
+
+    HeartbeatState& operator=(const HeartbeatState& rhs)
+    {
+      set_timer_state(rhs.get_timer_state());
+      set_timer_period(rhs.get_timer_period());
+      set_timer_remaining(rhs.get_timer_remaining());
+      return *this;
+    }
+
+    HeartbeatState& operator=(const HeartbeatState&& rhs) noexcept
+    {
+      set_timer_state(rhs.get_timer_state());
+      set_timer_period(rhs.get_timer_period());
+      set_timer_remaining(rhs.get_timer_remaining());
+      return *this;
+    }
+
+    static constexpr char const* TIMER_STATE_NAME = "timer_state";
+    inline void clear_timer_state() { timer_state_.clear(); }
+    inline void set_timer_state(const TimerState& value) { timer_state_ = value; }
+    inline void set_timer_state(const TimerState&& value) { timer_state_ = value; }
+    inline const TimerState& get_timer_state() const { return timer_state_.get(); }
+    inline TimerState timer_state() const { return timer_state_.get(); }
+
+    static constexpr char const* TIMER_PERIOD_NAME = "timer_period";
+    inline void clear_timer_period() { timer_period_.clear(); }
+    inline void set_timer_period(const uint32_t& value) { timer_period_ = value; }
+    inline void set_timer_period(const uint32_t&& value) { timer_period_ = value; }
+    inline uint32_t& mutable_timer_period() { return timer_period_.get(); }
+    inline const uint32_t& get_timer_period() const { return timer_period_.get(); }
+    inline uint32_t timer_period() const { return timer_period_.get(); }
+
+    static constexpr char const* TIMER_REMAINING_NAME = "timer_remaining";
+    inline void clear_timer_remaining() { timer_remaining_.clear(); }
+    inline void set_timer_remaining(const uint32_t& value) { timer_remaining_ = value; }
+    inline void set_timer_remaining(const uint32_t&& value) { timer_remaining_ = value; }
+    inline uint32_t& mutable_timer_remaining() { return timer_remaining_.get(); }
+    inline const uint32_t& get_timer_remaining() const { return timer_remaining_.get(); }
+    inline uint32_t timer_remaining() const { return timer_remaining_.get(); }
+
+
+    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+
+      if((static_cast<TimerState>(0) != timer_state_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = timer_state_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TIMER_STATE), buffer, false);
+      }
+
+      if((0U != timer_period_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = timer_period_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TIMER_PERIOD), buffer, false);
+      }
+
+      if((0U != timer_remaining_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = timer_remaining_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TIMER_REMAINING), buffer, false);
+      }
+
+      return return_value;
+    };
+
+    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
+      uint32_t id_number = 0;
+      FieldNumber id_tag = FieldNumber::NOT_SET;
+
+      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
+      {
+        id_tag = static_cast<FieldNumber>(id_number);
+        switch(id_tag)
+        {
+          case FieldNumber::TIMER_STATE:
+            return_value = timer_state_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::TIMER_PERIOD:
+            return_value = timer_period_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::TIMER_REMAINING:
+            return_value = timer_remaining_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::NOT_SET:
+            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
+            break;
+
+          default:
+            return_value = skip_unknown_field(buffer, wire_type);
+            break;
+        }
+
+        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+        {
+          // Read the next tag.
+          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+        }
+      }
+
+      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
+      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
+         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
+         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
+      {
+        return_value = tag_value;
+      }
+
+      return return_value;
+    };
+
+    void clear() override
+    {
+      clear_timer_state();
+      clear_timer_period();
+      clear_timer_remaining();
+
+    }
+
+    static char const* field_number_to_name(const FieldNumber fieldNumber)
+    {
+      char const* name = nullptr;
+      switch(fieldNumber)
+      {
+        case FieldNumber::TIMER_STATE:
+          name = TIMER_STATE_NAME;
+          break;
+        case FieldNumber::TIMER_PERIOD:
+          name = TIMER_PERIOD_NAME;
+          break;
+        case FieldNumber::TIMER_REMAINING:
+          name = TIMER_REMAINING_NAME;
+          break;
+        default:
+          name = "Invalid FieldNumber";
+          break;
+      }
+      return name;
+    }
+
+#ifdef MSG_TO_STRING
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
+    {
+      return this->to_string(str, 0, nullptr, true);
+    }
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
+    {
+      ::EmbeddedProto::string_view left_chars = str;
+      int32_t n_chars_used = 0;
+
+      if(!first_field)
+      {
+        // Add a comma behind the previous field.
+        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
+        if(0 < n_chars_used)
+        {
+          // Update the character pointer and characters left in the array.
+          left_chars.data += n_chars_used;
+          left_chars.size -= n_chars_used;
+        }
+      }
+
+      if(nullptr != name)
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
+        }
+      }
+      else
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
+        }
+      }
+      
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      left_chars = timer_state_.to_string(left_chars, indent_level + 2, TIMER_STATE_NAME, true);
+      left_chars = timer_period_.to_string(left_chars, indent_level + 2, TIMER_PERIOD_NAME, false);
+      left_chars = timer_remaining_.to_string(left_chars, indent_level + 2, TIMER_REMAINING_NAME, false);
+  
+      if( 0 == indent_level) 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
+      }
+      else 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
+      }
+
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      return left_chars;
+    }
+
+#endif // End of MSG_TO_STRING
+
+  private:
+
+
+      EmbeddedProto::enumeration<TimerState> timer_state_ = static_cast<TimerState>(0);
+      EmbeddedProto::uint32 timer_period_ = 0U;
+      EmbeddedProto::uint32 timer_remaining_ = 0U;
+
+};
+
 class Ping final: public ::EmbeddedProto::MessageInterface
 {
   public:
@@ -1371,6 +1636,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           set_sys_ctrl(rhs.get_sys_ctrl());
           break;
 
+        case FieldNumber::HB_STATE:
+          set_hb_state(rhs.get_hb_state());
+          break;
+
         default:
           break;
       }
@@ -1415,6 +1684,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           set_sys_ctrl(rhs.get_sys_ctrl());
           break;
 
+        case FieldNumber::HB_STATE:
+          set_hb_state(rhs.get_hb_state());
+          break;
+
         default:
           break;
       }
@@ -1435,7 +1708,8 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
       PING = 7,
       HB = 8,
       SYS_STATE = 9,
-      SYS_CTRL = 10
+      SYS_CTRL = 10,
+      HB_STATE = 11
     };
 
     ControlMessage& operator=(const ControlMessage& rhs)
@@ -1474,6 +1748,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
 
         case FieldNumber::SYS_CTRL:
           set_sys_ctrl(rhs.get_sys_ctrl());
+          break;
+
+        case FieldNumber::HB_STATE:
+          set_hb_state(rhs.get_hb_state());
           break;
 
         default:
@@ -1519,6 +1797,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
 
         case FieldNumber::SYS_CTRL:
           set_sys_ctrl(rhs.get_sys_ctrl());
+          break;
+
+        case FieldNumber::HB_STATE:
+          set_hb_state(rhs.get_hb_state());
           break;
 
         default:
@@ -1799,6 +2081,46 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     inline const SystemControl& get_sys_ctrl() const { return message_.sys_ctrl_; }
     inline const SystemControl& sys_ctrl() const { return message_.sys_ctrl_; }
 
+    static constexpr char const* HB_STATE_NAME = "hb_state";
+    inline bool has_hb_state() const
+    {
+      return FieldNumber::HB_STATE == which_message_;
+    }
+    inline void clear_hb_state()
+    {
+      if(FieldNumber::HB_STATE == which_message_)
+      {
+        which_message_ = FieldNumber::NOT_SET;
+        message_.hb_state_.~HeartbeatState();
+      }
+    }
+    inline void set_hb_state(const HeartbeatState& value)
+    {
+      if(FieldNumber::HB_STATE != which_message_)
+      {
+        init_message(FieldNumber::HB_STATE);
+      }
+      message_.hb_state_ = value;
+    }
+    inline void set_hb_state(const HeartbeatState&& value)
+    {
+      if(FieldNumber::HB_STATE != which_message_)
+      {
+        init_message(FieldNumber::HB_STATE);
+      }
+      message_.hb_state_ = value;
+    }
+    inline HeartbeatState& mutable_hb_state()
+    {
+      if(FieldNumber::HB_STATE != which_message_)
+      {
+        init_message(FieldNumber::HB_STATE);
+      }
+      return message_.hb_state_;
+    }
+    inline const HeartbeatState& get_hb_state() const { return message_.hb_state_; }
+    inline const HeartbeatState& hb_state() const { return message_.hb_state_; }
+
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
     {
@@ -1868,6 +2190,13 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           }
           break;
 
+        case FieldNumber::HB_STATE:
+          if(has_hb_state() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+          {
+            return_value = message_.hb_state_.serialize_with_id(static_cast<uint32_t>(FieldNumber::HB_STATE), buffer, true);
+          }
+          break;
+
         default:
           break;
       }
@@ -1910,6 +2239,7 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::HB:
           case FieldNumber::SYS_STATE:
           case FieldNumber::SYS_CTRL:
+          case FieldNumber::HB_STATE:
             return_value = deserialize_message(id_tag, buffer, wire_type);
             break;
 
@@ -1984,6 +2314,9 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           break;
         case FieldNumber::SYS_CTRL:
           name = SYS_CTRL_NAME;
+          break;
+        case FieldNumber::HB_STATE:
+          name = HB_STATE_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -2090,6 +2423,7 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
         Heartbeat hb_;
         SystemState sys_state_;
         SystemControl sys_ctrl_;
+        HeartbeatState hb_state_;
       };
       message message_;
 
@@ -2128,6 +2462,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
             new(&message_.sys_ctrl_) SystemControl;
             break;
 
+          case FieldNumber::HB_STATE:
+            new(&message_.hb_state_) HeartbeatState;
+            break;
+
           default:
             break;
          }
@@ -2156,6 +2494,9 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
             break;
           case FieldNumber::SYS_CTRL:
             ::EmbeddedProto::destroy_at(&message_.sys_ctrl_);
+            break;
+          case FieldNumber::HB_STATE:
+            ::EmbeddedProto::destroy_at(&message_.hb_state_);
             break;
           default:
             break;
@@ -2194,6 +2535,9 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::SYS_CTRL:
             return_value = message_.sys_ctrl_.deserialize_check_type(buffer, wire_type);
             break;
+          case FieldNumber::HB_STATE:
+            return_value = message_.hb_state_.deserialize_check_type(buffer, wire_type);
+            break;
           default:
             break;
         }
@@ -2229,6 +2573,9 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
             break;
           case FieldNumber::SYS_CTRL:
             left_chars = message_.sys_ctrl_.to_string(left_chars, indent_level, SYS_CTRL_NAME, first_field);
+            break;
+          case FieldNumber::HB_STATE:
+            left_chars = message_.hb_state_.to_string(left_chars, indent_level, HB_STATE_NAME, first_field);
             break;
           default:
             break;
