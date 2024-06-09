@@ -40,6 +40,18 @@ class ControlMessage(_message.Message):
     target: _CoreProto_pb2.Node
     def __init__(self, source: _Optional[_Union[_CoreProto_pb2.Node, str]] = ..., target: _Optional[_Union[_CoreProto_pb2.Node, str]] = ..., source_sequence_num: _Optional[int] = ..., ack: _Optional[_Union[AckNack, _Mapping]] = ..., nack: _Optional[_Union[AckNack, _Mapping]] = ..., ping: _Optional[_Union[Ping, _Mapping]] = ..., hb: _Optional[_Union[Heartbeat, _Mapping]] = ..., sys_state: _Optional[_Union[SystemState, _Mapping]] = ..., sys_ctrl: _Optional[_Union[SystemControl, _Mapping]] = ..., hb_state: _Optional[_Union[HeartbeatState, _Mapping]] = ...) -> None: ...
 
+class FastLog(_message.Message):
+    __slots__ = ["cmd"]
+    class FastLogCommand(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+        __slots__ = []
+    CMD_FIELD_NUMBER: _ClassVar[int]
+    FL_PEND: FastLog.FastLogCommand
+    FL_RESET: FastLog.FastLogCommand
+    FL_SEND: FastLog.FastLogCommand
+    FL_START: FastLog.FastLogCommand
+    cmd: FastLog.FastLogCommand
+    def __init__(self, cmd: _Optional[_Union[FastLog.FastLogCommand, str]] = ...) -> None: ...
+
 class Heartbeat(_message.Message):
     __slots__ = ["hb_response_sequence_num"]
     HB_RESPONSE_SEQUENCE_NUM_FIELD_NUMBER: _ClassVar[int]

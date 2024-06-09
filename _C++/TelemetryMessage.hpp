@@ -3269,6 +3269,264 @@ class PbbTemperature final: public ::EmbeddedProto::MessageInterface
 
 };
 
+class PressureLog final: public ::EmbeddedProto::MessageInterface
+{
+  public:
+    PressureLog() = default;
+    PressureLog(const PressureLog& rhs )
+    {
+      set_time(rhs.get_time());
+      set_pv_pressure(rhs.get_pv_pressure());
+      set_ib_pressure(rhs.get_ib_pressure());
+    }
+
+    PressureLog(const PressureLog&& rhs ) noexcept
+    {
+      set_time(rhs.get_time());
+      set_pv_pressure(rhs.get_pv_pressure());
+      set_ib_pressure(rhs.get_ib_pressure());
+    }
+
+    ~PressureLog() override = default;
+
+    enum class FieldNumber : uint32_t
+    {
+      NOT_SET = 0,
+      TIME = 1,
+      PV_PRESSURE = 2,
+      IB_PRESSURE = 3
+    };
+
+    PressureLog& operator=(const PressureLog& rhs)
+    {
+      set_time(rhs.get_time());
+      set_pv_pressure(rhs.get_pv_pressure());
+      set_ib_pressure(rhs.get_ib_pressure());
+      return *this;
+    }
+
+    PressureLog& operator=(const PressureLog&& rhs) noexcept
+    {
+      set_time(rhs.get_time());
+      set_pv_pressure(rhs.get_pv_pressure());
+      set_ib_pressure(rhs.get_ib_pressure());
+      return *this;
+    }
+
+    static constexpr char const* TIME_NAME = "time";
+    inline void clear_time() { time_.clear(); }
+    inline void set_time(const uint32_t& value) { time_ = value; }
+    inline void set_time(const uint32_t&& value) { time_ = value; }
+    inline uint32_t& mutable_time() { return time_.get(); }
+    inline const uint32_t& get_time() const { return time_.get(); }
+    inline uint32_t time() const { return time_.get(); }
+
+    static constexpr char const* PV_PRESSURE_NAME = "pv_pressure";
+    inline void clear_pv_pressure() { pv_pressure_.clear(); }
+    inline void set_pv_pressure(const int32_t& value) { pv_pressure_ = value; }
+    inline void set_pv_pressure(const int32_t&& value) { pv_pressure_ = value; }
+    inline int32_t& mutable_pv_pressure() { return pv_pressure_.get(); }
+    inline const int32_t& get_pv_pressure() const { return pv_pressure_.get(); }
+    inline int32_t pv_pressure() const { return pv_pressure_.get(); }
+
+    static constexpr char const* IB_PRESSURE_NAME = "ib_pressure";
+    inline void clear_ib_pressure() { ib_pressure_.clear(); }
+    inline void set_ib_pressure(const int32_t& value) { ib_pressure_ = value; }
+    inline void set_ib_pressure(const int32_t&& value) { ib_pressure_ = value; }
+    inline int32_t& mutable_ib_pressure() { return ib_pressure_.get(); }
+    inline const int32_t& get_ib_pressure() const { return ib_pressure_.get(); }
+    inline int32_t ib_pressure() const { return ib_pressure_.get(); }
+
+
+    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+
+      if((0U != time_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = time_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TIME), buffer, false);
+      }
+
+      if((0 != pv_pressure_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = pv_pressure_.serialize_with_id(static_cast<uint32_t>(FieldNumber::PV_PRESSURE), buffer, false);
+      }
+
+      if((0 != ib_pressure_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = ib_pressure_.serialize_with_id(static_cast<uint32_t>(FieldNumber::IB_PRESSURE), buffer, false);
+      }
+
+      return return_value;
+    };
+
+    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
+      uint32_t id_number = 0;
+      FieldNumber id_tag = FieldNumber::NOT_SET;
+
+      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
+      {
+        id_tag = static_cast<FieldNumber>(id_number);
+        switch(id_tag)
+        {
+          case FieldNumber::TIME:
+            return_value = time_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::PV_PRESSURE:
+            return_value = pv_pressure_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::IB_PRESSURE:
+            return_value = ib_pressure_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::NOT_SET:
+            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
+            break;
+
+          default:
+            return_value = skip_unknown_field(buffer, wire_type);
+            break;
+        }
+
+        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+        {
+          // Read the next tag.
+          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+        }
+      }
+
+      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
+      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
+         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
+         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
+      {
+        return_value = tag_value;
+      }
+
+      return return_value;
+    };
+
+    void clear() override
+    {
+      clear_time();
+      clear_pv_pressure();
+      clear_ib_pressure();
+
+    }
+
+    static char const* field_number_to_name(const FieldNumber fieldNumber)
+    {
+      char const* name = nullptr;
+      switch(fieldNumber)
+      {
+        case FieldNumber::TIME:
+          name = TIME_NAME;
+          break;
+        case FieldNumber::PV_PRESSURE:
+          name = PV_PRESSURE_NAME;
+          break;
+        case FieldNumber::IB_PRESSURE:
+          name = IB_PRESSURE_NAME;
+          break;
+        default:
+          name = "Invalid FieldNumber";
+          break;
+      }
+      return name;
+    }
+
+#ifdef MSG_TO_STRING
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
+    {
+      return this->to_string(str, 0, nullptr, true);
+    }
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
+    {
+      ::EmbeddedProto::string_view left_chars = str;
+      int32_t n_chars_used = 0;
+
+      if(!first_field)
+      {
+        // Add a comma behind the previous field.
+        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
+        if(0 < n_chars_used)
+        {
+          // Update the character pointer and characters left in the array.
+          left_chars.data += n_chars_used;
+          left_chars.size -= n_chars_used;
+        }
+      }
+
+      if(nullptr != name)
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
+        }
+      }
+      else
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
+        }
+      }
+      
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      left_chars = time_.to_string(left_chars, indent_level + 2, TIME_NAME, true);
+      left_chars = pv_pressure_.to_string(left_chars, indent_level + 2, PV_PRESSURE_NAME, false);
+      left_chars = ib_pressure_.to_string(left_chars, indent_level + 2, IB_PRESSURE_NAME, false);
+  
+      if( 0 == indent_level) 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
+      }
+      else 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
+      }
+
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      return left_chars;
+    }
+
+#endif // End of MSG_TO_STRING
+
+  private:
+
+
+      EmbeddedProto::uint32 time_ = 0U;
+      EmbeddedProto::int32 pv_pressure_ = 0;
+      EmbeddedProto::int32 ib_pressure_ = 0;
+
+};
+
 class RcuPressure final: public ::EmbeddedProto::MessageInterface
 {
   public:
@@ -4919,6 +5177,10 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           set_sobTemperature(rhs.get_sobTemperature());
           break;
 
+        case FieldNumber::PRESSURELOG:
+          set_pressureLog(rhs.get_pressureLog());
+          break;
+
         default:
           break;
       }
@@ -5001,6 +5263,10 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           set_sobTemperature(rhs.get_sobTemperature());
           break;
 
+        case FieldNumber::PRESSURELOG:
+          set_pressureLog(rhs.get_pressureLog());
+          break;
+
         default:
           break;
       }
@@ -5029,7 +5295,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
       RELAYSTATUS = 15,
       PADBOXSTATUS = 16,
       LAUNCHRAILLOADCELL = 17,
-      SOBTEMPERATURE = 18
+      SOBTEMPERATURE = 18,
+      PRESSURELOG = 19
     };
 
     TelemetryMessage& operator=(const TelemetryMessage& rhs)
@@ -5106,6 +5373,10 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
 
         case FieldNumber::SOBTEMPERATURE:
           set_sobTemperature(rhs.get_sobTemperature());
+          break;
+
+        case FieldNumber::PRESSURELOG:
+          set_pressureLog(rhs.get_pressureLog());
           break;
 
         default:
@@ -5189,6 +5460,10 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
 
         case FieldNumber::SOBTEMPERATURE:
           set_sobTemperature(rhs.get_sobTemperature());
+          break;
+
+        case FieldNumber::PRESSURELOG:
+          set_pressureLog(rhs.get_pressureLog());
           break;
 
         default:
@@ -5854,6 +6129,46 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
     inline const SobTemperature& get_sobTemperature() const { return message_.sobTemperature_; }
     inline const SobTemperature& sobTemperature() const { return message_.sobTemperature_; }
 
+    static constexpr char const* PRESSURELOG_NAME = "pressureLog";
+    inline bool has_pressureLog() const
+    {
+      return FieldNumber::PRESSURELOG == which_message_;
+    }
+    inline void clear_pressureLog()
+    {
+      if(FieldNumber::PRESSURELOG == which_message_)
+      {
+        which_message_ = FieldNumber::NOT_SET;
+        message_.pressureLog_.~PressureLog();
+      }
+    }
+    inline void set_pressureLog(const PressureLog& value)
+    {
+      if(FieldNumber::PRESSURELOG != which_message_)
+      {
+        init_message(FieldNumber::PRESSURELOG);
+      }
+      message_.pressureLog_ = value;
+    }
+    inline void set_pressureLog(const PressureLog&& value)
+    {
+      if(FieldNumber::PRESSURELOG != which_message_)
+      {
+        init_message(FieldNumber::PRESSURELOG);
+      }
+      message_.pressureLog_ = value;
+    }
+    inline PressureLog& mutable_pressureLog()
+    {
+      if(FieldNumber::PRESSURELOG != which_message_)
+      {
+        init_message(FieldNumber::PRESSURELOG);
+      }
+      return message_.pressureLog_;
+    }
+    inline const PressureLog& get_pressureLog() const { return message_.pressureLog_; }
+    inline const PressureLog& pressureLog() const { return message_.pressureLog_; }
+
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
     {
@@ -5983,6 +6298,13 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           }
           break;
 
+        case FieldNumber::PRESSURELOG:
+          if(has_pressureLog() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+          {
+            return_value = message_.pressureLog_.serialize_with_id(static_cast<uint32_t>(FieldNumber::PRESSURELOG), buffer, true);
+          }
+          break;
+
         default:
           break;
       }
@@ -6027,6 +6349,7 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::PADBOXSTATUS:
           case FieldNumber::LAUNCHRAILLOADCELL:
           case FieldNumber::SOBTEMPERATURE:
+          case FieldNumber::PRESSURELOG:
             return_value = deserialize_message(id_tag, buffer, wire_type);
             break;
 
@@ -6123,6 +6446,9 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           break;
         case FieldNumber::SOBTEMPERATURE:
           name = SOBTEMPERATURE_NAME;
+          break;
+        case FieldNumber::PRESSURELOG:
+          name = PRESSURELOG_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -6235,6 +6561,7 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
         PadBoxStatus padBoxStatus_;
         LaunchRailLoadCell launchRailLoadCell_;
         SobTemperature sobTemperature_;
+        PressureLog pressureLog_;
       };
       message message_;
 
@@ -6313,6 +6640,10 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
             new(&message_.sobTemperature_) SobTemperature;
             break;
 
+          case FieldNumber::PRESSURELOG:
+            new(&message_.pressureLog_) PressureLog;
+            break;
+
           default:
             break;
          }
@@ -6371,6 +6702,9 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
             break;
           case FieldNumber::SOBTEMPERATURE:
             ::EmbeddedProto::destroy_at(&message_.sobTemperature_);
+            break;
+          case FieldNumber::PRESSURELOG:
+            ::EmbeddedProto::destroy_at(&message_.pressureLog_);
             break;
           default:
             break;
@@ -6439,6 +6773,9 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::SOBTEMPERATURE:
             return_value = message_.sobTemperature_.deserialize_check_type(buffer, wire_type);
             break;
+          case FieldNumber::PRESSURELOG:
+            return_value = message_.pressureLog_.deserialize_check_type(buffer, wire_type);
+            break;
           default:
             break;
         }
@@ -6504,6 +6841,9 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
             break;
           case FieldNumber::SOBTEMPERATURE:
             left_chars = message_.sobTemperature_.to_string(left_chars, indent_level, SOBTEMPERATURE_NAME, first_field);
+            break;
+          case FieldNumber::PRESSURELOG:
+            left_chars = message_.pressureLog_.to_string(left_chars, indent_level, PRESSURELOG_NAME, first_field);
             break;
           default:
             break;
