@@ -1848,6 +1848,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           set_hb_state(rhs.get_hb_state());
           break;
 
+        case FieldNumber::FAST_LOG:
+          set_fast_log(rhs.get_fast_log());
+          break;
+
         default:
           break;
       }
@@ -1895,6 +1899,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           set_hb_state(rhs.get_hb_state());
           break;
 
+        case FieldNumber::FAST_LOG:
+          set_fast_log(rhs.get_fast_log());
+          break;
+
         default:
           break;
       }
@@ -1915,7 +1923,8 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
       HB = 8,
       SYS_STATE = 9,
       SYS_CTRL = 10,
-      HB_STATE = 11
+      HB_STATE = 11,
+      FAST_LOG = 12
     };
 
     ControlMessage& operator=(const ControlMessage& rhs)
@@ -1957,6 +1966,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
 
         case FieldNumber::HB_STATE:
           set_hb_state(rhs.get_hb_state());
+          break;
+
+        case FieldNumber::FAST_LOG:
+          set_fast_log(rhs.get_fast_log());
           break;
 
         default:
@@ -2005,6 +2018,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
 
         case FieldNumber::HB_STATE:
           set_hb_state(rhs.get_hb_state());
+          break;
+
+        case FieldNumber::FAST_LOG:
+          set_fast_log(rhs.get_fast_log());
           break;
 
         default:
@@ -2318,6 +2335,46 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
     inline const HeartbeatState& get_hb_state() const { return message_.hb_state_; }
     inline const HeartbeatState& hb_state() const { return message_.hb_state_; }
 
+    static constexpr char const* FAST_LOG_NAME = "fast_log";
+    inline bool has_fast_log() const
+    {
+      return FieldNumber::FAST_LOG == which_message_;
+    }
+    inline void clear_fast_log()
+    {
+      if(FieldNumber::FAST_LOG == which_message_)
+      {
+        which_message_ = FieldNumber::NOT_SET;
+        message_.fast_log_.~FastLog();
+      }
+    }
+    inline void set_fast_log(const FastLog& value)
+    {
+      if(FieldNumber::FAST_LOG != which_message_)
+      {
+        init_message(FieldNumber::FAST_LOG);
+      }
+      message_.fast_log_ = value;
+    }
+    inline void set_fast_log(const FastLog&& value)
+    {
+      if(FieldNumber::FAST_LOG != which_message_)
+      {
+        init_message(FieldNumber::FAST_LOG);
+      }
+      message_.fast_log_ = value;
+    }
+    inline FastLog& mutable_fast_log()
+    {
+      if(FieldNumber::FAST_LOG != which_message_)
+      {
+        init_message(FieldNumber::FAST_LOG);
+      }
+      return message_.fast_log_;
+    }
+    inline const FastLog& get_fast_log() const { return message_.fast_log_; }
+    inline const FastLog& fast_log() const { return message_.fast_log_; }
+
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
     {
@@ -2389,6 +2446,13 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           }
           break;
 
+        case FieldNumber::FAST_LOG:
+          if(has_fast_log() && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+          {
+            return_value = message_.fast_log_.serialize_with_id(static_cast<uint32_t>(FieldNumber::FAST_LOG), buffer, true);
+          }
+          break;
+
         default:
           break;
       }
@@ -2428,6 +2492,7 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::SYS_STATE:
           case FieldNumber::SYS_CTRL:
           case FieldNumber::HB_STATE:
+          case FieldNumber::FAST_LOG:
             return_value = deserialize_message(id_tag, buffer, wire_type);
             break;
 
@@ -2501,6 +2566,9 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           break;
         case FieldNumber::HB_STATE:
           name = HB_STATE_NAME;
+          break;
+        case FieldNumber::FAST_LOG:
+          name = FAST_LOG_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -2606,6 +2674,7 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
         SystemState sys_state_;
         SystemControl sys_ctrl_;
         HeartbeatState hb_state_;
+        FastLog fast_log_;
       };
       message message_;
 
@@ -2648,6 +2717,10 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
             new(&message_.hb_state_) HeartbeatState;
             break;
 
+          case FieldNumber::FAST_LOG:
+            new(&message_.fast_log_) FastLog;
+            break;
+
           default:
             break;
          }
@@ -2679,6 +2752,9 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
             break;
           case FieldNumber::HB_STATE:
             ::EmbeddedProto::destroy_at(&message_.hb_state_);
+            break;
+          case FieldNumber::FAST_LOG:
+            ::EmbeddedProto::destroy_at(&message_.fast_log_);
             break;
           default:
             break;
@@ -2720,6 +2796,9 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
           case FieldNumber::HB_STATE:
             return_value = message_.hb_state_.deserialize_check_type(buffer, wire_type);
             break;
+          case FieldNumber::FAST_LOG:
+            return_value = message_.fast_log_.deserialize_check_type(buffer, wire_type);
+            break;
           default:
             break;
         }
@@ -2758,6 +2837,9 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
             break;
           case FieldNumber::HB_STATE:
             left_chars = message_.hb_state_.to_string(left_chars, indent_level, HB_STATE_NAME, first_field);
+            break;
+          case FieldNumber::FAST_LOG:
+            left_chars = message_.fast_log_.to_string(left_chars, indent_level, FAST_LOG_NAME, first_field);
             break;
           default:
             break;
