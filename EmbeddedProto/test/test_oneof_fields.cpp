@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2020-2023 Embedded AMS B.V. - All Rights Reserved
+ *  Copyright (C) 2020-2024 Embedded AMS B.V. - All Rights Reserved
  *
  *  This file is part of Embedded Proto.
  *
@@ -23,8 +23,8 @@
  *    info at EmbeddedProto dot com
  *
  *  Postal address:
- *    Johan Huizingalaan 763a
- *    1066 VH, Amsterdam
+ *    Atoomweg 2
+ *    1627 LE, Hoorn
  *    the Netherlands
  */
 
@@ -441,6 +441,9 @@ TEST(OneofField, sb_oneof_serialize_empty)
 
 }
 
+
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
 TEST(OneofField, field_number_to_name)
 {
   EXPECT_TRUE(0 == strcmp(::message_oneof::field_number_to_name(::message_oneof::FieldNumber::X),
@@ -452,6 +455,8 @@ TEST(OneofField, field_number_to_name)
   EXPECT_TRUE(0 == strcmp(::message_oneof::field_number_to_name(::message_oneof::FieldNumber::MSG_ABC),
                           "msg_ABC"));
 }
+
+#endif
 
 
 #ifdef MSG_TO_STRING

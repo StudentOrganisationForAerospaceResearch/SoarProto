@@ -1,7 +1,6 @@
-#! /bin/sh
-
+#!/usr/bin/env bash
 #
-# Copyright (C) 2020-2023 Embedded AMS B.V. - All Rights Reserved
+# Copyright (C) 2020-2024 Embedded AMS B.V. - All Rights Reserved
 #
 # This file is part of Embedded Proto.
 #
@@ -25,10 +24,13 @@
 #   info at EmbeddedProto dot com
 #
 # Postal address:
-#   Johan Huizingalaan 763a
-#   1066 VH, Amsterdam
+#   Atoomweg 2
+#   1627 LE, Hoorn
 #   the Netherlands
 #
+
+# Fail on first non-zero return code
+set -exuo pipefail
 
 # Generate sources using the EAMS plugin.
 mkdir -p ./build/EAMS
@@ -39,7 +41,7 @@ protoc --plugin=protoc-gen-eams=protoc-gen-eams -I./test/proto --eams_out=./buil
 protoc --plugin=protoc-gen-eams=protoc-gen-eams -I./test/proto --eams_out=./build/EAMS ./test/proto/include_other_files.proto
 # Delibertly do not manually generate file_to_include.proto and subfolder/file_to_include_from_subfolder.proto 
 # to test the automatic generation of files from including them in include_other_files.proto.
-protoc --plugin=protoc-gen-eams=protoc-gen-eams -I./test/proto --eams_out=./build/EAMS ./test/proto/string_bytes.proto
+protoc --plugin=protoc-gen-eams=protoc-gen-eams -I./test/proto -I./generator --eams_out=./build/EAMS ./test/proto/string_bytes.proto
 protoc --plugin=protoc-gen-eams=protoc-gen-eams -I./test/proto --eams_out=./build/EAMS ./test/proto/empty_message.proto
 protoc --plugin=protoc-gen-eams=protoc-gen-eams -I./test/proto --eams_out=./build/EAMS ./test/proto/optional_fields.proto
 protoc --plugin=protoc-gen-eams=protoc-gen-eams -I./test/proto -I./generator --eams_out=./build/EAMS ./test/proto/field_options.proto
@@ -55,12 +57,10 @@ protoc -I./test/proto --python_out=./build/python ./test/proto/include_other_fil
 protoc -I./test/proto --python_out=./build/python ./test/proto/file_to_include.proto
 protoc -I./test/proto --python_out=./build/python ./test/proto/subfolder/file_to_include_from_subfolder.proto
 protoc -I./test/proto --python_out=./build/python ./test/proto/empty_file_to_include.proto
-protoc -I./test/proto --python_out=./build/python ./test/proto/string_bytes.proto
+protoc -I./test/proto -I./generator --python_out=./build/python ./test/proto/string_bytes.proto
 protoc -I./test/proto --python_out=./build/python ./test/proto/optional_fields.proto
 protoc -I./test/proto -I./generator --python_out=./build/python ./test/proto/field_options.proto
 
 # Build the tests
-mkdir -p build/test
-cd build/test/
-cmake -DCMAKE_BUILD_TYPE=Debug ../../
-make -j16
+cmake -DCMAKE_BUILD_TYPE=Debug -B./build/test
+make -j16 -C ./build/test

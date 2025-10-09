@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2020-2023 Embedded AMS B.V. - All Rights Reserved
+ *  Copyright (C) 2020-2024 Embedded AMS B.V. - All Rights Reserved
  *
  *  This file is part of Embedded Proto.
  *
@@ -23,8 +23,8 @@
  *    info at EmbeddedProto dot com
  *
  *  Postal address:
- *    Johan Huizingalaan 763a
- *    1066 VH, Amsterdam
+ *    Atoomweg 2
+ *    1627 LE, Hoorn
  *    the Netherlands
  */
 
@@ -122,7 +122,7 @@ namespace EmbeddedProto
         return data_[limited_index]; 
       }
 
-      Error get_const(const int32_t index, DATA_TYPE& value) const override
+      Error get_const(const uint32_t index, DATA_TYPE& value) const override
       {
         Error result = Error::NO_ERRORS;
         if(index < current_length_)

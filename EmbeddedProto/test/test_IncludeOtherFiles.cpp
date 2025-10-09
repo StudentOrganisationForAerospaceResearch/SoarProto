@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2020-2023 Embedded AMS B.V. - All Rights Reserved
+ *  Copyright (C) 2020-2024 Embedded AMS B.V. - All Rights Reserved
  *
  *  This file is part of Embedded Proto.
  *
@@ -23,8 +23,8 @@
  *    info at EmbeddedProto dot com
  *
  *  Postal address:
- *    Johan Huizingalaan 763a
- *    1066 VH, Amsterdam
+ *    Atoomweg 2
+ *    1627 LE, Hoorn
  *    the Netherlands
  */
 
@@ -70,6 +70,16 @@ TEST(IncludeOtherFiles, zero)
   EXPECT_EQ(::EmbeddedProto::Error::NO_ERRORS, msg.serialize(buffer));
 
   EXPECT_EQ(0, msg.serialized_size());
+}
+
+TEST(IncludeOtherFiles, set_time) 
+{
+  TimeMessage msg;
+  msg.mutable_time().set_seconds(12345);
+  msg.mutable_time().set_nanos(9876);
+  
+  EXPECT_EQ(12345, msg.get_time().get_seconds());
+  EXPECT_EQ(9876, msg.get_time().get_nanos());
 }
 
 TEST(IncludeOtherFiles, set) 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2020-2023 Embedded AMS B.V. - All Rights Reserved
+ *  Copyright (C) 2020-2024 Embedded AMS B.V. - All Rights Reserved
  *
  *  This file is part of Embedded Proto.
  *
@@ -23,8 +23,8 @@
  *    info at EmbeddedProto dot com
  *
  *  Postal address:
- *    Johan Huizingalaan 763a
- *    1066 VH, Amsterdam
+ *    Atoomweg 2
+ *    1627 LE, Hoorn
  *    the Netherlands
  */
 
@@ -55,7 +55,7 @@ namespace test_EmbeddedAMS_string_bytes
 
 TEST(FieldString, get_set)
 {
-  text<10> msg;  
+  text<10> msg;
   
   // Test directly assigning a static string.
   msg.mutable_txt() = "Foo Bar";
@@ -75,13 +75,101 @@ TEST(FieldString, get_set)
   ASSERT_STREQ("foo bar 2", msg.get_txt().get_const());
 
   // Test assigning a string by array pointer with max length.
-  char text[] = "Foo bar 3!";
-  msg.mutable_txt() = text;
+  char text_3[] = "Foo bar 3!";
+  msg.mutable_txt() = text_3;
   EXPECT_EQ(10, msg.get_txt().get_length());
   ASSERT_STREQ("Foo bar 3!", msg.get_txt().get_const());
 
   const char* text2 = msg.get_txt().get_const();
   ASSERT_STREQ("Foo bar 3!", text2);
+
+  // Test the set function.
+  char text_4[] = "Foo bar 4!";
+  msg.mutable_txt().set(text_4);
+  EXPECT_EQ(10, msg.get_txt().get_length());
+  ASSERT_STREQ("Foo bar 4!", msg.get_txt().get_const());
+
+  // Test setting strings using a pointer. 
+  msg.clear();
+  char* text_5_p;
+  char text_5[] = "Foo bar";
+  text_5_p = &(text_5[0]);
+  msg.mutable_txt() = text_5_p;
+  EXPECT_EQ(7, msg.get_txt().get_length());
+  ASSERT_STREQ("Foo bar", msg.get_txt().get_const());
+
+  msg.clear();
+  msg.mutable_txt().set(text_5_p);
+  EXPECT_EQ(7, msg.get_txt().get_length());
+  ASSERT_STREQ("Foo bar", msg.get_txt().get_const());
+
+  // Use a static string with the set function
+  msg.clear();
+  msg.mutable_txt().set("Foo bar 6");
+  EXPECT_EQ(9, msg.get_txt().get_length());
+  ASSERT_STREQ("Foo bar 6", msg.get_txt().get_const());
+
+  // Set an array which is longer
+  // Asignment operator
+  msg.clear();
+  msg.mutable_txt() = "12345678901234567890";
+  EXPECT_EQ(10, msg.get_txt().get_length());
+  ASSERT_STREQ("1234567890", msg.get_txt().get_const());
+
+  // Set function
+  msg.clear();
+  msg.mutable_txt().set("12345678901234567890");
+  EXPECT_EQ(10, msg.get_txt().get_length());
+  ASSERT_STREQ("1234567890", msg.get_txt().get_const());
+}
+
+TEST(FieldString, set_smaller)
+{
+  text<10> msgA;
+  text<5> msgB;
+  
+  msgA.mutable_txt().set("Foo bar");
+
+  // Asignment operator, too big.
+  EXPECT_EQ(::EmbeddedProto::Error::ARRAY_FULL, msgB.mutable_txt().set(msgA.get_txt()));
+  EXPECT_EQ(0, msgB.get_txt().get_length());
+
+  // Use the assignment operator with too much characters.
+  // The error will not be visible but the effect of not setting msgB will!
+  msgB.mutable_txt() = msgA.get_txt();
+  EXPECT_EQ(0, msgB.get_txt().get_length());
+
+  // Set a suitable amount of characters in the lager string.
+  msgA.clear();
+  msgA.mutable_txt().set("1234"); // Leave one space for the null terminator.
+  EXPECT_EQ(::EmbeddedProto::Error::NO_ERRORS, msgB.mutable_txt().set(msgA.get_txt()));
+  EXPECT_EQ(4, msgB.get_txt().get_length());
+  ASSERT_STREQ("1234", msgB.get_txt().get_const());
+  
+  // Use the asignment operator with something that fits.
+  msgB.clear();
+  msgB.mutable_txt() = msgA.get_txt();
+  EXPECT_EQ(4, msgB.get_txt().get_length());
+  ASSERT_STREQ("1234", msgB.get_txt().get_const());
+}
+
+TEST(FieldString, set_larger)
+{
+  text<10> msgA;
+  text<15> msgB;
+
+  msgA.mutable_txt().set("Foo bar");
+
+  // Use the set function
+  EXPECT_EQ(::EmbeddedProto::Error::NO_ERRORS, msgB.mutable_txt().set(msgA.get_txt()));
+  EXPECT_EQ(7, msgB.get_txt().get_length());
+  ASSERT_STREQ("Foo bar", msgB.get_txt().get_const());
+
+  // Use the assignment operator.
+  msgB.clear();
+  msgB.mutable_txt() = msgA.get_txt();
+  EXPECT_EQ(7, msgB.get_txt().get_length());
+  ASSERT_STREQ("Foo bar", msgB.get_txt().get_const());
 }
 
 TEST(FieldString, clear)
@@ -307,6 +395,50 @@ TEST(FieldBytes, set_get)
   uint8_t big_array[11] = {0};
   big_array[10] = 11;
   EXPECT_EQ(::EmbeddedProto::Error::ARRAY_FULL, msg.mutable_b().set(big_array, 11));
+
+  // Expect an error when setting more bytes in a smaller message.
+  raw_bytes<5> msgB;
+  EXPECT_EQ(::EmbeddedProto::Error::ARRAY_FULL, msgB.mutable_b().set(msg.get_b()));
+
+  // Set the full array when it fits.
+  msg.clear();
+  for(uint8_t i = 0; i < msgB.get_b().get_max_length(); ++i)
+  {
+    msg.mutable_b()[i] = i;
+  }
+  EXPECT_EQ(::EmbeddedProto::Error::NO_ERRORS, msgB.mutable_b().set(msg.get_b()));
+  EXPECT_EQ(msgB.get_b().get_length(), msg.get_b().get_length());
+
+  for(uint8_t i = 0; i < msgB.mutable_b().get_max_length(); ++i) {
+    EXPECT_EQ(i, msgB.get_b()[i]);
+  }
+
+  // Use the assignment operator .
+  msgB.clear();
+  msgB.mutable_b() = msg.get_b();
+  EXPECT_EQ(msgB.get_b().get_length(), msg.get_b().get_length());
+
+  for(uint8_t i = 0; i < msgB.mutable_b().get_max_length(); ++i) {
+    EXPECT_EQ(i, msgB.get_b()[i]);
+  }
+
+  // Now with a message destination which has more element compared to the source.
+  raw_bytes<15> msgC;
+  EXPECT_EQ(::EmbeddedProto::Error::NO_ERRORS, msgC.mutable_b().set(msg.get_b()));
+  EXPECT_EQ(msgC.get_b().get_length(), msg.get_b().get_length());
+
+  for(uint8_t i = 0; i < msgC.mutable_b().get_length(); ++i) {
+    EXPECT_EQ(i, msgC.get_b()[i]);
+  }
+
+  // Use the assignment operator.
+  msgC.clear();
+  msgC.mutable_b() = msg.get_b();
+  EXPECT_EQ(msgC.get_b().get_length(), msg.get_b().get_length());
+
+  for(uint8_t i = 0; i < msgC.mutable_b().get_length(); ++i) {
+    EXPECT_EQ(i, msgC.get_b()[i]);
+  }
 }
 
 TEST(FieldBytes, assign_msg) 
@@ -317,7 +449,7 @@ TEST(FieldBytes, assign_msg)
   msgA.mutable_b().set(data.data(), 10);
   msgB = msgA;
 
-  for(uint8_t i = 0; i < 10; ++i) {
+  for(uint8_t i = 0; i < msgB.mutable_b().get_max_length(); ++i) {
     EXPECT_EQ(data[i], msgB.get_b()[i]);
   }
 }
@@ -653,6 +785,8 @@ TEST(RepeatedStringBytes, deserialize)
   EXPECT_STREQ(msg.array_of_txt(2).get_const(), "Foo bar 3"); 
 }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
 TEST(RepeatedStringBytes, field_number_to_name)
 {
   using RSB = repeated_string_bytes<3, 15, 3, 15, 3, 3>;
@@ -664,6 +798,8 @@ TEST(RepeatedStringBytes, field_number_to_name)
   EXPECT_TRUE(0 == strcmp(RSB::field_number_to_name(RSB::FieldNumber::NESTED_BYTES),
                           "nested_bytes"));
 }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -716,5 +852,111 @@ TEST(RepeatedStringBytes, to_string)
 }
 
 #endif // MSG_TO_STRING
+
+TEST(RepeatedStringWithLengths, test_both_lengths) {
+  repeated_string_with_lengths msg;
+
+  // The array should have exactly 3 elements
+  ASSERT_EQ(3, msg.array_of_txt().get_max_length());
+
+  // Each string should have a max length of 10
+  msg.mutable_array_of_txt(0) = "1234567890";
+  ASSERT_EQ(10, msg.array_of_txt(0).get_max_length());
+  ASSERT_STREQ("1234567890", msg.array_of_txt(0).get_const());
+
+  // Try to set a string longer than 10 characters - should be truncated
+  msg.mutable_array_of_txt(1) = "1234567890123";
+  ASSERT_EQ(10, msg.array_of_txt(1).get_length());
+  ASSERT_STREQ("1234567890", msg.array_of_txt(1).get_const());
+
+  EXPECT_EQ(3, msg.array_of_txt().get_max_length());
+  EXPECT_EQ(10, msg.array_of_txt(0).get_max_length());
+}
+
+TEST(RepeatedBytesWithLengths, test_both_lengths) {
+  repeated_bytes_with_lengths msg;
+
+  // The array should have exactly 3 elements
+  ASSERT_EQ(3, msg.array_of_bytes().get_max_length());
+
+  // Each bytes field should have a max length of 10
+  uint8_t data[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+  msg.mutable_array_of_bytes(0).set(data, 10);
+  ASSERT_EQ(10, msg.array_of_bytes(0).get_max_length());
+  for (int i = 0; i < 10; ++i) {
+    ASSERT_EQ(i, msg.array_of_bytes(0)[i]);
+  }
+
+  // Try to set more bytes than the max length - should be truncated
+  uint8_t big_data[15] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+  EXPECT_EQ(::EmbeddedProto::Error::ARRAY_FULL, msg.mutable_array_of_bytes(1).set(big_data, 15));
+  ASSERT_EQ(0, msg.array_of_bytes(1).get_length());
+
+  // Try to set data within the max length - should work
+  uint8_t small_data[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+  EXPECT_EQ(::EmbeddedProto::Error::NO_ERRORS, msg.mutable_array_of_bytes(1).set(small_data, 10));
+  ASSERT_EQ(10, msg.array_of_bytes(1).get_length());
+  for (int i = 0; i < 10; ++i) {
+    ASSERT_EQ(i, msg.array_of_bytes(1)[i]);
+  }
+
+  // Clear the array first before setting data
+  msg.clear_array_of_bytes();
+  EXPECT_EQ(::EmbeddedProto::Error::NO_ERRORS, msg.mutable_array_of_bytes(1).set(small_data, 10));
+  ASSERT_EQ(10, msg.array_of_bytes(1).get_length());
+  for (int i = 0; i < 10; ++i) {
+    ASSERT_EQ(i, msg.array_of_bytes(1)[i]);
+  }
+  EXPECT_EQ(3, msg.array_of_bytes().get_max_length());
+  EXPECT_EQ(10, msg.array_of_bytes(0).get_max_length());
+}
+
+// Test case 1: maxLength defined but nestedMaxLength not
+// This should result in a C++ template parameter for the string/bytes
+TEST(RepeatedStringMaxOnly, test_max_only) {
+  // The array should have exactly 3 elements
+  repeated_string_max_only<10> msg;
+  ASSERT_EQ(3, msg.array_of_txt().get_max_length());
+
+  // Each string should have a template parameter for length
+  msg.mutable_array_of_txt(0) = "1234567890";
+  ASSERT_STREQ("1234567890", msg.array_of_txt(0).get_const());
+}
+
+TEST(RepeatedBytesMaxOnly, test_max_only) {
+  // The array should have exactly 3 elements
+  repeated_bytes_max_only<10> msg;
+  ASSERT_EQ(3, msg.array_of_bytes().get_max_length());
+
+  // Each bytes field should have a template parameter for length
+  uint8_t data[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+  msg.mutable_array_of_bytes(0).set(data, 10);
+  for (int i = 0; i < 10; ++i) {
+    ASSERT_EQ(i, msg.array_of_bytes(0)[i]);
+  }
+}
+
+// Test case 2: nestedMaxLength defined but maxLength not
+// This should result in a C++ template parameter for the array
+TEST(RepeatedStringNestedOnly, test_nested_only) {
+  // The array should have a template parameter for length
+  repeated_string_nested_only<10> msg;
+
+  // Each string should have a max length of 10
+  msg.mutable_array_of_txt(0) = "1234567890";
+  ASSERT_STREQ("1234567890", msg.array_of_txt(0).get_const());
+}
+
+TEST(RepeatedBytesNestedOnly, test_nested_only) {
+  // The array should have a template parameter for length
+  repeated_bytes_nested_only<10> msg;
+
+  // Each bytes field should have a max length of 10
+  uint8_t data[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+  msg.mutable_array_of_bytes(0).set(data, 10);
+  for (int i = 0; i < 10; ++i) {
+    ASSERT_EQ(i, msg.array_of_bytes(0)[i]);
+  }
+}
 
 } // End of namespace test_EmbeddedAMS_string_bytes
