@@ -235,11 +235,11 @@ class FsbCommand final: public ::EmbeddedProto::MessageInterface
 
 };
 
-class CommandMessage final: public ::EmbeddedProto::MessageInterface
+class CommandMessages final: public ::EmbeddedProto::MessageInterface
 {
   public:
-    CommandMessage() = default;
-    CommandMessage(const CommandMessage& rhs )
+    CommandMessages() = default;
+    CommandMessages(const CommandMessages& rhs )
     {
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
@@ -260,7 +260,7 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
 
     }
 
-    CommandMessage(const CommandMessage&& rhs ) noexcept
+    CommandMessages(const CommandMessages&& rhs ) noexcept
     {
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
@@ -281,7 +281,7 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
 
     }
 
-    ~CommandMessage() override = default;
+    ~CommandMessages() override = default;
 
     enum class FieldNumber : uint32_t
     {
@@ -290,7 +290,7 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       FSB_COMMAND = 2
     };
 
-    CommandMessage& operator=(const CommandMessage& rhs)
+    CommandMessages& operator=(const CommandMessages& rhs)
     {
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)
@@ -312,7 +312,7 @@ class CommandMessage final: public ::EmbeddedProto::MessageInterface
       return *this;
     }
 
-    CommandMessage& operator=(const CommandMessage&& rhs) noexcept
+    CommandMessages& operator=(const CommandMessages&& rhs) noexcept
     {
       set_source_sequence_num(rhs.get_source_sequence_num());
       if(rhs.get_which_message() != which_message_)

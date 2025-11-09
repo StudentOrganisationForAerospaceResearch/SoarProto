@@ -8,7 +8,7 @@ syntax = "proto3";
 package Proto;
 
 
-message CommandMessage {
+message CommandMessages {
 
     uint32 source_sequence_num = 1; // This is the sequence number of the message, should start at (1), if its 0 it does not need to be ACKed (ie. Non-essential Telemetry)
     

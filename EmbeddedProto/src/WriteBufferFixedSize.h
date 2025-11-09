@@ -33,6 +33,7 @@
 
 #include "WriteBufferInterface.h"
 #include <array>
+#include <string.h>
 
 namespace EmbeddedProto 
 {
