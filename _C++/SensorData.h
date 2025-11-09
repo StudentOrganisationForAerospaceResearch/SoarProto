@@ -267,6 +267,7 @@ class Accelerometer final: public ::EmbeddedProto::MessageInterface
       set_accel_y(rhs.get_accel_y());
       set_accel_z(rhs.get_accel_z());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
     }
 
     Accelerometer(const Accelerometer&& rhs ) noexcept
@@ -275,6 +276,7 @@ class Accelerometer final: public ::EmbeddedProto::MessageInterface
       set_accel_y(rhs.get_accel_y());
       set_accel_z(rhs.get_accel_z());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
     }
 
     ~Accelerometer() override = default;
@@ -285,7 +287,8 @@ class Accelerometer final: public ::EmbeddedProto::MessageInterface
       ACCEL_X = 1,
       ACCEL_Y = 2,
       ACCEL_Z = 3,
-      SENSORLOGGINGRATE = 4
+      SENSORLOGGINGRATE = 4,
+      LOGGINGIDX = 5
     };
 
     Accelerometer& operator=(const Accelerometer& rhs)
@@ -294,6 +297,7 @@ class Accelerometer final: public ::EmbeddedProto::MessageInterface
       set_accel_y(rhs.get_accel_y());
       set_accel_z(rhs.get_accel_z());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
       return *this;
     }
 
@@ -303,6 +307,7 @@ class Accelerometer final: public ::EmbeddedProto::MessageInterface
       set_accel_y(rhs.get_accel_y());
       set_accel_z(rhs.get_accel_z());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
       return *this;
     }
 
@@ -338,6 +343,14 @@ class Accelerometer final: public ::EmbeddedProto::MessageInterface
     inline const SensorLoggingRate& get_sensorLoggingRate() const { return sensorLoggingRate_; }
     inline const SensorLoggingRate& sensorLoggingRate() const { return sensorLoggingRate_; }
 
+    static constexpr char const* LOGGINGIDX_NAME = "LoggingIdx";
+    inline void clear_LoggingIdx() { LoggingIdx_.clear(); }
+    inline void set_LoggingIdx(const int32_t& value) { LoggingIdx_ = value; }
+    inline void set_LoggingIdx(const int32_t&& value) { LoggingIdx_ = value; }
+    inline int32_t& mutable_LoggingIdx() { return LoggingIdx_.get(); }
+    inline const int32_t& get_LoggingIdx() const { return LoggingIdx_.get(); }
+    inline int32_t LoggingIdx() const { return LoggingIdx_.get(); }
+
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
     {
@@ -361,6 +374,11 @@ class Accelerometer final: public ::EmbeddedProto::MessageInterface
       if(::EmbeddedProto::Error::NO_ERRORS == return_value)
       {
         return_value = sensorLoggingRate_.serialize_with_id(static_cast<uint32_t>(FieldNumber::SENSORLOGGINGRATE), buffer, false);
+      }
+
+      if((0 != LoggingIdx_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = LoggingIdx_.serialize_with_id(static_cast<uint32_t>(FieldNumber::LOGGINGIDX), buffer, false);
       }
 
       return return_value;
@@ -393,6 +411,10 @@ class Accelerometer final: public ::EmbeddedProto::MessageInterface
 
           case FieldNumber::SENSORLOGGINGRATE:
             return_value = sensorLoggingRate_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::LOGGINGIDX:
+            return_value = LoggingIdx_.deserialize_check_type(buffer, wire_type);
             break;
 
           case FieldNumber::NOT_SET:
@@ -428,6 +450,7 @@ class Accelerometer final: public ::EmbeddedProto::MessageInterface
       clear_accel_y();
       clear_accel_z();
       clear_sensorLoggingRate();
+      clear_LoggingIdx();
 
     }
 
@@ -449,6 +472,9 @@ class Accelerometer final: public ::EmbeddedProto::MessageInterface
           break;
         case FieldNumber::SENSORLOGGINGRATE:
           name = SENSORLOGGINGRATE_NAME;
+          break;
+        case FieldNumber::LOGGINGIDX:
+          name = LOGGINGIDX_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -516,6 +542,7 @@ class Accelerometer final: public ::EmbeddedProto::MessageInterface
       left_chars = accel_y_.to_string(left_chars, indent_level + 2, ACCEL_Y_NAME, false);
       left_chars = accel_z_.to_string(left_chars, indent_level + 2, ACCEL_Z_NAME, false);
       left_chars = sensorLoggingRate_.to_string(left_chars, indent_level + 2, SENSORLOGGINGRATE_NAME, false);
+      left_chars = LoggingIdx_.to_string(left_chars, indent_level + 2, LOGGINGIDX_NAME, false);
   
       if( 0 == indent_level) 
       {
@@ -544,6 +571,7 @@ class Accelerometer final: public ::EmbeddedProto::MessageInterface
       EmbeddedProto::int32 accel_y_ = 0;
       EmbeddedProto::int32 accel_z_ = 0;
       SensorLoggingRate sensorLoggingRate_;
+      EmbeddedProto::int32 LoggingIdx_ = 0;
 
 };
 
@@ -556,6 +584,7 @@ class Barometer final: public ::EmbeddedProto::MessageInterface
       set_baro_pressure(rhs.get_baro_pressure());
       set_baro_temperature(rhs.get_baro_temperature());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
     }
 
     Barometer(const Barometer&& rhs ) noexcept
@@ -563,6 +592,7 @@ class Barometer final: public ::EmbeddedProto::MessageInterface
       set_baro_pressure(rhs.get_baro_pressure());
       set_baro_temperature(rhs.get_baro_temperature());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
     }
 
     ~Barometer() override = default;
@@ -572,7 +602,8 @@ class Barometer final: public ::EmbeddedProto::MessageInterface
       NOT_SET = 0,
       BARO_PRESSURE = 1,
       BARO_TEMPERATURE = 2,
-      SENSORLOGGINGRATE = 3
+      SENSORLOGGINGRATE = 3,
+      LOGGINGIDX = 4
     };
 
     Barometer& operator=(const Barometer& rhs)
@@ -580,6 +611,7 @@ class Barometer final: public ::EmbeddedProto::MessageInterface
       set_baro_pressure(rhs.get_baro_pressure());
       set_baro_temperature(rhs.get_baro_temperature());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
       return *this;
     }
 
@@ -588,6 +620,7 @@ class Barometer final: public ::EmbeddedProto::MessageInterface
       set_baro_pressure(rhs.get_baro_pressure());
       set_baro_temperature(rhs.get_baro_temperature());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
       return *this;
     }
 
@@ -615,6 +648,14 @@ class Barometer final: public ::EmbeddedProto::MessageInterface
     inline const SensorLoggingRate& get_sensorLoggingRate() const { return sensorLoggingRate_; }
     inline const SensorLoggingRate& sensorLoggingRate() const { return sensorLoggingRate_; }
 
+    static constexpr char const* LOGGINGIDX_NAME = "LoggingIdx";
+    inline void clear_LoggingIdx() { LoggingIdx_.clear(); }
+    inline void set_LoggingIdx(const int32_t& value) { LoggingIdx_ = value; }
+    inline void set_LoggingIdx(const int32_t&& value) { LoggingIdx_ = value; }
+    inline int32_t& mutable_LoggingIdx() { return LoggingIdx_.get(); }
+    inline const int32_t& get_LoggingIdx() const { return LoggingIdx_.get(); }
+    inline int32_t LoggingIdx() const { return LoggingIdx_.get(); }
+
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
     {
@@ -633,6 +674,11 @@ class Barometer final: public ::EmbeddedProto::MessageInterface
       if(::EmbeddedProto::Error::NO_ERRORS == return_value)
       {
         return_value = sensorLoggingRate_.serialize_with_id(static_cast<uint32_t>(FieldNumber::SENSORLOGGINGRATE), buffer, false);
+      }
+
+      if((0 != LoggingIdx_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = LoggingIdx_.serialize_with_id(static_cast<uint32_t>(FieldNumber::LOGGINGIDX), buffer, false);
       }
 
       return return_value;
@@ -661,6 +707,10 @@ class Barometer final: public ::EmbeddedProto::MessageInterface
 
           case FieldNumber::SENSORLOGGINGRATE:
             return_value = sensorLoggingRate_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::LOGGINGIDX:
+            return_value = LoggingIdx_.deserialize_check_type(buffer, wire_type);
             break;
 
           case FieldNumber::NOT_SET:
@@ -695,6 +745,7 @@ class Barometer final: public ::EmbeddedProto::MessageInterface
       clear_baro_pressure();
       clear_baro_temperature();
       clear_sensorLoggingRate();
+      clear_LoggingIdx();
 
     }
 
@@ -713,6 +764,9 @@ class Barometer final: public ::EmbeddedProto::MessageInterface
           break;
         case FieldNumber::SENSORLOGGINGRATE:
           name = SENSORLOGGINGRATE_NAME;
+          break;
+        case FieldNumber::LOGGINGIDX:
+          name = LOGGINGIDX_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -779,6 +833,7 @@ class Barometer final: public ::EmbeddedProto::MessageInterface
       left_chars = baro_pressure_.to_string(left_chars, indent_level + 2, BARO_PRESSURE_NAME, true);
       left_chars = baro_temperature_.to_string(left_chars, indent_level + 2, BARO_TEMPERATURE_NAME, false);
       left_chars = sensorLoggingRate_.to_string(left_chars, indent_level + 2, SENSORLOGGINGRATE_NAME, false);
+      left_chars = LoggingIdx_.to_string(left_chars, indent_level + 2, LOGGINGIDX_NAME, false);
   
       if( 0 == indent_level) 
       {
@@ -806,6 +861,7 @@ class Barometer final: public ::EmbeddedProto::MessageInterface
       EmbeddedProto::int32 baro_pressure_ = 0;
       EmbeddedProto::int32 baro_temperature_ = 0;
       SensorLoggingRate sensorLoggingRate_;
+      EmbeddedProto::int32 LoggingIdx_ = 0;
 
 };
 
@@ -819,6 +875,7 @@ class Gyroscope final: public ::EmbeddedProto::MessageInterface
       set_gyro_y(rhs.get_gyro_y());
       set_gyro_z(rhs.get_gyro_z());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
     }
 
     Gyroscope(const Gyroscope&& rhs ) noexcept
@@ -827,6 +884,7 @@ class Gyroscope final: public ::EmbeddedProto::MessageInterface
       set_gyro_y(rhs.get_gyro_y());
       set_gyro_z(rhs.get_gyro_z());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
     }
 
     ~Gyroscope() override = default;
@@ -837,7 +895,8 @@ class Gyroscope final: public ::EmbeddedProto::MessageInterface
       GYRO_X = 1,
       GYRO_Y = 2,
       GYRO_Z = 3,
-      SENSORLOGGINGRATE = 4
+      SENSORLOGGINGRATE = 4,
+      LOGGINGIDX = 5
     };
 
     Gyroscope& operator=(const Gyroscope& rhs)
@@ -846,6 +905,7 @@ class Gyroscope final: public ::EmbeddedProto::MessageInterface
       set_gyro_y(rhs.get_gyro_y());
       set_gyro_z(rhs.get_gyro_z());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
       return *this;
     }
 
@@ -855,6 +915,7 @@ class Gyroscope final: public ::EmbeddedProto::MessageInterface
       set_gyro_y(rhs.get_gyro_y());
       set_gyro_z(rhs.get_gyro_z());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
       return *this;
     }
 
@@ -890,6 +951,14 @@ class Gyroscope final: public ::EmbeddedProto::MessageInterface
     inline const SensorLoggingRate& get_sensorLoggingRate() const { return sensorLoggingRate_; }
     inline const SensorLoggingRate& sensorLoggingRate() const { return sensorLoggingRate_; }
 
+    static constexpr char const* LOGGINGIDX_NAME = "LoggingIdx";
+    inline void clear_LoggingIdx() { LoggingIdx_.clear(); }
+    inline void set_LoggingIdx(const int32_t& value) { LoggingIdx_ = value; }
+    inline void set_LoggingIdx(const int32_t&& value) { LoggingIdx_ = value; }
+    inline int32_t& mutable_LoggingIdx() { return LoggingIdx_.get(); }
+    inline const int32_t& get_LoggingIdx() const { return LoggingIdx_.get(); }
+    inline int32_t LoggingIdx() const { return LoggingIdx_.get(); }
+
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
     {
@@ -913,6 +982,11 @@ class Gyroscope final: public ::EmbeddedProto::MessageInterface
       if(::EmbeddedProto::Error::NO_ERRORS == return_value)
       {
         return_value = sensorLoggingRate_.serialize_with_id(static_cast<uint32_t>(FieldNumber::SENSORLOGGINGRATE), buffer, false);
+      }
+
+      if((0 != LoggingIdx_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = LoggingIdx_.serialize_with_id(static_cast<uint32_t>(FieldNumber::LOGGINGIDX), buffer, false);
       }
 
       return return_value;
@@ -945,6 +1019,10 @@ class Gyroscope final: public ::EmbeddedProto::MessageInterface
 
           case FieldNumber::SENSORLOGGINGRATE:
             return_value = sensorLoggingRate_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::LOGGINGIDX:
+            return_value = LoggingIdx_.deserialize_check_type(buffer, wire_type);
             break;
 
           case FieldNumber::NOT_SET:
@@ -980,6 +1058,7 @@ class Gyroscope final: public ::EmbeddedProto::MessageInterface
       clear_gyro_y();
       clear_gyro_z();
       clear_sensorLoggingRate();
+      clear_LoggingIdx();
 
     }
 
@@ -1001,6 +1080,9 @@ class Gyroscope final: public ::EmbeddedProto::MessageInterface
           break;
         case FieldNumber::SENSORLOGGINGRATE:
           name = SENSORLOGGINGRATE_NAME;
+          break;
+        case FieldNumber::LOGGINGIDX:
+          name = LOGGINGIDX_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -1068,6 +1150,7 @@ class Gyroscope final: public ::EmbeddedProto::MessageInterface
       left_chars = gyro_y_.to_string(left_chars, indent_level + 2, GYRO_Y_NAME, false);
       left_chars = gyro_z_.to_string(left_chars, indent_level + 2, GYRO_Z_NAME, false);
       left_chars = sensorLoggingRate_.to_string(left_chars, indent_level + 2, SENSORLOGGINGRATE_NAME, false);
+      left_chars = LoggingIdx_.to_string(left_chars, indent_level + 2, LOGGINGIDX_NAME, false);
   
       if( 0 == indent_level) 
       {
@@ -1096,6 +1179,7 @@ class Gyroscope final: public ::EmbeddedProto::MessageInterface
       EmbeddedProto::int32 gyro_y_ = 0;
       EmbeddedProto::int32 gyro_z_ = 0;
       SensorLoggingRate sensorLoggingRate_;
+      EmbeddedProto::int32 LoggingIdx_ = 0;
 
 };
 
@@ -1109,6 +1193,7 @@ class Magnetometer final: public ::EmbeddedProto::MessageInterface
       set_mag_y(rhs.get_mag_y());
       set_mag_z(rhs.get_mag_z());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
     }
 
     Magnetometer(const Magnetometer&& rhs ) noexcept
@@ -1117,6 +1202,7 @@ class Magnetometer final: public ::EmbeddedProto::MessageInterface
       set_mag_y(rhs.get_mag_y());
       set_mag_z(rhs.get_mag_z());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
     }
 
     ~Magnetometer() override = default;
@@ -1127,7 +1213,8 @@ class Magnetometer final: public ::EmbeddedProto::MessageInterface
       MAG_X = 1,
       MAG_Y = 2,
       MAG_Z = 3,
-      SENSORLOGGINGRATE = 4
+      SENSORLOGGINGRATE = 4,
+      LOGGINGIDX = 5
     };
 
     Magnetometer& operator=(const Magnetometer& rhs)
@@ -1136,6 +1223,7 @@ class Magnetometer final: public ::EmbeddedProto::MessageInterface
       set_mag_y(rhs.get_mag_y());
       set_mag_z(rhs.get_mag_z());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
       return *this;
     }
 
@@ -1145,6 +1233,7 @@ class Magnetometer final: public ::EmbeddedProto::MessageInterface
       set_mag_y(rhs.get_mag_y());
       set_mag_z(rhs.get_mag_z());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
       return *this;
     }
 
@@ -1180,6 +1269,14 @@ class Magnetometer final: public ::EmbeddedProto::MessageInterface
     inline const SensorLoggingRate& get_sensorLoggingRate() const { return sensorLoggingRate_; }
     inline const SensorLoggingRate& sensorLoggingRate() const { return sensorLoggingRate_; }
 
+    static constexpr char const* LOGGINGIDX_NAME = "LoggingIdx";
+    inline void clear_LoggingIdx() { LoggingIdx_.clear(); }
+    inline void set_LoggingIdx(const int32_t& value) { LoggingIdx_ = value; }
+    inline void set_LoggingIdx(const int32_t&& value) { LoggingIdx_ = value; }
+    inline int32_t& mutable_LoggingIdx() { return LoggingIdx_.get(); }
+    inline const int32_t& get_LoggingIdx() const { return LoggingIdx_.get(); }
+    inline int32_t LoggingIdx() const { return LoggingIdx_.get(); }
+
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
     {
@@ -1203,6 +1300,11 @@ class Magnetometer final: public ::EmbeddedProto::MessageInterface
       if(::EmbeddedProto::Error::NO_ERRORS == return_value)
       {
         return_value = sensorLoggingRate_.serialize_with_id(static_cast<uint32_t>(FieldNumber::SENSORLOGGINGRATE), buffer, false);
+      }
+
+      if((0 != LoggingIdx_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = LoggingIdx_.serialize_with_id(static_cast<uint32_t>(FieldNumber::LOGGINGIDX), buffer, false);
       }
 
       return return_value;
@@ -1235,6 +1337,10 @@ class Magnetometer final: public ::EmbeddedProto::MessageInterface
 
           case FieldNumber::SENSORLOGGINGRATE:
             return_value = sensorLoggingRate_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::LOGGINGIDX:
+            return_value = LoggingIdx_.deserialize_check_type(buffer, wire_type);
             break;
 
           case FieldNumber::NOT_SET:
@@ -1270,6 +1376,7 @@ class Magnetometer final: public ::EmbeddedProto::MessageInterface
       clear_mag_y();
       clear_mag_z();
       clear_sensorLoggingRate();
+      clear_LoggingIdx();
 
     }
 
@@ -1291,6 +1398,9 @@ class Magnetometer final: public ::EmbeddedProto::MessageInterface
           break;
         case FieldNumber::SENSORLOGGINGRATE:
           name = SENSORLOGGINGRATE_NAME;
+          break;
+        case FieldNumber::LOGGINGIDX:
+          name = LOGGINGIDX_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -1358,6 +1468,7 @@ class Magnetometer final: public ::EmbeddedProto::MessageInterface
       left_chars = mag_y_.to_string(left_chars, indent_level + 2, MAG_Y_NAME, false);
       left_chars = mag_z_.to_string(left_chars, indent_level + 2, MAG_Z_NAME, false);
       left_chars = sensorLoggingRate_.to_string(left_chars, indent_level + 2, SENSORLOGGINGRATE_NAME, false);
+      left_chars = LoggingIdx_.to_string(left_chars, indent_level + 2, LOGGINGIDX_NAME, false);
   
       if( 0 == indent_level) 
       {
@@ -1386,6 +1497,7 @@ class Magnetometer final: public ::EmbeddedProto::MessageInterface
       EmbeddedProto::int32 mag_y_ = 0;
       EmbeddedProto::int32 mag_z_ = 0;
       SensorLoggingRate sensorLoggingRate_;
+      EmbeddedProto::int32 LoggingIdx_ = 0;
 
 };
 
@@ -1397,12 +1509,14 @@ class Thermocouple final: public ::EmbeddedProto::MessageInterface
     {
       set_termo_temperature(rhs.get_termo_temperature());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
     }
 
     Thermocouple(const Thermocouple&& rhs ) noexcept
     {
       set_termo_temperature(rhs.get_termo_temperature());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
     }
 
     ~Thermocouple() override = default;
@@ -1411,13 +1525,15 @@ class Thermocouple final: public ::EmbeddedProto::MessageInterface
     {
       NOT_SET = 0,
       TERMO_TEMPERATURE = 1,
-      SENSORLOGGINGRATE = 2
+      SENSORLOGGINGRATE = 2,
+      LOGGINGIDX = 3
     };
 
     Thermocouple& operator=(const Thermocouple& rhs)
     {
       set_termo_temperature(rhs.get_termo_temperature());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
       return *this;
     }
 
@@ -1425,6 +1541,7 @@ class Thermocouple final: public ::EmbeddedProto::MessageInterface
     {
       set_termo_temperature(rhs.get_termo_temperature());
       set_sensorLoggingRate(rhs.get_sensorLoggingRate());
+      set_LoggingIdx(rhs.get_LoggingIdx());
       return *this;
     }
 
@@ -1444,6 +1561,14 @@ class Thermocouple final: public ::EmbeddedProto::MessageInterface
     inline const SensorLoggingRate& get_sensorLoggingRate() const { return sensorLoggingRate_; }
     inline const SensorLoggingRate& sensorLoggingRate() const { return sensorLoggingRate_; }
 
+    static constexpr char const* LOGGINGIDX_NAME = "LoggingIdx";
+    inline void clear_LoggingIdx() { LoggingIdx_.clear(); }
+    inline void set_LoggingIdx(const int32_t& value) { LoggingIdx_ = value; }
+    inline void set_LoggingIdx(const int32_t&& value) { LoggingIdx_ = value; }
+    inline int32_t& mutable_LoggingIdx() { return LoggingIdx_.get(); }
+    inline const int32_t& get_LoggingIdx() const { return LoggingIdx_.get(); }
+    inline int32_t LoggingIdx() const { return LoggingIdx_.get(); }
+
 
     ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
     {
@@ -1457,6 +1582,11 @@ class Thermocouple final: public ::EmbeddedProto::MessageInterface
       if(::EmbeddedProto::Error::NO_ERRORS == return_value)
       {
         return_value = sensorLoggingRate_.serialize_with_id(static_cast<uint32_t>(FieldNumber::SENSORLOGGINGRATE), buffer, false);
+      }
+
+      if((0 != LoggingIdx_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = LoggingIdx_.serialize_with_id(static_cast<uint32_t>(FieldNumber::LOGGINGIDX), buffer, false);
       }
 
       return return_value;
@@ -1481,6 +1611,10 @@ class Thermocouple final: public ::EmbeddedProto::MessageInterface
 
           case FieldNumber::SENSORLOGGINGRATE:
             return_value = sensorLoggingRate_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::LOGGINGIDX:
+            return_value = LoggingIdx_.deserialize_check_type(buffer, wire_type);
             break;
 
           case FieldNumber::NOT_SET:
@@ -1514,6 +1648,7 @@ class Thermocouple final: public ::EmbeddedProto::MessageInterface
     {
       clear_termo_temperature();
       clear_sensorLoggingRate();
+      clear_LoggingIdx();
 
     }
 
@@ -1529,6 +1664,9 @@ class Thermocouple final: public ::EmbeddedProto::MessageInterface
           break;
         case FieldNumber::SENSORLOGGINGRATE:
           name = SENSORLOGGINGRATE_NAME;
+          break;
+        case FieldNumber::LOGGINGIDX:
+          name = LOGGINGIDX_NAME;
           break;
         default:
           name = "Invalid FieldNumber";
@@ -1594,6 +1732,7 @@ class Thermocouple final: public ::EmbeddedProto::MessageInterface
 
       left_chars = termo_temperature_.to_string(left_chars, indent_level + 2, TERMO_TEMPERATURE_NAME, true);
       left_chars = sensorLoggingRate_.to_string(left_chars, indent_level + 2, SENSORLOGGINGRATE_NAME, false);
+      left_chars = LoggingIdx_.to_string(left_chars, indent_level + 2, LOGGINGIDX_NAME, false);
   
       if( 0 == indent_level) 
       {
@@ -1620,6 +1759,7 @@ class Thermocouple final: public ::EmbeddedProto::MessageInterface
 
       EmbeddedProto::int32 termo_temperature_ = 0;
       SensorLoggingRate sensorLoggingRate_;
+      EmbeddedProto::int32 LoggingIdx_ = 0;
 
 };
 
