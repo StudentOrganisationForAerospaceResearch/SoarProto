@@ -23,6 +23,1062 @@
 
 namespace Proto {
 
+template<
+    uint32_t AccelerometerBuffer_data_LENGTH
+>
+class AccelerometerBuffer final: public ::EmbeddedProto::MessageInterface
+{
+  public:
+    AccelerometerBuffer() = default;
+    AccelerometerBuffer(const AccelerometerBuffer& rhs )
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_length(rhs.get_length());
+    }
+
+    AccelerometerBuffer(const AccelerometerBuffer&& rhs ) noexcept
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_length(rhs.get_length());
+    }
+
+    ~AccelerometerBuffer() override = default;
+
+    enum class FieldNumber : uint32_t
+    {
+      NOT_SET = 0,
+      TIMESTAMP = 1,
+      DATA = 2,
+      LENGTH = 3
+    };
+
+    AccelerometerBuffer& operator=(const AccelerometerBuffer& rhs)
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_length(rhs.get_length());
+      return *this;
+    }
+
+    AccelerometerBuffer& operator=(const AccelerometerBuffer&& rhs) noexcept
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_length(rhs.get_length());
+      return *this;
+    }
+
+    static constexpr char const* TIMESTAMP_NAME = "timestamp";
+    inline void clear_timestamp() { timestamp_.clear(); }
+    inline void set_timestamp(const uint32_t& value) { timestamp_ = value; }
+    inline void set_timestamp(const uint32_t&& value) { timestamp_ = value; }
+    inline uint32_t& mutable_timestamp() { return timestamp_.get(); }
+    inline const uint32_t& get_timestamp() const { return timestamp_.get(); }
+    inline uint32_t timestamp() const { return timestamp_.get(); }
+
+    static constexpr char const* DATA_NAME = "data";
+    inline void clear_data() { data_.clear(); }
+    inline ::EmbeddedProto::FieldBytes<AccelerometerBuffer_data_LENGTH>& mutable_data() { return data_; }
+    inline void set_data(const ::EmbeddedProto::FieldBytes<AccelerometerBuffer_data_LENGTH>& rhs) { data_.set(rhs); }
+    inline const ::EmbeddedProto::FieldBytes<AccelerometerBuffer_data_LENGTH>& get_data() const { return data_; }
+    inline const uint8_t* data() const { return data_.get_const(); }
+
+    static constexpr char const* LENGTH_NAME = "length";
+    inline void clear_length() { length_.clear(); }
+    inline void set_length(const uint32_t& value) { length_ = value; }
+    inline void set_length(const uint32_t&& value) { length_ = value; }
+    inline uint32_t& mutable_length() { return length_.get(); }
+    inline const uint32_t& get_length() const { return length_.get(); }
+    inline uint32_t length() const { return length_.get(); }
+
+
+    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+
+      if((0U != timestamp_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = timestamp_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TIMESTAMP), buffer, false);
+      }
+
+      if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+      {
+        return_value = data_.serialize_with_id(static_cast<uint32_t>(FieldNumber::DATA), buffer, false);
+      }
+
+      if((0U != length_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = length_.serialize_with_id(static_cast<uint32_t>(FieldNumber::LENGTH), buffer, false);
+      }
+
+      return return_value;
+    };
+
+    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
+      uint32_t id_number = 0;
+      FieldNumber id_tag = FieldNumber::NOT_SET;
+
+      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
+      {
+        id_tag = static_cast<FieldNumber>(id_number);
+        switch(id_tag)
+        {
+          case FieldNumber::TIMESTAMP:
+            return_value = timestamp_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::DATA:
+            return_value = data_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::LENGTH:
+            return_value = length_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::NOT_SET:
+            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
+            break;
+
+          default:
+            return_value = skip_unknown_field(buffer, wire_type);
+            break;
+        }
+
+        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+        {
+          // Read the next tag.
+          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+        }
+      }
+
+      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
+      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
+         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
+         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
+      {
+        return_value = tag_value;
+      }
+
+      return return_value;
+    };
+
+    void clear() override
+    {
+      clear_timestamp();
+      clear_data();
+      clear_length();
+
+    }
+
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
+    static char const* field_number_to_name(const FieldNumber fieldNumber)
+    {
+      char const* name = nullptr;
+      switch(fieldNumber)
+      {
+        case FieldNumber::TIMESTAMP:
+          name = TIMESTAMP_NAME;
+          break;
+        case FieldNumber::DATA:
+          name = DATA_NAME;
+          break;
+        case FieldNumber::LENGTH:
+          name = LENGTH_NAME;
+          break;
+        default:
+          name = "Invalid FieldNumber";
+          break;
+      }
+      return name;
+    }
+
+#endif
+
+#ifdef MSG_TO_STRING
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
+    {
+      return this->to_string(str, 0, nullptr, true);
+    }
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
+    {
+      ::EmbeddedProto::string_view left_chars = str;
+      int32_t n_chars_used = 0;
+
+      if(!first_field)
+      {
+        // Add a comma behind the previous field.
+        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
+        if(0 < n_chars_used)
+        {
+          // Update the character pointer and characters left in the array.
+          left_chars.data += n_chars_used;
+          left_chars.size -= n_chars_used;
+        }
+      }
+
+      if(nullptr != name)
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
+        }
+      }
+      else
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
+        }
+      }
+      
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      left_chars = timestamp_.to_string(left_chars, indent_level + 2, TIMESTAMP_NAME, true);
+      left_chars = data_.to_string(left_chars, indent_level + 2, DATA_NAME, false);
+      left_chars = length_.to_string(left_chars, indent_level + 2, LENGTH_NAME, false);
+  
+      if( 0 == indent_level) 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
+      }
+      else 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
+      }
+
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      return left_chars;
+    }
+
+#endif // End of MSG_TO_STRING
+
+  private:
+
+
+      EmbeddedProto::uint32 timestamp_ = 0U;
+      ::EmbeddedProto::FieldBytes<AccelerometerBuffer_data_LENGTH> data_;
+      EmbeddedProto::uint32 length_ = 0U;
+
+};
+
+template<
+    uint32_t BarometerBuffer_data_LENGTH
+>
+class BarometerBuffer final: public ::EmbeddedProto::MessageInterface
+{
+  public:
+    BarometerBuffer() = default;
+    BarometerBuffer(const BarometerBuffer& rhs )
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+    }
+
+    BarometerBuffer(const BarometerBuffer&& rhs ) noexcept
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+    }
+
+    ~BarometerBuffer() override = default;
+
+    enum class FieldNumber : uint32_t
+    {
+      NOT_SET = 0,
+      TIMESTAMP = 1,
+      DATA = 2,
+      COUNT = 3
+    };
+
+    BarometerBuffer& operator=(const BarometerBuffer& rhs)
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+      return *this;
+    }
+
+    BarometerBuffer& operator=(const BarometerBuffer&& rhs) noexcept
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+      return *this;
+    }
+
+    static constexpr char const* TIMESTAMP_NAME = "timestamp";
+    inline void clear_timestamp() { timestamp_.clear(); }
+    inline void set_timestamp(const uint32_t& value) { timestamp_ = value; }
+    inline void set_timestamp(const uint32_t&& value) { timestamp_ = value; }
+    inline uint32_t& mutable_timestamp() { return timestamp_.get(); }
+    inline const uint32_t& get_timestamp() const { return timestamp_.get(); }
+    inline uint32_t timestamp() const { return timestamp_.get(); }
+
+    static constexpr char const* DATA_NAME = "data";
+    inline void clear_data() { data_.clear(); }
+    inline ::EmbeddedProto::FieldBytes<BarometerBuffer_data_LENGTH>& mutable_data() { return data_; }
+    inline void set_data(const ::EmbeddedProto::FieldBytes<BarometerBuffer_data_LENGTH>& rhs) { data_.set(rhs); }
+    inline const ::EmbeddedProto::FieldBytes<BarometerBuffer_data_LENGTH>& get_data() const { return data_; }
+    inline const uint8_t* data() const { return data_.get_const(); }
+
+    static constexpr char const* COUNT_NAME = "count";
+    inline void clear_count() { count_.clear(); }
+    inline void set_count(const uint32_t& value) { count_ = value; }
+    inline void set_count(const uint32_t&& value) { count_ = value; }
+    inline uint32_t& mutable_count() { return count_.get(); }
+    inline const uint32_t& get_count() const { return count_.get(); }
+    inline uint32_t count() const { return count_.get(); }
+
+
+    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+
+      if((0U != timestamp_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = timestamp_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TIMESTAMP), buffer, false);
+      }
+
+      if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+      {
+        return_value = data_.serialize_with_id(static_cast<uint32_t>(FieldNumber::DATA), buffer, false);
+      }
+
+      if((0U != count_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = count_.serialize_with_id(static_cast<uint32_t>(FieldNumber::COUNT), buffer, false);
+      }
+
+      return return_value;
+    };
+
+    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
+      uint32_t id_number = 0;
+      FieldNumber id_tag = FieldNumber::NOT_SET;
+
+      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
+      {
+        id_tag = static_cast<FieldNumber>(id_number);
+        switch(id_tag)
+        {
+          case FieldNumber::TIMESTAMP:
+            return_value = timestamp_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::DATA:
+            return_value = data_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::COUNT:
+            return_value = count_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::NOT_SET:
+            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
+            break;
+
+          default:
+            return_value = skip_unknown_field(buffer, wire_type);
+            break;
+        }
+
+        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+        {
+          // Read the next tag.
+          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+        }
+      }
+
+      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
+      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
+         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
+         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
+      {
+        return_value = tag_value;
+      }
+
+      return return_value;
+    };
+
+    void clear() override
+    {
+      clear_timestamp();
+      clear_data();
+      clear_count();
+
+    }
+
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
+    static char const* field_number_to_name(const FieldNumber fieldNumber)
+    {
+      char const* name = nullptr;
+      switch(fieldNumber)
+      {
+        case FieldNumber::TIMESTAMP:
+          name = TIMESTAMP_NAME;
+          break;
+        case FieldNumber::DATA:
+          name = DATA_NAME;
+          break;
+        case FieldNumber::COUNT:
+          name = COUNT_NAME;
+          break;
+        default:
+          name = "Invalid FieldNumber";
+          break;
+      }
+      return name;
+    }
+
+#endif
+
+#ifdef MSG_TO_STRING
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
+    {
+      return this->to_string(str, 0, nullptr, true);
+    }
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
+    {
+      ::EmbeddedProto::string_view left_chars = str;
+      int32_t n_chars_used = 0;
+
+      if(!first_field)
+      {
+        // Add a comma behind the previous field.
+        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
+        if(0 < n_chars_used)
+        {
+          // Update the character pointer and characters left in the array.
+          left_chars.data += n_chars_used;
+          left_chars.size -= n_chars_used;
+        }
+      }
+
+      if(nullptr != name)
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
+        }
+      }
+      else
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
+        }
+      }
+      
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      left_chars = timestamp_.to_string(left_chars, indent_level + 2, TIMESTAMP_NAME, true);
+      left_chars = data_.to_string(left_chars, indent_level + 2, DATA_NAME, false);
+      left_chars = count_.to_string(left_chars, indent_level + 2, COUNT_NAME, false);
+  
+      if( 0 == indent_level) 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
+      }
+      else 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
+      }
+
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      return left_chars;
+    }
+
+#endif // End of MSG_TO_STRING
+
+  private:
+
+
+      EmbeddedProto::uint32 timestamp_ = 0U;
+      ::EmbeddedProto::FieldBytes<BarometerBuffer_data_LENGTH> data_;
+      EmbeddedProto::uint32 count_ = 0U;
+
+};
+
+template<
+    uint32_t GyroscopeBuffer_data_LENGTH
+>
+class GyroscopeBuffer final: public ::EmbeddedProto::MessageInterface
+{
+  public:
+    GyroscopeBuffer() = default;
+    GyroscopeBuffer(const GyroscopeBuffer& rhs )
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+    }
+
+    GyroscopeBuffer(const GyroscopeBuffer&& rhs ) noexcept
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+    }
+
+    ~GyroscopeBuffer() override = default;
+
+    enum class FieldNumber : uint32_t
+    {
+      NOT_SET = 0,
+      TIMESTAMP = 1,
+      DATA = 2,
+      COUNT = 3
+    };
+
+    GyroscopeBuffer& operator=(const GyroscopeBuffer& rhs)
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+      return *this;
+    }
+
+    GyroscopeBuffer& operator=(const GyroscopeBuffer&& rhs) noexcept
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+      return *this;
+    }
+
+    static constexpr char const* TIMESTAMP_NAME = "timestamp";
+    inline void clear_timestamp() { timestamp_.clear(); }
+    inline void set_timestamp(const uint32_t& value) { timestamp_ = value; }
+    inline void set_timestamp(const uint32_t&& value) { timestamp_ = value; }
+    inline uint32_t& mutable_timestamp() { return timestamp_.get(); }
+    inline const uint32_t& get_timestamp() const { return timestamp_.get(); }
+    inline uint32_t timestamp() const { return timestamp_.get(); }
+
+    static constexpr char const* DATA_NAME = "data";
+    inline void clear_data() { data_.clear(); }
+    inline ::EmbeddedProto::FieldBytes<GyroscopeBuffer_data_LENGTH>& mutable_data() { return data_; }
+    inline void set_data(const ::EmbeddedProto::FieldBytes<GyroscopeBuffer_data_LENGTH>& rhs) { data_.set(rhs); }
+    inline const ::EmbeddedProto::FieldBytes<GyroscopeBuffer_data_LENGTH>& get_data() const { return data_; }
+    inline const uint8_t* data() const { return data_.get_const(); }
+
+    static constexpr char const* COUNT_NAME = "count";
+    inline void clear_count() { count_.clear(); }
+    inline void set_count(const uint32_t& value) { count_ = value; }
+    inline void set_count(const uint32_t&& value) { count_ = value; }
+    inline uint32_t& mutable_count() { return count_.get(); }
+    inline const uint32_t& get_count() const { return count_.get(); }
+    inline uint32_t count() const { return count_.get(); }
+
+
+    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+
+      if((0U != timestamp_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = timestamp_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TIMESTAMP), buffer, false);
+      }
+
+      if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+      {
+        return_value = data_.serialize_with_id(static_cast<uint32_t>(FieldNumber::DATA), buffer, false);
+      }
+
+      if((0U != count_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = count_.serialize_with_id(static_cast<uint32_t>(FieldNumber::COUNT), buffer, false);
+      }
+
+      return return_value;
+    };
+
+    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
+      uint32_t id_number = 0;
+      FieldNumber id_tag = FieldNumber::NOT_SET;
+
+      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
+      {
+        id_tag = static_cast<FieldNumber>(id_number);
+        switch(id_tag)
+        {
+          case FieldNumber::TIMESTAMP:
+            return_value = timestamp_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::DATA:
+            return_value = data_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::COUNT:
+            return_value = count_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::NOT_SET:
+            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
+            break;
+
+          default:
+            return_value = skip_unknown_field(buffer, wire_type);
+            break;
+        }
+
+        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+        {
+          // Read the next tag.
+          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+        }
+      }
+
+      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
+      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
+         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
+         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
+      {
+        return_value = tag_value;
+      }
+
+      return return_value;
+    };
+
+    void clear() override
+    {
+      clear_timestamp();
+      clear_data();
+      clear_count();
+
+    }
+
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
+    static char const* field_number_to_name(const FieldNumber fieldNumber)
+    {
+      char const* name = nullptr;
+      switch(fieldNumber)
+      {
+        case FieldNumber::TIMESTAMP:
+          name = TIMESTAMP_NAME;
+          break;
+        case FieldNumber::DATA:
+          name = DATA_NAME;
+          break;
+        case FieldNumber::COUNT:
+          name = COUNT_NAME;
+          break;
+        default:
+          name = "Invalid FieldNumber";
+          break;
+      }
+      return name;
+    }
+
+#endif
+
+#ifdef MSG_TO_STRING
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
+    {
+      return this->to_string(str, 0, nullptr, true);
+    }
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
+    {
+      ::EmbeddedProto::string_view left_chars = str;
+      int32_t n_chars_used = 0;
+
+      if(!first_field)
+      {
+        // Add a comma behind the previous field.
+        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
+        if(0 < n_chars_used)
+        {
+          // Update the character pointer and characters left in the array.
+          left_chars.data += n_chars_used;
+          left_chars.size -= n_chars_used;
+        }
+      }
+
+      if(nullptr != name)
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
+        }
+      }
+      else
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
+        }
+      }
+      
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      left_chars = timestamp_.to_string(left_chars, indent_level + 2, TIMESTAMP_NAME, true);
+      left_chars = data_.to_string(left_chars, indent_level + 2, DATA_NAME, false);
+      left_chars = count_.to_string(left_chars, indent_level + 2, COUNT_NAME, false);
+  
+      if( 0 == indent_level) 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
+      }
+      else 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
+      }
+
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      return left_chars;
+    }
+
+#endif // End of MSG_TO_STRING
+
+  private:
+
+
+      EmbeddedProto::uint32 timestamp_ = 0U;
+      ::EmbeddedProto::FieldBytes<GyroscopeBuffer_data_LENGTH> data_;
+      EmbeddedProto::uint32 count_ = 0U;
+
+};
+
+template<
+    uint32_t MagnetometerBuffer_data_LENGTH
+>
+class MagnetometerBuffer final: public ::EmbeddedProto::MessageInterface
+{
+  public:
+    MagnetometerBuffer() = default;
+    MagnetometerBuffer(const MagnetometerBuffer& rhs )
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+    }
+
+    MagnetometerBuffer(const MagnetometerBuffer&& rhs ) noexcept
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+    }
+
+    ~MagnetometerBuffer() override = default;
+
+    enum class FieldNumber : uint32_t
+    {
+      NOT_SET = 0,
+      TIMESTAMP = 1,
+      DATA = 2,
+      COUNT = 3
+    };
+
+    MagnetometerBuffer& operator=(const MagnetometerBuffer& rhs)
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+      return *this;
+    }
+
+    MagnetometerBuffer& operator=(const MagnetometerBuffer&& rhs) noexcept
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+      return *this;
+    }
+
+    static constexpr char const* TIMESTAMP_NAME = "timestamp";
+    inline void clear_timestamp() { timestamp_.clear(); }
+    inline void set_timestamp(const uint32_t& value) { timestamp_ = value; }
+    inline void set_timestamp(const uint32_t&& value) { timestamp_ = value; }
+    inline uint32_t& mutable_timestamp() { return timestamp_.get(); }
+    inline const uint32_t& get_timestamp() const { return timestamp_.get(); }
+    inline uint32_t timestamp() const { return timestamp_.get(); }
+
+    static constexpr char const* DATA_NAME = "data";
+    inline void clear_data() { data_.clear(); }
+    inline ::EmbeddedProto::FieldBytes<MagnetometerBuffer_data_LENGTH>& mutable_data() { return data_; }
+    inline void set_data(const ::EmbeddedProto::FieldBytes<MagnetometerBuffer_data_LENGTH>& rhs) { data_.set(rhs); }
+    inline const ::EmbeddedProto::FieldBytes<MagnetometerBuffer_data_LENGTH>& get_data() const { return data_; }
+    inline const uint8_t* data() const { return data_.get_const(); }
+
+    static constexpr char const* COUNT_NAME = "count";
+    inline void clear_count() { count_.clear(); }
+    inline void set_count(const uint32_t& value) { count_ = value; }
+    inline void set_count(const uint32_t&& value) { count_ = value; }
+    inline uint32_t& mutable_count() { return count_.get(); }
+    inline const uint32_t& get_count() const { return count_.get(); }
+    inline uint32_t count() const { return count_.get(); }
+
+
+    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+
+      if((0U != timestamp_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = timestamp_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TIMESTAMP), buffer, false);
+      }
+
+      if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+      {
+        return_value = data_.serialize_with_id(static_cast<uint32_t>(FieldNumber::DATA), buffer, false);
+      }
+
+      if((0U != count_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = count_.serialize_with_id(static_cast<uint32_t>(FieldNumber::COUNT), buffer, false);
+      }
+
+      return return_value;
+    };
+
+    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
+      uint32_t id_number = 0;
+      FieldNumber id_tag = FieldNumber::NOT_SET;
+
+      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
+      {
+        id_tag = static_cast<FieldNumber>(id_number);
+        switch(id_tag)
+        {
+          case FieldNumber::TIMESTAMP:
+            return_value = timestamp_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::DATA:
+            return_value = data_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::COUNT:
+            return_value = count_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::NOT_SET:
+            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
+            break;
+
+          default:
+            return_value = skip_unknown_field(buffer, wire_type);
+            break;
+        }
+
+        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+        {
+          // Read the next tag.
+          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+        }
+      }
+
+      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
+      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
+         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
+         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
+      {
+        return_value = tag_value;
+      }
+
+      return return_value;
+    };
+
+    void clear() override
+    {
+      clear_timestamp();
+      clear_data();
+      clear_count();
+
+    }
+
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
+    static char const* field_number_to_name(const FieldNumber fieldNumber)
+    {
+      char const* name = nullptr;
+      switch(fieldNumber)
+      {
+        case FieldNumber::TIMESTAMP:
+          name = TIMESTAMP_NAME;
+          break;
+        case FieldNumber::DATA:
+          name = DATA_NAME;
+          break;
+        case FieldNumber::COUNT:
+          name = COUNT_NAME;
+          break;
+        default:
+          name = "Invalid FieldNumber";
+          break;
+      }
+      return name;
+    }
+
+#endif
+
+#ifdef MSG_TO_STRING
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
+    {
+      return this->to_string(str, 0, nullptr, true);
+    }
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
+    {
+      ::EmbeddedProto::string_view left_chars = str;
+      int32_t n_chars_used = 0;
+
+      if(!first_field)
+      {
+        // Add a comma behind the previous field.
+        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
+        if(0 < n_chars_used)
+        {
+          // Update the character pointer and characters left in the array.
+          left_chars.data += n_chars_used;
+          left_chars.size -= n_chars_used;
+        }
+      }
+
+      if(nullptr != name)
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
+        }
+      }
+      else
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
+        }
+      }
+      
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      left_chars = timestamp_.to_string(left_chars, indent_level + 2, TIMESTAMP_NAME, true);
+      left_chars = data_.to_string(left_chars, indent_level + 2, DATA_NAME, false);
+      left_chars = count_.to_string(left_chars, indent_level + 2, COUNT_NAME, false);
+  
+      if( 0 == indent_level) 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
+      }
+      else 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
+      }
+
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      return left_chars;
+    }
+
+#endif // End of MSG_TO_STRING
+
+  private:
+
+
+      EmbeddedProto::uint32 timestamp_ = 0U;
+      ::EmbeddedProto::FieldBytes<MagnetometerBuffer_data_LENGTH> data_;
+      EmbeddedProto::uint32 count_ = 0U;
+
+};
+
 class SensorLoggingRate final: public ::EmbeddedProto::MessageInterface
 {
   public:
@@ -254,6 +1310,270 @@ class SensorLoggingRate final: public ::EmbeddedProto::MessageInterface
 
       EmbeddedProto::boolean changeLoggingRate_ = false;
       EmbeddedProto::uint32 newSensorLoggingRate_ = 0U;
+
+};
+
+template<
+    uint32_t ThermocoupleBuffer_data_LENGTH
+>
+class ThermocoupleBuffer final: public ::EmbeddedProto::MessageInterface
+{
+  public:
+    ThermocoupleBuffer() = default;
+    ThermocoupleBuffer(const ThermocoupleBuffer& rhs )
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+    }
+
+    ThermocoupleBuffer(const ThermocoupleBuffer&& rhs ) noexcept
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+    }
+
+    ~ThermocoupleBuffer() override = default;
+
+    enum class FieldNumber : uint32_t
+    {
+      NOT_SET = 0,
+      TIMESTAMP = 1,
+      DATA = 2,
+      COUNT = 3
+    };
+
+    ThermocoupleBuffer& operator=(const ThermocoupleBuffer& rhs)
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+      return *this;
+    }
+
+    ThermocoupleBuffer& operator=(const ThermocoupleBuffer&& rhs) noexcept
+    {
+      set_timestamp(rhs.get_timestamp());
+      set_data(rhs.get_data());
+      set_count(rhs.get_count());
+      return *this;
+    }
+
+    static constexpr char const* TIMESTAMP_NAME = "timestamp";
+    inline void clear_timestamp() { timestamp_.clear(); }
+    inline void set_timestamp(const uint32_t& value) { timestamp_ = value; }
+    inline void set_timestamp(const uint32_t&& value) { timestamp_ = value; }
+    inline uint32_t& mutable_timestamp() { return timestamp_.get(); }
+    inline const uint32_t& get_timestamp() const { return timestamp_.get(); }
+    inline uint32_t timestamp() const { return timestamp_.get(); }
+
+    static constexpr char const* DATA_NAME = "data";
+    inline void clear_data() { data_.clear(); }
+    inline ::EmbeddedProto::FieldBytes<ThermocoupleBuffer_data_LENGTH>& mutable_data() { return data_; }
+    inline void set_data(const ::EmbeddedProto::FieldBytes<ThermocoupleBuffer_data_LENGTH>& rhs) { data_.set(rhs); }
+    inline const ::EmbeddedProto::FieldBytes<ThermocoupleBuffer_data_LENGTH>& get_data() const { return data_; }
+    inline const uint8_t* data() const { return data_.get_const(); }
+
+    static constexpr char const* COUNT_NAME = "count";
+    inline void clear_count() { count_.clear(); }
+    inline void set_count(const uint32_t& value) { count_ = value; }
+    inline void set_count(const uint32_t&& value) { count_ = value; }
+    inline uint32_t& mutable_count() { return count_.get(); }
+    inline const uint32_t& get_count() const { return count_.get(); }
+    inline uint32_t count() const { return count_.get(); }
+
+
+    ::EmbeddedProto::Error serialize(::EmbeddedProto::WriteBufferInterface& buffer) const override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+
+      if((0U != timestamp_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = timestamp_.serialize_with_id(static_cast<uint32_t>(FieldNumber::TIMESTAMP), buffer, false);
+      }
+
+      if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+      {
+        return_value = data_.serialize_with_id(static_cast<uint32_t>(FieldNumber::DATA), buffer, false);
+      }
+
+      if((0U != count_.get()) && (::EmbeddedProto::Error::NO_ERRORS == return_value))
+      {
+        return_value = count_.serialize_with_id(static_cast<uint32_t>(FieldNumber::COUNT), buffer, false);
+      }
+
+      return return_value;
+    };
+
+    ::EmbeddedProto::Error deserialize(::EmbeddedProto::ReadBufferInterface& buffer) override
+    {
+      ::EmbeddedProto::Error return_value = ::EmbeddedProto::Error::NO_ERRORS;
+      ::EmbeddedProto::WireFormatter::WireType wire_type = ::EmbeddedProto::WireFormatter::WireType::VARINT;
+      uint32_t id_number = 0;
+      FieldNumber id_tag = FieldNumber::NOT_SET;
+
+      ::EmbeddedProto::Error tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+      while((::EmbeddedProto::Error::NO_ERRORS == return_value) && (::EmbeddedProto::Error::NO_ERRORS == tag_value))
+      {
+        id_tag = static_cast<FieldNumber>(id_number);
+        switch(id_tag)
+        {
+          case FieldNumber::TIMESTAMP:
+            return_value = timestamp_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::DATA:
+            return_value = data_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::COUNT:
+            return_value = count_.deserialize_check_type(buffer, wire_type);
+            break;
+
+          case FieldNumber::NOT_SET:
+            return_value = ::EmbeddedProto::Error::INVALID_FIELD_ID;
+            break;
+
+          default:
+            return_value = skip_unknown_field(buffer, wire_type);
+            break;
+        }
+
+        if(::EmbeddedProto::Error::NO_ERRORS == return_value)
+        {
+          // Read the next tag.
+          tag_value = ::EmbeddedProto::WireFormatter::DeserializeTag(buffer, wire_type, id_number);
+        }
+      }
+
+      // When an error was detect while reading the tag but no other errors where found, set it in the return value.
+      if((::EmbeddedProto::Error::NO_ERRORS == return_value)
+         && (::EmbeddedProto::Error::NO_ERRORS != tag_value)
+         && (::EmbeddedProto::Error::END_OF_BUFFER != tag_value)) // The end of the buffer is not an array in this case.
+      {
+        return_value = tag_value;
+      }
+
+      return return_value;
+    };
+
+    void clear() override
+    {
+      clear_timestamp();
+      clear_data();
+      clear_count();
+
+    }
+
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
+    static char const* field_number_to_name(const FieldNumber fieldNumber)
+    {
+      char const* name = nullptr;
+      switch(fieldNumber)
+      {
+        case FieldNumber::TIMESTAMP:
+          name = TIMESTAMP_NAME;
+          break;
+        case FieldNumber::DATA:
+          name = DATA_NAME;
+          break;
+        case FieldNumber::COUNT:
+          name = COUNT_NAME;
+          break;
+        default:
+          name = "Invalid FieldNumber";
+          break;
+      }
+      return name;
+    }
+
+#endif
+
+#ifdef MSG_TO_STRING
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str) const
+    {
+      return this->to_string(str, 0, nullptr, true);
+    }
+
+    ::EmbeddedProto::string_view to_string(::EmbeddedProto::string_view& str, const uint32_t indent_level, char const* name, const bool first_field) const override
+    {
+      ::EmbeddedProto::string_view left_chars = str;
+      int32_t n_chars_used = 0;
+
+      if(!first_field)
+      {
+        // Add a comma behind the previous field.
+        n_chars_used = snprintf(left_chars.data, left_chars.size, ",\n");
+        if(0 < n_chars_used)
+        {
+          // Update the character pointer and characters left in the array.
+          left_chars.data += n_chars_used;
+          left_chars.size -= n_chars_used;
+        }
+      }
+
+      if(nullptr != name)
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "\"%s\": {\n", name);
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s\"%s\": {\n", indent_level, " ", name);
+        }
+      }
+      else
+      {
+        if( 0 == indent_level)
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "{\n");
+        }
+        else
+        {
+          n_chars_used = snprintf(left_chars.data, left_chars.size, "%*s{\n", indent_level, " ");
+        }
+      }
+      
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      left_chars = timestamp_.to_string(left_chars, indent_level + 2, TIMESTAMP_NAME, true);
+      left_chars = data_.to_string(left_chars, indent_level + 2, DATA_NAME, false);
+      left_chars = count_.to_string(left_chars, indent_level + 2, COUNT_NAME, false);
+  
+      if( 0 == indent_level) 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n}");
+      }
+      else 
+      {
+        n_chars_used = snprintf(left_chars.data, left_chars.size, "\n%*s}", indent_level, " ");
+      }
+
+      if(0 < n_chars_used)
+      {
+        left_chars.data += n_chars_used;
+        left_chars.size -= n_chars_used;
+      }
+
+      return left_chars;
+    }
+
+#endif // End of MSG_TO_STRING
+
+  private:
+
+
+      EmbeddedProto::uint32 timestamp_ = 0U;
+      ::EmbeddedProto::FieldBytes<ThermocoupleBuffer_data_LENGTH> data_;
+      EmbeddedProto::uint32 count_ = 0U;
 
 };
 

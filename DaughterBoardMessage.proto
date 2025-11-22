@@ -3,13 +3,45 @@
  * BRIEF: Message template to be used for any sensor data
  * AUTHOR: JAD DINA
  */
-
 syntax = "proto3";
+
 package Proto;
 
 /*--------------    DaughterBoardMessage    --------------*/
 
 // The Sensor Data Packet act as a wrapper for any sensor data
+
+message AccelerometerBuffer {
+    uint32 timestamp = 1;   
+    bytes  data = 2;        
+    uint32 length = 3;      
+}
+
+
+message GyroscopeBuffer {
+    uint32 timestamp = 1;
+    bytes  data = 2;    // ONLY gyro messages
+    uint32 count = 3;
+}
+
+message ThermocoupleBuffer {
+    uint32 timestamp = 1;
+    bytes  data = 2;    // ONLY gyro messages
+    uint32 count = 3;
+}
+
+message MagnetometerBuffer {
+    uint32 timestamp = 1;
+    bytes  data = 2;    // ONLY gyro messages
+    uint32 count = 3;
+}
+
+message BarometerBuffer {
+    uint32 timestamp = 1;
+    bytes  data = 2;    // ONLY gyro messages
+    uint32 count = 3;
+}
+
 message DaughterBoardMessage {
     uint32 timestamp = 1;
 
