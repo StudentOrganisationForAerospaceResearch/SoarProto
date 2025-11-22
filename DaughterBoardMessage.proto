@@ -22,7 +22,7 @@ message DaughterBoardMessage {
         Thermocouple thermocoupleMessage = 6;
     }
 
-    int32 LoggingIdx = 2;
+    int32 LoggingIdx = 7;
     
 }
 

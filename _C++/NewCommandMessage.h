@@ -1,11 +1,11 @@
 /*
  *  This file is generated with Embedded Proto, PLEASE DO NOT EDIT!
- *  source: CommandMessages.proto
+ *  source: NewCommandMessage.proto
  */
 
 // This file is generated. Please do not edit!
-#ifndef COMMANDMESSAGES_H
-#define COMMANDMESSAGES_H
+#ifndef NEWCOMMANDMESSAGE_H
+#define NEWCOMMANDMESSAGE_H
 
 #include <cstdint>
 #include <MessageInterface.h>
@@ -660,4 +660,4 @@ class CommandMessages final: public ::EmbeddedProto::MessageInterface
 };
 
 } // End of namespace Proto
-#endif // COMMANDMESSAGES_H
+#endif // NEWCOMMANDMESSAGE_H
