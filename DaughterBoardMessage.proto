@@ -21,6 +21,9 @@ message DaughterBoardMessage {
         Gyroscope gyroscoperMessage = 5;
         Thermocouple thermocoupleMessage = 6;
     }
+
+    int32 LoggingIdx = 2;
+    
 }
 
 /*------------------    Definition of Sensor Message Types    ------------------*/
@@ -31,8 +34,6 @@ message Barometer{
     int32 baro_temperature = 2;
 
     SensorLoggingRate sensorLoggingRate = 3;
-
-    int32 LoggingIdx = 4;
 }
 
 /*--------------    Accelerometer    --------------*/
@@ -42,7 +43,6 @@ message Accelerometer{
     int32 accel_z = 3;
 
     SensorLoggingRate sensorLoggingRate = 4;
-    int32 LoggingIdx = 5;
 }
 
 /*--------------    Magnetometer    --------------*/
@@ -52,8 +52,6 @@ message Magnetometer{
     int32 mag_z = 3;
 
     SensorLoggingRate sensorLoggingRate = 4;
-
-    int32 LoggingIdx = 5;
 }
 
 /*--------------    Gyroscope    --------------*/
@@ -63,8 +61,6 @@ message Gyroscope{
     int32 gyro_z = 3;
 
     SensorLoggingRate sensorLoggingRate = 4;
-
-    int32 LoggingIdx = 5;
 }
 
 /*--------------    Thermocouple    --------------*/
@@ -72,7 +68,6 @@ message Thermocouple{
     int32 termo_temperature = 1;
 
     SensorLoggingRate sensorLoggingRate = 2;
-    int32 LoggingIdx = 3;
 }
 
 /*--------------    Sensor Logging Rate    --------------*/
