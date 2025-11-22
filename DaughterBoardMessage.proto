@@ -1,5 +1,5 @@
 /**
- * FILE: SensorData.proto
+ * FILE: DaughterBoardMessage.proto
  * BRIEF: Message template to be used for any sensor data
  * AUTHOR: JAD DINA
  */
@@ -7,10 +7,10 @@
 syntax = "proto3";
 package Proto;
 
-/*--------------    SensorData    --------------*/
+/*--------------    DaughterBoardMessage    --------------*/
 
 // The Sensor Data Packet act as a wrapper for any sensor data
-message SensorData {
+message DaughterBoardMessage {
     uint32 timestamp = 1;
 
     oneof message {
