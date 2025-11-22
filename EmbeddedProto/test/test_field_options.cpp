@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2020-2023 Embedded AMS B.V. - All Rights Reserved
+ *  Copyright (C) 2020-2024 Embedded AMS B.V. - All Rights Reserved
  *
  *  This file is part of Embedded Proto.
  *
@@ -23,8 +23,8 @@
  *    info at EmbeddedProto dot com
  *
  *  Postal address:
- *    Johan Huizingalaan 763a
- *    1066 VH, Amsterdam
+ *    Atoomweg 2
+ *    1627 LE, Hoorn
  *    the Netherlands
  */
 
@@ -64,9 +64,9 @@ TEST(FieldOptions, get_max_length)
 
 }
 
-TEST(FieldOptions, oneof_clear) 
+TEST(FieldOptions, oneof_clear)
 {
-  // When in a oneof the clear function is influenced by the get_short_type function which changed 
+  // When in a oneof the clear function is influenced by the get_short_type function which changed
   // for the options.
   Options::OneofWithMaxLength msg;
   uint8_t data[] = {1, 2, 3, 4, 5};
@@ -84,6 +84,51 @@ TEST(FieldOptions, oneof_clear)
   msg.clear();
   EXPECT_EQ(0, msg.mutable_s().get_length());
 
+}
+
+TEST(FieldOptions, nested_config_update_repeated)
+{
+  Options::NestedConfigUpdateRepeated<3, 10> msg;
+  // No maxLength constraint on the repeated field, so we just test basic functionality
+  EXPECT_EQ(0, msg.update().get_length());
+
+  // Add some items to verify the repeated field works
+  Options::ConfigUpdate<10> update1;
+  update1.mutable_a().add(1);
+  update1.mutable_a().add(2);
+  msg.add_update(update1);
+
+  Options::ConfigUpdate<10> update2;
+  update2.mutable_a().add(3);
+  msg.add_update(update2);
+
+  EXPECT_EQ(2, msg.update().get_length());
+  EXPECT_EQ(2, msg.update()[0].a().get_length());
+  EXPECT_EQ(1, msg.update()[1].a().get_length());
+}
+
+TEST(FieldOptions, nested_config_update_repeated_max_length)
+{
+  Options::NestedConfigUpdateRepeatedMaxLength<3> msg;
+  // This should have a maxLength of 3 on the repeated field
+  EXPECT_EQ(0, msg.update().get_length());
+  EXPECT_EQ(3, msg.update().get_max_length());
+
+  // Add items up to the max length
+  Options::ConfigUpdate<3> update1;
+  msg.add_update(update1);
+
+  Options::ConfigUpdate<3> update2;
+  msg.add_update(update2);
+
+  Options::ConfigUpdate<3> update3;
+  msg.add_update(update3);
+
+  EXPECT_EQ(3, msg.update().get_length());
+
+  // Adding a fourth item should fail or be constrained
+  // Note: The actual behavior depends on how maxLength is enforced in the implementation
+  // This test might need adjustment based on the actual behavior
 }
 
 } // End of namespace test_EmbeddedAMS_FieldOptions

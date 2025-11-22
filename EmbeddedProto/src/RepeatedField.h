@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2020-2023 Embedded AMS B.V. - All Rights Reserved
+ *  Copyright (C) 2020-2024 Embedded AMS B.V. - All Rights Reserved
  *
  *  This file is part of Embedded Proto.
  *
@@ -23,8 +23,8 @@
  *    info at EmbeddedProto dot com
  *
  *  Postal address:
- *    Johan Huizingalaan 763a
- *    1066 VH, Amsterdam
+ *    Atoomweg 2
+ *    1627 LE, Hoorn
  *    the Netherlands
  */
 
@@ -104,7 +104,7 @@ namespace EmbeddedProto
         \param[out] value The value of the desired index is set in this reference.
         \return An error incase of an index out of bound situation.
       */
-      virtual Error get_const(const int32_t index, DATA_TYPE& value) const = 0;
+      virtual Error get_const(const uint32_t index, DATA_TYPE& value) const = 0;
 
       //! Get a reference to the value at the given index. 
       /*!

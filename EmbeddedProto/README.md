@@ -4,7 +4,7 @@
 
 Embedded Proto is a product of Embedded AMS B.V. For more information about Embedded Proto please visit [EmbeddedProto.com](https://EmbeddedProto.com).
 
-Copyrights 2020-2023 Embedded AMS B.V. Amsterdam, [www.EmbeddedAMS.nl](https://www.EmbeddedAMS.nl), [info@EmbeddedAMS.nl](mailto:info@EmbeddedAMS.nl)
+Copyrights 2020-2024 Embedded AMS B.V., [www.EmbeddedAMS.nl](https://www.EmbeddedAMS.nl), [info@EmbeddedAMS.nl](mailto:info@EmbeddedAMS.nl)
 
 
 # Introduction
@@ -21,17 +21,41 @@ This document details the following:
 * Supported Features
 * Examples
 * Development
-* Gratitude
 
 
 # What is new
 
 To stay up to date, signup for our [User Update](https://EmbeddedProto.com/signup).
 
+## 3.6.0
+* Update to Protobuf version 32.0.
+* Increated the minimum python version to 3.10.
+* Added EmbeddedProto options to allow setting the size of the string (or bytes) field in when it is also repeated, example: `repeated string str = 1 [(EmbeddedProto.options).maxLength = 3, (EmbeddedProto.options).nestedMaxLength = 10];`.
+
+## 3.5.3 
+* Fixed build problems in release 3.5.3.
+
+## 3.5.2
+* Updated to Protobuf version 27.1.
+
+## 3.5.1
+* Updated to Protobuf version 26.1.
+
+## 3.5.0
+* Bub fix related to optional string or bytes fields. They where not check to be set or not.
+* Small interface change in RepeatedField class to use correct array index type. Tjos is a possible breaking change when you derived from the RepeatedField.
+* Support for spaces in folder names on Windows.
+* Started reworking the company internal toolchain.
+
+## 3.4.0
+* In the background the installation switched to using Python SetupTools (thanks to the contributors). In the future we would like to use Pip for the installation.
+* Problems with non-matching versions have been addressed. You now get a warning which allows you to continue even if the version does not match exactly.
+* Added some useful command line options to the setup script.
+
 ## 3.3.0
 * Added a to_string function for debugging (see [documentation](https://embeddedproto.com/documentation/to-string/)).
 * Added getter functions which will return an error for index out of bounds cases.
-* Bug fix the toposorting algo for nested message defintions.
+* Bug fix the toposorting algo for nested message definitions.
 
 ## 3.2.0
 The most notable improvements in this version are:
@@ -71,9 +95,9 @@ You can request more information about a commercial license on our [website](htt
 # Installation
 
 What is required to be able to generate source files based on .proto files:
-1. Python 3.8 and up
+1. Python 3.10 and up
 2. Pip
-3. Protobuf v21.5
+3. Protobuf v32.0
 4. Git
 
 After installing the requirements, continue by cloning the Embedded Proto repo. We advised using Embedded Proto as a submodule in your project. This way, you can track the version of Embedded Proto with the version of your project.
@@ -89,9 +113,14 @@ python setup.py
 ```
 Did you install protoc in a custom folder, or is the include folder of protobuf not in your path? In these cases, you may get an error from the setup script. You have to provide the location of the include with the --include parameter:
 ```bash
-python setup.py --include ~/protobuf/protoc-21.5/include
+python setup.py --include ~/protobuf/protoc-32.0/include
 ```
-In this example, you have installed a specific version of protoc, and you named its installation folder `~/protobuf/protoc-21.5`.
+In this example, you have installed a specific version of protoc, and you named its installation folder `~/protobuf/protoc-32.0`.
+
+You can check out latest the command line parameters of the setup script using the help parameter:
+```bash
+python setup.py --help
+```
 
 More installation documentation can be found on the [documentation website](https://embeddedproto.com/documentation/installation/).
 
@@ -165,13 +194,6 @@ For this reason, it is unlikely that Embedded Proto will support proto2 in the f
 
 # Development
 
-If you consider helping with the development of Embedded Proto please consider reading [this](https://embeddedproto.com/documentation/intallation/#for-embedded-proto-developers). It details how you can build the unit tests included in this repo.
+If you consider helping with the development of Embedded Proto please consider reading [this](https://embeddedproto.com/documentation/installation/#for-embedded-proto-developers). It details how you can build the unit tests included in this repo.
 
 
-# Give your feedback
-
-[![alt text](https://embeddedproto.com/wp-content/uploads/2022/06/feedback.png)](https://embeddedproto.com/feedback/)
-
-# Gratitude
-
-The team would like to thank you for your interest in Embedded Proto! We greatly appreciate you using our library. If you like working with it, consider to Star the library on [Github](https://github.com/Embedded-AMS/EmbeddedProto).

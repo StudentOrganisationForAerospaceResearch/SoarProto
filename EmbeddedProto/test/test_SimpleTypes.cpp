@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2020-2023 Embedded AMS B.V. - All Rights Reserved
+ *  Copyright (C) 2020-2024 Embedded AMS B.V. - All Rights Reserved
  *
  *  This file is part of Embedded Proto.
  *
@@ -23,8 +23,8 @@
  *    info at EmbeddedProto dot com
  *
  *  Postal address:
- *    Johan Huizingalaan 763a
- *    1066 VH, Amsterdam
+ *    Atoomweg 2
+ *    1627 LE, Hoorn
  *    the Netherlands
  */
 
@@ -542,6 +542,8 @@ TEST(SimpleTypes, deserialize_fault_overlong_varint)
   EXPECT_EQ(::EmbeddedProto::Error::OVERLONG_VARINT, msg.deserialize(buffer));
 }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
 TEST(SimpleTypes, field_number_to_name)
 {
   EXPECT_TRUE(0 == strcmp(::Test_Simple_Types::field_number_to_name(::Test_Simple_Types::FieldNumber::A_INT32),
@@ -556,6 +558,8 @@ TEST(SimpleTypes, field_number_to_name)
   EXPECT_TRUE(0 == strcmp(::Test_Simple_Types::field_number_to_name(static_cast<::Test_Simple_Types::FieldNumber>(99)),
                           "Invalid FieldNumber"));
 }
+
+#endif
 
 #ifdef MSG_TO_STRING
 

@@ -1,31 +1,6 @@
 /*
- *  Copyright (C) 2020-2023 Embedded AMS B.V. - All Rights Reserved
- *
- *  This file is part of Embedded Proto.
- *
- *  Embedded Proto is open source software: you can redistribute it and/or
- *  modify it under the terms of the GNU General Public License as published
- *  by the Free Software Foundation, version 3 of the license.
- *
- *  Embedded Proto  is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Embedded Proto. If not, see <https://www.gnu.org/licenses/>.
- *
- *  For commercial and closed source application please visit:
- *  <https://EmbeddedProto.com/license/>.
- *
- *  Embedded AMS B.V.
- *  Info:
- *    info at EmbeddedProto dot com
- *
- *  Postal address:
- *    Johan Huizingalaan 763a
- *    1066 VH, Amsterdam
- *    the Netherlands
+ *  This file is generated with Embedded Proto, PLEASE DO NOT EDIT!
+ *  source: ControlMessage.proto
  */
 
 // This file is generated. Please do not edit!
@@ -45,7 +20,7 @@
 #include <limits>
 
 // Include external proto definitions
-#include <CoreProto.h>
+#include "CoreProto.h"
 
 namespace Proto {
 
@@ -198,6 +173,8 @@ class AckNack final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -218,6 +195,8 @@ class AckNack final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -417,6 +396,8 @@ class FastLog final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -431,6 +412,8 @@ class FastLog final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -619,6 +602,8 @@ class Heartbeat final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -633,6 +618,8 @@ class Heartbeat final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -874,6 +861,8 @@ class HeartbeatState final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -894,6 +883,8 @@ class HeartbeatState final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -1132,6 +1123,8 @@ class Ping final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -1152,6 +1145,8 @@ class Ping final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -1379,6 +1374,8 @@ class SystemControl final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -1396,6 +1393,8 @@ class SystemControl final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -1667,6 +1666,8 @@ class SystemState final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -1684,6 +1685,8 @@ class SystemState final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -2532,6 +2535,8 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -2576,6 +2581,8 @@ class ControlMessage final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 

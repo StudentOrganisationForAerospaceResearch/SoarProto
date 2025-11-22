@@ -1,31 +1,6 @@
 /*
- *  Copyright (C) 2020-2023 Embedded AMS B.V. - All Rights Reserved
- *
- *  This file is part of Embedded Proto.
- *
- *  Embedded Proto is open source software: you can redistribute it and/or
- *  modify it under the terms of the GNU General Public License as published
- *  by the Free Software Foundation, version 3 of the license.
- *
- *  Embedded Proto  is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Embedded Proto. If not, see <https://www.gnu.org/licenses/>.
- *
- *  For commercial and closed source application please visit:
- *  <https://EmbeddedProto.com/license/>.
- *
- *  Embedded AMS B.V.
- *  Info:
- *    info at EmbeddedProto dot com
- *
- *  Postal address:
- *    Johan Huizingalaan 763a
- *    1066 VH, Amsterdam
- *    the Netherlands
+ *  This file is generated with Embedded Proto, PLEASE DO NOT EDIT!
+ *  source: TelemetryMessage.proto
  */
 
 // This file is generated. Please do not edit!
@@ -45,7 +20,7 @@
 #include <limits>
 
 // Include external proto definitions
-#include <CoreProto.h>
+#include "CoreProto.h"
 
 namespace Proto {
 
@@ -177,6 +152,8 @@ class AltitudeType final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -194,6 +171,8 @@ class AltitudeType final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -407,6 +386,8 @@ class Baro final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -424,6 +405,8 @@ class Baro final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -643,6 +626,8 @@ class Battery final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -660,6 +645,8 @@ class Battery final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -896,6 +883,8 @@ class CombustionControlStatus final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -916,6 +905,8 @@ class CombustionControlStatus final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -1131,6 +1122,8 @@ class CoordinateType final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -1148,6 +1141,8 @@ class CoordinateType final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -1338,6 +1333,8 @@ class DmbPressure final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -1352,6 +1349,8 @@ class DmbPressure final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -1563,6 +1562,8 @@ class Flash final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -1580,6 +1581,8 @@ class Flash final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -1954,6 +1957,8 @@ class Imu final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -1992,6 +1997,8 @@ class Imu final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -2196,6 +2203,8 @@ class LaunchRailLoadCell final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -2210,6 +2219,8 @@ class LaunchRailLoadCell final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -2421,6 +2432,8 @@ class NosLoadCell final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -2438,6 +2451,8 @@ class NosLoadCell final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -2697,6 +2712,8 @@ class PadBoxStatus final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -2720,6 +2737,8 @@ class PadBoxStatus final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -2937,6 +2956,8 @@ class PbbPressure final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -2954,6 +2975,8 @@ class PbbPressure final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -3167,6 +3190,8 @@ class PbbTemperature final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -3184,6 +3209,8 @@ class PbbTemperature final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -3420,6 +3447,8 @@ class PressureLog final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -3440,6 +3469,8 @@ class PressureLog final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -3701,6 +3732,8 @@ class RcuPressure final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -3724,6 +3757,8 @@ class RcuPressure final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -3941,6 +3976,8 @@ class RcuTemperature final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -3958,6 +3995,8 @@ class RcuTemperature final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -4378,6 +4417,8 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -4422,6 +4463,8 @@ class RelayStatus final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -4653,6 +4696,8 @@ class SobTemperature final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -4670,6 +4715,8 @@ class SobTemperature final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -4975,6 +5022,8 @@ class Gps final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -5004,6 +5053,8 @@ class Gps final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
@@ -6388,6 +6439,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
 
     }
 
+#ifndef DISABLE_FIELD_NUMBER_TO_NAME 
+
     static char const* field_number_to_name(const FieldNumber fieldNumber)
     {
       char const* name = nullptr;
@@ -6456,6 +6509,8 @@ class TelemetryMessage final: public ::EmbeddedProto::MessageInterface
       }
       return name;
     }
+
+#endif
 
 #ifdef MSG_TO_STRING
 
