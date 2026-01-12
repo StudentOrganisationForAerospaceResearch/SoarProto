@@ -11,10 +11,8 @@ import CoreProto_pb2 as Core
 class TELE_DMB:
 	def tele_gps(self, lat_minutes, lat_degrees, long_minutes, long_degrees, antenna_alt, antenna_unit, geoid_altitude, geoid_unit, total_altitude, total_unit, time):
 	    return {
-	        "lat_minutes": str(lat_minutes),
-	        "lat_degrees": str(lat_degrees),
-	        "long_minutes": str(long_minutes),
-	        "long_seconds": str(long_degrees),
+	        "latitude": str(lat_minutes) + "." + str(lat_degrees),
+	        "longitude": str(long_minutes) + "." + str(long_degrees),
 			"ant_altitude": str(antenna_alt),
 			"ant_unit": str(antenna_unit),
 			"geoid_altitude": str(geoid_altitude),
@@ -32,15 +30,9 @@ class TELE_DMB:
 	
 	def tele_imu(self, accel, gyro, mag):
 	    return {
-			"accel_x": str(accel[0]),
-			"accel_y": str(accel[1]),
-			"accel_z": str(accel[2]),
-			"gyro_x": str(gyro[0]),
-			"gyro_y": str(gyro[1]),
-			"gyro_z": str(gyro[2]),
-			"mag_x": str(mag[0]),
-			"mag_y": str(mag[1]),
-			"mag_z": str(mag[2])
+		    "accel": accel,
+			"gyro": gyro,
+			"mag": mag
 	    }
 	
 	def tele_battery(self, power_src, bat_volt):
@@ -63,8 +55,8 @@ class TELE_DMB:
 class TELE_PBB:
 	def tele_pressure(self, ib_pressure, lower_pv_pressure):
 		return {
-		"ib_pressure": str(ib_pressure),
-		"lower_pv_pressure": str(lower_pv_pressure)
+			"ib_pressure": str(ib_pressure),
+			"lower_pv_pressure": str(lower_pv_pressure)
 		}
 	
 	def tele_temp(self, ib_temperature, pv_temperature):
@@ -75,12 +67,23 @@ class TELE_PBB:
 	
 	def tele_gpio_status(self, main_engine_valve_open, vent_open, drain_open):
 	    return {
-	        "mev_open": str(main_engine_valve_open),
-			"vent_open": str(vent_open),
-			"drain_open": str(drain_open)
+	        "mev_open": main_engine_valve_open,
+			"vent_open": vent_open,
+			"drain_open": drain_open
 	    }
+	
+	def tele_mevstate(self, mev_open):
+		return {
+			"mev_open": mev_open
+		}
 
 class TELE_RCU:
+	def __init__(self):
+		self.is_nos1_hold_enable = False
+		self.is_nos2_hold_enable = False
+		self.nos1_hold_mass = 0
+		self.nos2_hold_mass = 0
+
 	def tele_pressure(self, pt1_pressure, pt2_pressure, pt3_pressure, pt4_pressure):
 		return {
 		"pt1_pressure": str(pt1_pressure),
@@ -94,35 +97,54 @@ class TELE_RCU:
 	        "tc1_temp": str(tc1_temp),
 	        "tc2_temp": str(tc2_temp)
 	    }
-	
+
 	def tele_nos_load_cell(self, nos1_mass, nos2_mass):
-	    return {
+		nos1_hold_str = "0"
+		nos2_hold_str = "0"
+	    
+		if self.is_nos1_hold_enable is False:
+			# keep null string but update nos mass
+			self.nos1_hold_mass = nos1_mass
+		else:
+			# replace output string with last held mass
+			nos1_hold_str = str(self.nos1_hold_mass)
+			nos1_mass -= self.nos1_hold_mass
+
+		if self.is_nos2_hold_enable is False:
+			self.nos2_hold_mass = nos2_mass
+		else:
+			nos2_hold_str = str(self.nos2_hold_mass)
+			nos2_mass -= self.nos2_hold_mass
+	    
+		return {
 	        "nos1_mass": str(nos1_mass),
-	        "nos2_mass": str(nos2_mass)
+	        "nos2_mass": str(nos2_mass),
+			"nos1_hold": nos1_hold_str,
+			"nos2_hold": nos2_hold_str
 	    }
 	
 	def tele_relay_status(self, ac1_open, ac2_open, pbv1_open, pbv2_open, pbv3_open, sol1_open, sol2_open, sol3_open, sol4_open, sol5_open, sol6_open, sol7_open, sol8a_open, sol8b_open):
 	    return {
-	        "ac1_open": str(ac1_open),
-	        "ac2_open": str(ac2_open),
-	        "pbv1_open": str(pbv1_open),
-	        "pbv2_open": str(pbv2_open),
-	        "pbv3_open": str(pbv3_open),
-	        "sol1_open": str(sol1_open),
-	        "sol2_open": str(sol2_open),
-			"sol3_open": str(sol3_open),
-			"sol4_open": str(sol4_open),
-			"sol5_open": str(sol5_open),
-			"sol6_open": str(sol6_open),
-			"sol7_open": str(sol7_open),
-			"sol8a_open": str(sol8a_open),
-			"sol8b_open": str(sol8b_open)
+	        "ac1_open": ac1_open,
+	        "ac2_open": ac2_open,
+	        "pbv1_open": pbv1_open,
+	        "pbv2_open": pbv2_open,
+	        "pbv3_open": pbv3_open,
+	        "sol1_open": sol1_open,
+	        "sol2_open": sol2_open,
+			"sol3_open": sol3_open,
+			"sol4_open": sol4_open,
+			"sol5_open": sol5_open,
+			"sol6_open": sol6_open,
+			"sol7_open": sol7_open,
+			"sol8a_open": sol8a_open,
+			"sol8b_open": sol8b_open
 	    }
 
 	def tele_padbox_status(self, cont1, cont2):
 		return {
-			"cont1": str(cont1),
-			"cont2": str(cont2)
+			"cont1": cont1,
+			"cont2": cont2
 		}
 
 class TELE_SOB:
@@ -139,9 +161,10 @@ class TELE_SOB:
 
 	def tele_irtemp(self, ambient_temp, object_temp):
 	    return {
-		"ambient_temp": str(ambient_temp),
-		"object_temp": str(object_temp)
+			"ambient_temp": str(ambient_temp),
+			"object_temp": str(object_temp)
 	    }
+
 	
 #DMB Telemetry
 tele_dmb_obj = TELE_DMB()
